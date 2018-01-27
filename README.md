@@ -1,7 +1,7 @@
 # MediaManaged
 
-[![Build Status](https://codeship.com/projects/4d62c360-e59e-0135-6987-1ebfb90962bb/status?branch=master)
-[![Code Climate](https://codeclimate.com/github/arpepper139/MediaManaged/badges/gpa.svg)](https://codeclimate.com/github/<YOUR_GITHUB_USERNAME>/<YOUR_REPO_NAME>)
+[![Build Status](https://codeship.com/projects/4d62c360-e59e-0135-6987-1ebfb90962bb/status?branch=master)](https://codeship.com/projects/4d62c360-e59e-0135-6987-1ebfb90962bb/status?branch=master)
+[![Code Climate](https://codeclimate.com/github/arpepper139/MediaManaged/badges/gpa.svg)](https://codeclimate.com/github/arpepper139/MediaManaged)
 [![Coverage Status](https://coveralls.io/repos/github/arpepper139/MediaManaged/badge.svg?branch=master)](https://coveralls.io/github/arpepper139/MediaManaged?branch=master)
 
 This README would normally document whatever steps are necessary to get the
