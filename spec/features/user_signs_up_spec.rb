@@ -12,12 +12,15 @@ feature 'user registers', %Q{
   # * If I don't specify the required information, I am presented with
   #   an error message
 
-  scenario 'provide valid registration information' do
+  scenario 'user provides valid registration information, but no photo' do
     visit new_user_registration_path
 
+    fill_in 'Username', with: 'SecretTarg'
+    fill_in 'First Name', with: 'John'
+    fill_in 'Last Name', with: 'Snow'
     fill_in 'Email', with: 'john@example.com'
     fill_in 'Password', with: 'password'
-    fill_in 'Password confirmation', with: 'password'
+    fill_in 'Password Confirmation', with: 'password'
 
     click_button 'Sign up'
 
@@ -25,7 +28,26 @@ feature 'user registers', %Q{
     expect(page).to have_content('Sign Out')
   end
 
-  scenario 'provide invalid registration information' do
+  scenario "user uploads a profile photo" do
+    visit root_path
+    click_link "Sign Up"
+
+    fill_in 'Username', with: 'BestTrainerEver'
+    fill_in 'First Name', with: 'Ash'
+    fill_in 'Last Name', with: 'Ketchum'
+    fill_in "Email", with: "ash@pallet-town.com"
+    fill_in "Password", with: "12345abcde!"
+    fill_in "Password Confirmation", with: "12345abcde!"
+    attach_file "Profile Photo", "#{Rails.root}/spec/support/images/photo.png"
+    click_button "Sign up"
+    
+    expect(page).to have_content("Welcome! You have signed up successfully.")
+
+    #Revisit When Building Nav Bar
+    # expect(page).to have_css("img[src*='photo.png']")
+  end
+
+  scenario 'user provides invalid registration information' do
     visit new_user_registration_path
 
     click_button 'Sign up'
