@@ -26,6 +26,10 @@ ul.top-navbar {
   padding: 0px;
 }
 
+ul.links {
+  list-style-type: none;
+}
+
 li.name {
   float: left;
   font-size: 20px;
