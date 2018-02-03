@@ -27,7 +27,6 @@
               <%= link_to 'Sign Out', destroy_user_session_path, method: :delete %>
             </div>
           </li>
-
         <%- else -%>
           <li><%= link_to 'Sign In', new_user_session_path %></li>
           <li><%= link_to 'Sign Up', new_user_registration_path %></li>
@@ -48,7 +47,7 @@
   <%= javascript_include_tag 'application' %>
   <%= yield :extra_footer %>
 
-  <footer class="small-12 medium-12 large-12 centered columns">
+  <footer>
     <a href="https://github.com/arpepper139">Built by Andrew Pepper-Anderson in Boston, MA</a>
   </footer>
 </body>
