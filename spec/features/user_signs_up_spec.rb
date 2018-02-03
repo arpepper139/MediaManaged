@@ -1,10 +1,6 @@
 require 'rails_helper'
 
-feature 'user registers', %Q{
-  As a visitor
-  I want to register
-  So that I can create an account
-} do
+feature 'user registers' do
 
   # Acceptance Criteria:
   # * I must specify a valid email address,
@@ -22,7 +18,7 @@ feature 'user registers', %Q{
     fill_in 'Password', with: 'password'
     fill_in 'Password Confirmation', with: 'password'
 
-    click_button 'Sign up'
+    click_button 'Sign Up'
 
     expect(page).to have_content('Welcome! You have signed up successfully.')
     expect(page).to have_content('Sign Out')
@@ -39,8 +35,8 @@ feature 'user registers', %Q{
     fill_in "Password", with: "12345abcde!"
     fill_in "Password Confirmation", with: "12345abcde!"
     attach_file "Profile Photo", "#{Rails.root}/spec/support/images/photo.png"
-    click_button "Sign up"
-    
+    click_button "Sign Up"
+
     expect(page).to have_content("Welcome! You have signed up successfully.")
 
     #Revisit When Building Nav Bar
@@ -50,7 +46,7 @@ feature 'user registers', %Q{
   scenario 'user provides invalid registration information' do
     visit new_user_registration_path
 
-    click_button 'Sign up'
+    click_button 'Sign Up'
     expect(page).to have_content("can't be blank")
     expect(page).to_not have_content('Sign Out')
   end

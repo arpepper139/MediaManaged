@@ -1,19 +1,9 @@
-@import url('https://fonts.googleapis.com/css?family=Courgette');
-@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
-
 body {
-  background-color: #d3d3d3;
+  background-color: #F2F2F2;
   font-family: 'Source Sans Pro', sans-serif;
 }
 
-ul {
-  list-style-type: none;
-  overflow: hidden;
-  margin: 0px;
-  padding: 0px;
-}
-
-li a {
+li a, li a:visited {
     display: inline-block;
     text-align: center;
     padding: 15px 15px;
@@ -22,7 +12,7 @@ li a {
     color: #87cefa;
 }
 
-a:hover {
+li a:hover {
   color: white;
 }
 
@@ -30,6 +20,10 @@ a:hover {
 
 ul.top-navbar {
   background-color: #191970;
+  list-style-type: none;
+  overflow: hidden;
+  margin: 0px;
+  padding: 0px;
 }
 
 li.name {
@@ -87,18 +81,17 @@ li.dropdown {
 footer {
   position: fixed;
   bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: #F2F2F2;
+  width: 100%;
   text-align: center;
   font-size: 12px;
   padding: 10px 20px;
+  background-color: #89CFF8;
 }
 
-footer a {
-  color: #191970;
+footer a, footer a:visited {
+  color: white;
 }
 
 footer a:hover {
-  color: #919090
+  color: #191970;
 }

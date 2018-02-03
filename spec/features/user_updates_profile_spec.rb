@@ -1,11 +1,6 @@
 require 'rails_helper'
 
-feature 'user updates profile', %Q{
-  As an authenticated user
-  I want to update my information
-  So that I can keep my profile up to date
-} do
-
+feature 'user updates profile' do
   scenario 'user updates profile' do
     user = FactoryBot.create(:user)
 
@@ -14,7 +9,7 @@ feature 'user updates profile', %Q{
     fill_in 'Email', with: user.email
     fill_in 'Password', with: user.password
 
-    click_button 'Log in'
+    click_button 'Sign In'
 
     visit edit_user_registration_path
 
@@ -42,7 +37,7 @@ feature 'user updates profile', %Q{
     fill_in 'Email', with: user.email
     fill_in 'Password', with: user.password
 
-    click_button 'Log in'
+    click_button 'Sign In'
 
     visit edit_user_registration_path
 

@@ -1,10 +1,6 @@
 require 'rails_helper'
 
-feature 'A user deletes themself....forever', %Q{
-  As an authenticated user
-  I want to delete my account
-  So that my information is no longer retained by the app
-} do
+feature 'A user deletes themself forever' do
   scenario 'The user deletes their account' do
     user = FactoryBot.create(:user)
 
@@ -13,10 +9,10 @@ feature 'A user deletes themself....forever', %Q{
     fill_in 'Email', with: user.email
     fill_in 'Password', with: user.password
 
-    click_button 'Log in'
+    click_button 'Sign In'
     visit edit_user_registration_path
 
-    click_button 'Cancel my account'
+    click_button 'Cancel My Account'
 
     expect(page).to have_content('successfully cancelled')
 
