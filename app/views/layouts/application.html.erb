@@ -21,12 +21,7 @@
     <section class="top-bar-section">
       <ul class="right">
         <%- if current_user -%>
-          <li class="has-dropdown">
-            <a href="#">User Actions</a>
-            <ul class="dropdown">
-              <li><a href="#">Settings</a></li>
-              <li><%= link_to 'Sign Out', destroy_user_session_path, method: :delete %></li>
-            </ul>
+          <li><%= link_to 'Sign Out', destroy_user_session_path, method: :delete %></li>
         <%- else -%>
           <li><%= link_to 'Sign Up', new_user_registration_path %></li>
           <li><%= link_to 'Sign In', new_user_session_path %></li>
