@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 feature 'NavBar' do
-  scenario 'As a user I want to click Floofer and be directed to the Index' do
+  scenario 'As a user I want to click MediaManaged and be directed to the home page' do
     user = FactoryBot.create(:user)
 
     visit new_user_session_path
@@ -9,7 +9,7 @@ feature 'NavBar' do
     fill_in 'Email', with: user.email
     fill_in 'Password', with: user.password
 
-    click_button 'Log in'
+    click_button 'Sign In'
     expect(page).to have_content('Signed in successfully')
 
     click_link 'MediaManaged'
@@ -24,7 +24,7 @@ feature 'NavBar' do
     fill_in 'Email', with: user.email
     fill_in 'Password', with: user.password
 
-    click_button 'Log in'
+    click_button 'Sign In'
 
     expect(page).to have_content('Signed in successfully')
     expect(page).to have_link("#{user.first_name}")
@@ -41,7 +41,7 @@ feature 'NavBar' do
     fill_in 'Email', with: user.email
     fill_in 'Password', with: user.password
 
-    click_button 'Log in'
+    click_button 'Sign In'
 
     expect(page).to have_content('Signed in successfully')
     expect(page).to have_link("#{user.first_name}")
