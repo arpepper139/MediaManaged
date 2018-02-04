@@ -38,6 +38,9 @@
   <%- flash.each do |key, value| -%>
     <div class="flash flash-<%= key %>">
       <%= value %>
+      <div id="close-flash">
+        <i class="fas fa-times" aria-hidden="true"></i>
+      </div>
     </div>
   <%- end -%>
 

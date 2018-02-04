@@ -11,6 +11,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from '../App';
 
+let closeFlash = document.getElementById('close-flash')
+
+if (closeFlash !== null) {
+  closeFlash.addEventListener('click', () => {
+    let flashNotice = document.getElementsByClassName('flash')[0];
+    flashNotice.parentNode.removeChild(flashNotice);
+  });
+}
+
 ReactDOM.render(
   <App />,
   document.getElementById('app')
