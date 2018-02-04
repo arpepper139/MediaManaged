@@ -13,6 +13,7 @@ div.col {
 div.preview {
   border: 4px solid #1A1E6E;
   border-radius: 5px;
+  background-color: white;
 }
 
 button.index-button {
