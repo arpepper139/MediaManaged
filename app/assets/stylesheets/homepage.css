@@ -7,6 +7,7 @@ div.bottom-col {
 }
 
 div.col {
+  text-align: center;
   padding: 10px;
 }
 
@@ -16,11 +17,6 @@ div.preview {
   background-color: white;
 }
 
-button.index-button {
-  color: #8BD0F6;
-  background-color: #1A1E6E;
-}
-
 h1.preview-header {
   font-size: 26px;
   font-family: 'Source Sans Pro', sans-serif;
@@ -28,5 +24,16 @@ h1.preview-header {
   text-align: center;
   color: white;
   background-color: #8BD0F6;
+  margin: 0px;
+}
+
+div.preview-footer {
+  background-color: #8BD0F6;
+}
+
+button.index-button {
+  color: white;
+  background-color: #1A1E6E;
+  text-align: center;
   margin: 0px;
 }
