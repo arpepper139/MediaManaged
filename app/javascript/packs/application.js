@@ -13,7 +13,7 @@ import App from '../App';
 
 let closeFlash = document.getElementById('close-flash')
 
-if (closeFlash != null) {
+if (closeFlash !== null) {
   closeFlash.addEventListener('click', () => {
     let flashNotice = document.getElementsByClassName('flash')[0];
     flashNotice.parentNode.removeChild(flashNotice);
