@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router'
 
 class OwnershipsIndexContainer extends Component {
   constructor(props) {
@@ -24,7 +25,9 @@ class OwnershipsIndexContainer extends Component {
               <div className="col small-12 medium-4 columns">Movie Tile 4</div>
               <div className="col small-12 medium-4 columns">Movie Tile 5</div>
               <div className="col small-12 medium-4 columns">
-                <button className="index-button">All Movies</button>
+                <Link to="/movies">
+                  <button className="index-button">All Movies</button>
+                </Link>
               </div>
             </div>
           </div>
@@ -42,7 +45,9 @@ class OwnershipsIndexContainer extends Component {
               <div className="col small-12 medium-4 columns">Show Tile 4</div>
               <div className="col small-12 medium-4 columns">Show Tile 5</div>
               <div className="col small-12 medium-4 columns">
-                <button className="index-button">All Shows</button>
+                <Link to="/shows">
+                  <button className="index-button">All Shows</button>
+                </Link>
               </div>
             </div>
           </div>
