@@ -15,7 +15,6 @@ feature 'user updates profile' do
 
     fill_in 'First Name', with: 'Jon'
     fill_in 'Last Name', with: 'Targaryen'
-    fill_in 'Username', with: 'iceandfire'
     fill_in 'Email', with: 'john@example.com'
     attach_file "Profile Photo", "#{Rails.root}/spec/support/images/photo2.jpeg"
     fill_in 'Password', with: 'password'

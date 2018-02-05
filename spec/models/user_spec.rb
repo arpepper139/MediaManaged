@@ -11,10 +11,6 @@ RSpec.describe User, type: :model do
     it { should have_valid(:last_name).when('Snow') }
     it { should_not have_valid(:last_name).when(nil, '') }
 
-    it { should have_valid(:username).when('SecretTarg') }
-    it { should validate_uniqueness_of(:username) }
-    it { should_not have_valid(:username).when(nil, '') }
-
     it { should have_valid(:email).when('jsnow@gmail.com') }
     it { should_not have_valid(:email).when(nil, '', 'jsnow') }
 

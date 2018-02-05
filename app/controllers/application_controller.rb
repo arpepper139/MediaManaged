@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-    whitelist = [:username, :first_name, :last_name, :profile_photo]
+    whitelist = [:first_name, :last_name, :profile_photo]
     devise_parameter_sanitizer.permit(:sign_up, keys: whitelist)
     devise_parameter_sanitizer.permit(:account_update, keys: whitelist)
   end
