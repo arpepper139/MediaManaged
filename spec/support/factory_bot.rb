@@ -9,7 +9,6 @@ FactoryBot.define do
     password_confirmation "password"
   end
 
-FactoryBot.define do
   factory :movie do
     sequence(:name) { |n| "Movie#{n}"}
     sequence(:director) { |n| "DirectorBot#{n}"}
@@ -19,6 +18,14 @@ FactoryBot.define do
     description "The heros win!"
     rating 3
   end
-end
 
+  factory :show do
+    sequence(:name) { |n| "Show#{n}"}
+    sequence(:writer) { |n| "WriterBot#{n}"}
+    sequence(:studio) { |n| "Studio#{n}" }
+    start_year "2008"
+    end_year "2012"
+    description "The characters get into all sorts of crazy situations!"
+    rating 4
+  end
 end
