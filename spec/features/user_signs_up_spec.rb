@@ -11,7 +11,6 @@ feature 'user registers' do
   scenario 'user provides valid registration information, but no photo' do
     visit new_user_registration_path
 
-    fill_in 'Username', with: 'SecretTarg'
     fill_in 'First Name', with: 'John'
     fill_in 'Last Name', with: 'Snow'
     fill_in 'Email', with: 'john@example.com'
@@ -28,7 +27,6 @@ feature 'user registers' do
     visit root_path
     click_link "Sign Up"
 
-    fill_in 'Username', with: 'BestTrainerEver'
     fill_in 'First Name', with: 'Ash'
     fill_in 'Last Name', with: 'Ketchum'
     fill_in "Email", with: "ash@pallet-town.com"
@@ -39,7 +37,7 @@ feature 'user registers' do
 
     expect(page).to have_content("Welcome! You have signed up successfully.")
 
-    #Revisit When Building Nav Bar
+    # Revisit when adding photo to nav bar
     # expect(page).to have_css("img[src*='photo.png']")
   end
 
