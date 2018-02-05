@@ -2,19 +2,13 @@ div.homepage {
   margin: 2%;
 }
 
-div.bottom-col {
+div.main-col {
   padding: 10px 10px 30px 10px;
 }
 
 div.col {
   text-align: center;
   padding: 10px;
-}
-
-div.preview {
-  border: 4px solid #1A1E6E;
-  border-radius: 5px;
-  background-color: white;
 }
 
 h1.preview-header {
