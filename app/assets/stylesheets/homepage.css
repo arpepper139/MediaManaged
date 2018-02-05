@@ -11,12 +11,6 @@ div.col {
   padding: 10px;
 }
 
-div.preview {
-  border: 4px solid #1A1E6E;
-  border-radius: 5px;
-  background-color: white;
-}
-
 h1.preview-header {
   font-size: 26px;
   font-family: 'Source Sans Pro', sans-serif;
