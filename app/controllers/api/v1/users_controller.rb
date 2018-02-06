@@ -4,7 +4,12 @@ class Api::V1::UsersController < ApplicationController
 
   def current
     @current_user = current_user
-    render json: { current_user: @current_user}
+    if @current_user != nil
+      @user = User.find(current_user.id)
+      render json: @user, serializer: UserCurrentSerializer
+    else
+      render json: nil, status: :unprocessable_entity
+    end
   end
 
   def show

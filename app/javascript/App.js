@@ -7,7 +7,6 @@ import MovieShowTile from './components/MovieShowTile'
 import ShowShowTile from './components/ShowShowTile'
 
 const App = (props) => {
-
   return(
     <Router history={browserHistory}>
       <Route path='/' component={MediaIndexContainer} />
@@ -18,4 +17,4 @@ const App = (props) => {
   )
 }
 
-export default App;
+export default App
