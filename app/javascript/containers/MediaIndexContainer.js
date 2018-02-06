@@ -9,7 +9,8 @@ class MediaIndexContainer extends Component {
       userId: null,
       firstName: null,
       lastName: null,
-      media: []
+      media: [],
+      loggedIn: null
     }
   }
 
@@ -32,14 +33,21 @@ class MediaIndexContainer extends Component {
         userId: body.user.id,
         firstName: body.user.first_name,
         lastName: body.user.last_name,
-        media: body.user.media
+        media: body.user.media,
+        loggedIn: true
       })
     })
-    .catch(error => console.error(`Error in fetch: ${error.message}`));
+    .catch(error => {
+      console.error(`Error in fetch: ${error.message}`)
+      this.setState({loggedIn: false})
+    });
   }
 
   render() {
     let media = this.state.media
+    let loggedIn = this.state.loggedIn
+
+    let returnedJSX
     let topPreviewTiles
     let bottomPreviewTiles
 
@@ -71,15 +79,20 @@ class MediaIndexContainer extends Component {
       bottomPreviewTiles = mediaPreviewTiles.slice(6, 6)
     }
 
-    console.log(this.state)
-    console.log(topPreviewTiles)
-
-    return(
-      <div className="homepage">
+    if (loggedIn === false) {
+      returnedJSX = <h1 className="greeting">Welcome to Media Managed! Please sign up or sign in to keep track of all your shows and movies.</h1>
+    }
+    else {
+      returnedJSX =
         <div className="main-col small-12 large-12 columns">
           <div>{ topPreviewTiles }</div>
           <div>{ bottomPreviewTiles }</div>
         </div>
+    }
+
+    return(
+      <div className="homepage">
+        {returnedJSX}
       </div>
     )
   }
