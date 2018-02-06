@@ -2,6 +2,14 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
 
+  describe "associations" do
+    it { should have_many :movies }
+    it { should have_many :movie_ownerships }
+
+    it { should have_many :shows }
+    it { should have_many :show_ownerships }
+  end
+
   describe "validations" do
     let!(:user1) { FactoryBot.create(:user) }
 

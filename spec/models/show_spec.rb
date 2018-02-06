@@ -2,6 +2,11 @@ require 'rails_helper'
 
 RSpec.describe Show, type: :model do
 
+  describe "associations" do
+    it { should have_many :users }
+    it { should have_many :show_ownerships }
+  end
+
   describe "validations" do
     let!(:show1) { FactoryBot.create(:show) }
 

@@ -1,6 +1,9 @@
 class Show < ApplicationRecord
   mount_uploader :poster, PosterUploader
 
+  has_many :show_ownerships
+  has_many :users, through: :show_ownerships
+
   validates :name, presence: true
   validates :writer, presence: true
   validates :start_year, presence: true, length: { is: 4 }

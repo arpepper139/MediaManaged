@@ -6,6 +6,12 @@ class User < ApplicationRecord
 
   mount_uploader :profile_photo, ProfilePhotoUploader
 
+  has_many :movie_ownerships
+  has_many :movies, through: :movie_ownerships
+
+  has_many :show_ownerships
+  has_many :shows, through: :show_ownerships
+
   validates :first_name, presence: true
   validates :last_name, presence: true
 end

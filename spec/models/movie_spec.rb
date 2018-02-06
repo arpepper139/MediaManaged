@@ -2,6 +2,11 @@ require 'rails_helper'
 
 RSpec.describe Movie, type: :model do
 
+  describe "associations" do
+    it { should have_many :users }
+    it { should have_many :movie_ownerships }
+  end
+
   describe "validations" do
     let!(:movie1) { FactoryBot.create(:movie) }
 
