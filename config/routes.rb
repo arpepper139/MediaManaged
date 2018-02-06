@@ -1,10 +1,18 @@
 Rails.application.routes.draw do
-  root 'ownerships#index'
-
-  get '/home', to: 'ownerships#index'
-  get '/movies/:id', to: 'ownerships#index'
-  get '/shows/:id', to: 'ownerships#index'
-
+  root 'static_pages#index'
   devise_for :users
+
+  get '/home', to: 'static_pages#index'
+  get '/movies/:id', to: 'static_pages#index'
+  get '/shows/:id', to: 'static_pages#index'
+
+  namespace :api do
+    namespace :v1 do
+      resources :users, only: [:show] do
+        get :current, on: :collection
+      end
+    end
+  end
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
