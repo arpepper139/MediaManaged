@@ -19,6 +19,11 @@ FactoryBot.define do
     rating 3
   end
 
+  factory :movie_ownership do
+    user
+    movie
+  end
+
   factory :show do
     sequence(:name) { |n| "Show#{n}"}
     sequence(:writer) { |n| "WriterBot#{n}"}
@@ -27,5 +32,10 @@ FactoryBot.define do
     end_year "2012"
     description "The characters get into all sorts of crazy situations!"
     rating 4
+  end
+
+  factory :show_ownership do
+    user
+    show
   end
 end

@@ -1,6 +1,9 @@
 class Movie < ApplicationRecord
   mount_uploader :poster, PosterUploader
 
+  has_many :movie_ownerships
+  has_many :users, through: :movie_ownerships
+
   validates :name, presence: true
   validates :director, presence: true
   validates :year, presence: true, length: { is: 4 }
