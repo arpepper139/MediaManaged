@@ -33,6 +33,8 @@ gem "fog-aws"
 gem "fog"
 gem "carrierwave"
 
+gem "active_model_serializers", "0.10.6"
+
 group :development, :test do
   gem "dotenv-rails"
 end
