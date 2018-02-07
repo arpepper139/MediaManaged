@@ -6,9 +6,8 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-if User.where(email: "apepperanderson@gmail").length == 0
-  User.create!(email: "apepperanderson@gmail.com", password: "password", first_name: "Andrew", last_name: "Pepper-Anderson", remote_profile_photo_url: "https://s3.amazonaws.com/media-managed-development/uploads/user/profile_photo/1/Andrew_Pepper-Anderson.jpg")
-end
+
+User.create!(email: "apepperanderson@gmail.com", password: "password", first_name: "Andrew", last_name: "Pepper-Anderson", remote_profile_photo_url: "https://s3.amazonaws.com/media-managed-development/uploads/user/profile_photo/1/Andrew_Pepper-Anderson.jpg")
 
 movies = [
   {
