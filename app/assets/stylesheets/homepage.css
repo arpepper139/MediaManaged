@@ -18,29 +18,10 @@ div.col {
   padding: 10px;
 }
 
-.preview-tile {
-  background-size: contain;
-  height: 200px;
-  width: 200px
+.preview-image {
+  opacity: 0.6;
 }
 
-h1.preview-header {
-  font-size: 26px;
-  font-family: 'Source Sans Pro', sans-serif;
-  font-weight: bold;
-  text-align: center;
-  color: white;
-  background-color: #8BD0F6;
-  margin: 0px;
-}
-
-div.preview-footer {
-  background-color: #8BD0F6;
-}
-
-button.index-button {
-  color: white;
-  background-color: #1A1E6E;
-  text-align: center;
-  margin: 0px;
+.preview-image:hover {
+  opacity: 1.0;
 }
