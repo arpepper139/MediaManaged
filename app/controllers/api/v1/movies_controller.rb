@@ -6,4 +6,13 @@ class Api::V1::MoviesController < ApplicationController
     @movie = Movie.find(params[:id])
     render json: @movie
   end
+
+  def create
+    
+  end
+
+  private
+    def movie_params
+      params.require(:movie).permit(:name, :director, :studio, :poster, :year, :runtime, :description, :rating)
+    end
 end

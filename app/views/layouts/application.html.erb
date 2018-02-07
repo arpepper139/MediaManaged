@@ -45,9 +45,14 @@
     <%- end -%>
 
     <%= yield %>
+    
+    <% if current_user %>
+      <%= javascript_pack_tag 'application' %>
+      <%= javascript_include_tag 'application' %>
+    <% elsif !request.path.include?("users") %>
+      <h1 class="greeting">Welcome to Media Managed! Please sign up or sign in to keep track of all your shows and movies.</h1>
+    <% end %>
 
-    <%= javascript_pack_tag 'application' %>
-    <%= javascript_include_tag 'application' %>
     <%= yield :extra_footer %>
   </div>
   <footer class="footer">

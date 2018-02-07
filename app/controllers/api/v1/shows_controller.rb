@@ -6,4 +6,13 @@ class Api::V1::ShowsController < ApplicationController
     @show = Show.find(params[:id])
     render json: @show
   end
+
+  def create
+    
+  end
+
+  private
+    def show_params
+      params.require(:show).permit(:name, :writer, :studio, :poster, :start_year, :end_year, :description, :rating)
+    end
 end

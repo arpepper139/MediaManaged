@@ -3,16 +3,23 @@ import { Link } from 'react-router'
 
 const MediaPreview = (props) => {
 
-  let divStyle = {
-    backgroundImage: 'url(' + props.poster + ')'
+  let posterStyle = {
+    backgroundImage: 'url(' + props.poster + ')',
+  }
+
+  let noPosterStyle = {
+    backgroundColor: '#C3C3C3'
   }
 
   let preview
   if (props.poster === null) {
-    preview = <div className="preview-item">{props.name}</div>
+    preview = <div className="preview-item" style={noPosterStyle}>
+      <p>{props.name}</p>
+      <i className="fas fa-film"></i>
+    </div>
   }
   else {
-    preview = <div className="preview-item" style={divStyle} alt={props.name} />
+    preview = <div className="preview-item" style={posterStyle} alt={props.name} />
   }
 
   return(

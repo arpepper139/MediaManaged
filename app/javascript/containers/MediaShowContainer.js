@@ -45,28 +45,21 @@ class MediaShowContainer extends Component {
   }
 
   render() {
-    console.log(this.props)
-    console.log(this.state)
     let type = this.state.type
     let renderedJSX;
 
     if (Object.keys(this.state.media).length !== 0) {
-      if (this.state.media.owned !== null) {
-        if (type === "movie") {
-          renderedJSX =
-            <MovieShowTile
-              data={ this.state.media }
-            />
-        }
-        else {
-          renderedJSX =
-            <ShowShowTile
-              data={ this.state.media }
-            />
-        }
+      if (type === "movie") {
+        renderedJSX =
+          <MovieShowTile
+            data={ this.state.media }
+          />
       }
       else {
-        renderedJSX = <h1 className="greeting">Welcome to Media Managed! Please sign up or sign in to keep track of all your shows and movies.</h1>
+        renderedJSX =
+          <ShowShowTile
+            data={ this.state.media }
+          />
       }
     }
 
