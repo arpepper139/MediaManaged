@@ -76,7 +76,7 @@ class MediaIndexContainer extends Component {
       })
 
       topPreviewTiles = mediaPreviewTiles.slice(0, 6)
-      bottomPreviewTiles = mediaPreviewTiles.slice(6, 6)
+      bottomPreviewTiles = mediaPreviewTiles.slice(6, 12)
     }
 
     if (loggedIn === false) {
@@ -85,8 +85,8 @@ class MediaIndexContainer extends Component {
     else {
       returnedJSX =
         <div className="main-col small-12 large-12 columns">
-          <div>{ topPreviewTiles }</div>
-          <div>{ bottomPreviewTiles }</div>
+          <div className="row">{ topPreviewTiles }</div>
+          <div className="row">{ bottomPreviewTiles }</div>
         </div>
     }
 

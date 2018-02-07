@@ -18,6 +18,14 @@ div.col {
   padding: 10px;
 }
 
+.preview-tile {
+  background-size: contain;
+  height: 200px;
+  width: 200px
+}
+
+
+
 h1.preview-header {
   font-size: 26px;
   font-family: 'Source Sans Pro', sans-serif;
