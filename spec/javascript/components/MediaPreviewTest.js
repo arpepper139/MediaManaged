@@ -33,6 +33,7 @@ describe('Media Preview', () => {
     expect(noPosterShowWrapper.find('img')).toBeEmpty()
 
     expect(posterMovieWrapper.find('img').props()).toEqual({
+        className: 'preview-image',
         src: "https://images-na.ssl-images-amazon.com/images/M/MV5BNzVlY2MwMjktM2E4OS00Y2Y3LWE3ZjctYzhkZGM3YzA1ZWM2XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SX300.jpg"
     })
     expect(posterMovieWrapper.find('p')).toBeEmpty()
