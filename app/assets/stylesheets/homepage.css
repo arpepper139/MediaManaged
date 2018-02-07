@@ -24,6 +24,8 @@ div.col {
   height: 350px;
   width: 233px;
 
+  color: #353333;
+
   margin: auto;
   padding: 10px;
 
@@ -69,4 +71,9 @@ div.col {
 
 .preview-item:hover {
   opacity: 1.0;
+}
+
+.fa-film {
+  margin-top: 50px;
+  font-size: 60px;
 }

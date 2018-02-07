@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       end
       resources :movies, only: [:show, :create]
       resources :shows, only: [:show, :create]
+      resources :search, only: [:index]
     end
   end
 
