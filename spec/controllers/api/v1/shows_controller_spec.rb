@@ -4,7 +4,11 @@ RSpec.describe Api::V1::ShowsController, type: :controller do
 
   describe "GET#Show" do
     it "should return the specified user" do
+      user1 = FactoryBot.create(:user)
       show1 = FactoryBot.create(:show)
+      show_ownership1 = FactoryBot.create(:show_ownership, user: user1, show: show1)
+
+      sign_in(user1)
 
       get :show, params: { id: show1.id }
 
@@ -21,6 +25,7 @@ RSpec.describe Api::V1::ShowsController, type: :controller do
       expect(returned_json["show"]["end_year"]).to eq show1.end_year
       expect(returned_json["show"]["description"]).to eq show1.description
       expect(returned_json["show"]["rating"]).to eq show1.rating
+      expect(returned_json["show"]["owned"]).to eq true
     end
   end
 end
