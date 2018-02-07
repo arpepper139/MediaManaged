@@ -18,10 +18,10 @@ div.col {
   padding: 10px;
 }
 
-.preview-image {
+.preview-item {
   opacity: 0.6;
 }
 
-.preview-image:hover {
+.preview-item:hover {
   opacity: 1.0;
 }
