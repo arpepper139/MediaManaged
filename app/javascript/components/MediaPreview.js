@@ -8,7 +8,7 @@ const MediaPreview = (props) => {
     poster = <p>{props.name}</p>
   }
   else {
-    poster = <img src={props.poster} />
+    poster = <img className="preview-image" src={props.poster} />
   }
 
   return(
