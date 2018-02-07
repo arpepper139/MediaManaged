@@ -20,6 +20,51 @@ div.col {
 
 .preview-item {
   opacity: 0.6;
+  position: relative;
+  height: 350px;
+  width: 233px;
+
+  margin: auto;
+  padding: 10px;
+
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+@media screen and (min-width: 90em) and (max-width: 110em) {
+  .preview-item {
+    height: 300px;
+    width: 200px;
+  }
+}
+
+@media screen and (min-width: 75em) and (max-width: 89.9375em) {
+  .preview-item {
+    height: 250px;
+    width: 166px;
+  }
+}
+
+@media screen and (min-width: 64em) and (max-width: 74.9375em) {
+  .preview-item {
+    height: 225px;
+    width: 150px;
+  }
+}
+
+@media screen and (min-width: 40em) and (max-width: 63.9375em) {
+  .preview-item {
+    height: 290px;
+    width: 193px;
+  }
+}
+
+@media screen and (max-width: 39.9375em) {
+  .preview-item {
+    height: 375px;
+    width: 250px;
+  }
 }
 
 .preview-item:hover {

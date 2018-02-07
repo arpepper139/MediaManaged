@@ -85,8 +85,8 @@ class MediaIndexContainer extends Component {
     else {
       returnedJSX =
         <div className="main-col small-12 large-12 columns">
-          <div className="row">{ topPreviewTiles }</div>
-          <div className="row">{ bottomPreviewTiles }</div>
+          <div>{ topPreviewTiles }</div>
+          <div>{ bottomPreviewTiles }</div>
         </div>
     }
 
