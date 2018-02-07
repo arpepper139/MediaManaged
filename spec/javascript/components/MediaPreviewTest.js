@@ -28,14 +28,17 @@ describe('Media Preview', () => {
     expect(posterMovieWrapper.find('Link')).toHaveProp('to', '/movies/1')
   })
 
-  it('should render an image if a poster is provided, and the media object name otherwise', () => {
-    expect(noPosterShowWrapper.find('p')).toHaveText("Breaking Bad")
-    expect(noPosterShowWrapper.find('img')).toBeEmpty()
+  it('should render an image if a poster is provided, and the media object name alt otherwise', () => {
+    expect(noPosterShowWrapper.find('img').props()).toEqual({
+      className: 'preview-item',
+      src: null,
+      alt: 'Breaking Bad'
+    })
 
     expect(posterMovieWrapper.find('img').props()).toEqual({
-        className: 'preview-image',
-        src: "https://images-na.ssl-images-amazon.com/images/M/MV5BNzVlY2MwMjktM2E4OS00Y2Y3LWE3ZjctYzhkZGM3YzA1ZWM2XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SX300.jpg"
+        className: 'preview-item',
+        src: "https://images-na.ssl-images-amazon.com/images/M/MV5BNzVlY2MwMjktM2E4OS00Y2Y3LWE3ZjctYzhkZGM3YzA1ZWM2XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SX300.jpg",
+        alt: "Star Wars"
     })
-    expect(posterMovieWrapper.find('p')).toBeEmpty()
   })
 })
