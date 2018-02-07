@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router'
 
 import MediaPreview from '../components/MediaPreview'
 
@@ -81,6 +82,9 @@ class MediaIndexContainer extends Component {
           <div>{ topPreviewTiles }</div>
           <div>{ bottomPreviewTiles }</div>
         </div>
+        <Link to={'/media/new'}>
+          <button className="add-media">Add Media</button>
+        </Link>
       </div>
     )
   }

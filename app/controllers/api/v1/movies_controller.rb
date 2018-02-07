@@ -8,7 +8,7 @@ class Api::V1::MoviesController < ApplicationController
   end
 
   def create
-    binding.pry
+    
   end
 
   private
