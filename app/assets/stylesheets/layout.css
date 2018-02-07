@@ -80,6 +80,8 @@ li.dropdown {
 
 .dropdown:hover .dropdown-content {
     display: block;
+    left: auto;
+    right: 0px;
 }
 
 /* Flash Notice */
