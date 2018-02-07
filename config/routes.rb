@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get '/home', to: 'static_pages#index'
   get '/movies/:id', to: 'static_pages#index'
   get '/shows/:id', to: 'static_pages#index'
+  get '/media/new', to: 'static_pages#index'
 
   namespace :api do
     namespace :v1 do
