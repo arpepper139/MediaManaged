@@ -32,7 +32,7 @@ class NewOwnershipForm extends Component {
       credentials: 'same-origin',
       method: 'POST',
       body: JSON.stringify(formPayload),
-      headers: { 'Content-Type': 'application/json' }
+      headers: {  'Accept': 'application/json', 'Content-Type': 'application/json' }
     })
       .then(response => {
         if (response.ok) {

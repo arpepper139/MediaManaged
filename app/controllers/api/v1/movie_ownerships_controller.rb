@@ -5,7 +5,7 @@ class Api::V1::MovieOwnershipsController < ApplicationController
   def create
     movie = MovieOwnership.new(movie_ownership_params)
     if movie.save
-      render json: {message: "Sucessfully added!"}
+      render json: {message: "Sucessfully added!"}, status: 201
     else
       render json: { error: movie.errors.full_messages }, status: :unprocessable_entity
     end

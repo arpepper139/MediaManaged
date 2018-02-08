@@ -20,6 +20,7 @@ class NewMediaContainer extends Component {
     this.handleChange = this.handleChange.bind(this)
     this.validateSearch = this.validateSearch.bind(this)
     this.databaseQuery = this.databaseQuery.bind(this)
+    this.omdbQuery = this.omdbQuery.bind(this)
     this.handleClearSearch = this.handleClearSearch.bind(this)
     this.handleFormSubmit = this.handleFormSubmit.bind(this)
     this.grabMessage = this.grabMessage.bind(this)
@@ -94,6 +95,11 @@ class NewMediaContainer extends Component {
     }
   }
 
+  omdbQuery() {
+    event.preventDefault()
+    debugger
+  }
+
   handleFormSubmit(event) {
     event.preventDefault();
   }
@@ -152,7 +158,7 @@ class NewMediaContainer extends Component {
       results.push(<li key={"search"}>No Match? Click here to search Omdb!</li>)
     }
     else if (dataMatches.length === 0 && regex.test(searchValue) && searched === true) {
-      omdbButton = <button className='search-button' onClick={ this.handleSubmit }>Search Omdb</button>
+      omdbButton = <button className='search-button' onClick={ this.omdbQuery }>Search Omdb</button>
     }
 
     return(
@@ -165,7 +171,7 @@ class NewMediaContainer extends Component {
             but can find it through Omdb, we'll pre-populate a form for you. Even if we can't find it for you on Omdb,
             you can still add it yourself!
           </p>
-          <form onSubmit={this.handleFormSubmit}>
+          <form autoComplete="off" onSubmit={this.handleFormSubmit}>
             <TextInput
               label={'Find Media'}
               name="searchValue"

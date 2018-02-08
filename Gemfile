@@ -32,6 +32,7 @@ gem 'jbuilder', '~> 2.5'
 gem "fog-aws"
 gem "fog"
 gem "carrierwave"
+gem "httparty"
 
 gem "active_model_serializers", "0.10.6"
 

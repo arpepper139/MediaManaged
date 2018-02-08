@@ -18,7 +18,9 @@ Rails.application.routes.draw do
       resources :movie_ownerships, only: [:create]
       resources :show_ownerships, only: [:create]
 
-      resources :search, only: [:index]
+      resources :search, only: [:index] do
+        get :external, on: :collection
+      end
     end
   end
 

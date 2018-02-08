@@ -5,7 +5,7 @@ class Api::V1::ShowOwnershipsController < ApplicationController
   def create
     show = ShowOwnership.new(show_ownership_params)
     if show.save
-      render json: {message: "Sucessfully added!"}
+      render json: {message: "Sucessfully added!"}, status: 201
     else
       render json: { error: show.errors.full_messages }, status: :unprocessable_entity
     end
