@@ -7,11 +7,14 @@ class NewMediaContainer extends Component {
     this.state = {
       searchValue: '',
       databaseMatches: [],
-      omdbMatch: {}
+      omdbMatch: {},
+      searchError: ''
     }
 
     this.handleChange = this.handleChange.bind(this)
+    this.validateSearch = this.validateSearch.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleClearSearch = this.handleClearSearch.bind(this)
   }
 
   handleChange(event) {
@@ -20,8 +23,51 @@ class NewMediaContainer extends Component {
     this.setState({ [fieldName]: input })
   }
 
+  validateSearch(input) {
+    let regex = /.*\S.*/
+    if (!(regex.test(input))) {
+      this.setState({ searchError: 'You must provide a search term' })
+      return false
+    }
+    else {
+      this.setState({ searchError: '' })
+      return true
+    }
+  }
+
   handleSubmit(event) {
-    debugger
+    event.preventDefault()
+    let valid = this.validateSearch(this.state.searchValue)
+    if (valid) {
+      fetch(`/api/v1/search.json?name=${this.state.searchValue}`)
+        .then(response => {
+          if (response.ok) {
+            return response;
+          } else {
+            let errorMessage = `${response.status} (${response.statusText})`,
+            error = new Error(errorMessage);
+            throw(error);
+          }
+        })
+        .then(response => {
+          return response.json()
+        })
+        .then(body => {
+          this.setState({ databaseMatches: body.results })
+        })
+        .catch(error => console.error(`Error in fetch: ${error.message}`));
+      this.handleClearSearch(event)
+    }
+  }
+
+  handleClearSearch(event) {
+    event.preventDefault()
+    this.setState({
+      searchValue: '',
+      databaseMatches: [],
+      omdbMatch: {},
+      searchError: ''
+    })
   }
 
   render() {
