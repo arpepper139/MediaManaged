@@ -36,7 +36,6 @@ RSpec.describe Api::V1::SearchController, type: :controller do
   end
 
   describe "GET#external" do
-
     it "returns a formatted response if a movie is found" do
       get :external, params: { name: "Star Wars" }
 

@@ -13,7 +13,8 @@ class NewMediaContainer extends Component {
       searchValue: '',
       databaseMatches: [],
       omdbMatch: {},
-      searched: false,
+      searchedDatabase: false,
+      searchedOMDB: false,
       searchError: ''
     }
 
@@ -73,31 +74,64 @@ class NewMediaContainer extends Component {
     let valid = this.validateSearch(input)
     if (valid) {
       fetch(`/api/v1/search.json?name=${input}`, { credentials: 'same-origin' })
-        .then(response => {
-          if (response.ok) {
-            return response;
-          } else {
-            let errorMessage = `${response.status} (${response.statusText})`,
-            error = new Error(errorMessage);
-            throw(error);
-          }
+      .then(response => {
+        if (response.ok) {
+          return response;
+        } else {
+          let errorMessage = `${response.status} (${response.statusText})`,
+          error = new Error(errorMessage);
+          throw(error);
+        }
+      })
+      .then(response => {
+        return response.json()
+      })
+      .then(body => {
+        this.setState({
+          databaseMatches: body.results,
+          searchedDatabase: true
         })
-        .then(response => {
-          return response.json()
-        })
-        .then(body => {
-          this.setState({
-            databaseMatches: body.results,
-            searched: true
-          })
-        })
-        .catch(error => console.error(`Error in fetch: ${error.message}`));
+      })
+      .catch(error => console.error(`Error in fetch: ${error.message}`));
     }
   }
 
-  omdbQuery() {
+  omdbQuery(event) {
     event.preventDefault()
-    debugger
+    let input = this.state.searchValue
+    let valid = this.validateSearch(input)
+    if (valid) {
+      fetch(`/api/v1/search/external.json?name=${input}`, { credentials: 'same-origin' })
+      .then(response => {
+        if (response.ok) {
+          return response;
+        } else {
+          let errorMessage = `${response.status} (${response.statusText})`,
+          error = new Error(errorMessage);
+          throw(error);
+        }
+      })
+      .then(response => {
+        return response.json()
+      })
+      .then(body => {
+        let foundMedia
+        if (body.movie) {
+          foundMedia = body.movie
+        }
+        else {
+          foundMedia = body.show
+        }
+
+        this.setState({
+          omdbMatch: foundMedia,
+          message: body.message,
+          searchValue: '',
+          searchedOMDB: true
+        })
+      })
+      .catch(error => console.error(`Error in fetch: ${error.message}`));
+    }
   }
 
   handleFormSubmit(event) {
@@ -110,7 +144,8 @@ class NewMediaContainer extends Component {
       searchValue: '',
       databaseMatches: [],
       omdbMatch: {},
-      searched: false,
+      searchedDatabase: false,
+      searchedOMDB: false,
       searchError: ''
     })
   }
@@ -126,7 +161,7 @@ class NewMediaContainer extends Component {
 
     let dataMatches = this.state.databaseMatches
     let searchValue = this.state.searchValue
-    let searched = this.state.searched
+    let searchedDatabase = this.state.searchedDatabase
     let userId = this.state.userId
 
     if (dataMatches.length !== 0 && regex.test(searchValue)) {
@@ -157,7 +192,7 @@ class NewMediaContainer extends Component {
 
       results.push(<li key={"search"}>No Match? Click here to search Omdb!</li>)
     }
-    else if (dataMatches.length === 0 && regex.test(searchValue) && searched === true) {
+    else if (dataMatches.length === 0 && regex.test(searchValue) && searchedDatabase === true) {
       omdbButton = <button className='search-button' onClick={ this.omdbQuery }>Search Omdb</button>
     }
 

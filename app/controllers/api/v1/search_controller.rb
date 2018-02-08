@@ -19,7 +19,7 @@ class Api::V1::SearchController < ApplicationController
 
       relevant_results = unowned_movie_results + unowned_show_results
 
-      render json: {results: relevant_results, message: "Here's what we found."}
+      render json: { results: relevant_results, message: "Here's what we found." }
     end
   end
 
