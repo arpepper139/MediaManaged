@@ -16,12 +16,13 @@ FactoryBot.define do
     year "1991"
     sequence(:runtime) { |n| "#{n} min" }
     description "The heros win!"
-    rating 3
+    imdb_rating 3
   end
 
   factory :movie_ownership do
     user
     movie
+    user_rating 4
   end
 
   factory :show do
@@ -31,11 +32,12 @@ FactoryBot.define do
     start_year "2008"
     end_year "2012"
     description "The characters get into all sorts of crazy situations!"
-    rating 4
+    imdb_rating 4
   end
 
   factory :show_ownership do
     user
     show
+    user_rating 5
   end
 end

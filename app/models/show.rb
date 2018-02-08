@@ -10,7 +10,7 @@ class Show < ApplicationRecord
   validates :end_year, length: { is: 4 }, allow_blank: true
   validates :description,
     length: { maximum: 5000 }, allow_nil: true
-  validates :rating,
+  validates :imdb_rating,
     numericality: true,
     inclusion: { in: 1..5 }, allow_nil: true
 end

@@ -12,8 +12,12 @@ Rails.application.routes.draw do
       resources :users do
         get :current, on: :collection
       end
+
       resources :movies, only: [:show, :create]
       resources :shows, only: [:show, :create]
+      resources :movie_ownerships, only: [:create]
+      resources :show_ownerships, only: [:create]
+
       resources :search, only: [:index]
     end
   end

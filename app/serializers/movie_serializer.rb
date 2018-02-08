@@ -1,5 +1,5 @@
 class MovieSerializer < ActiveModel::Serializer
-  attributes :id, :name, :director, :studio, :poster, :year, :runtime, :description, :rating, :owned
+  attributes :id, :name, :director, :studio, :poster, :year, :runtime, :description, :imdb_rating, :owned
 
   def owned
     if current_user != nil
