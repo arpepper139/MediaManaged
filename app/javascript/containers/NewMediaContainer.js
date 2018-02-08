@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import TextInput from '../components/TextInput'
+import NewOwnershipForm from '../containers/NewOwnershipForm'
 
 const regex = /.*\S.*/
 
@@ -7,6 +8,8 @@ class NewMediaContainer extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      userId: '',
+      message: '',
       searchValue: '',
       databaseMatches: [],
       omdbMatch: {},
@@ -19,6 +22,31 @@ class NewMediaContainer extends Component {
     this.databaseQuery = this.databaseQuery.bind(this)
     this.handleClearSearch = this.handleClearSearch.bind(this)
     this.handleFormSubmit = this.handleFormSubmit.bind(this)
+    this.grabMessage = this.grabMessage.bind(this)
+  }
+
+  componentDidMount() {
+    fetch('/api/v1/users/current.json', { credentials: 'same-origin' })
+    .then(response => {
+      if (response.ok) {
+        return response;
+      } else {
+        let errorMessage = `${response.status} (${response.statusText})`,
+        error = new Error(errorMessage);
+        throw(error);
+      }
+    })
+    .then(response => {
+      return response.json()
+    })
+    .then(body => {
+      this.setState({
+        userId: body.user.id
+      })
+    })
+    .catch(error => {
+      console.error(`Error in fetch: ${error.message}`)
+    });
   }
 
   handleChange(event) {
@@ -81,20 +109,43 @@ class NewMediaContainer extends Component {
     })
   }
 
+  grabMessage(message) {
+    this.setState({ message: message })
+  }
+
   render() {
     console.log(this.state)
     let results
+    let omdbButton
+
     let dataMatches = this.state.databaseMatches
     let searchValue = this.state.searchValue
     let searched = this.state.searched
-    let omdbButton;
+    let userId = this.state.userId
 
     if (dataMatches.length !== 0 && regex.test(searchValue)) {
       let key = 0
       results = dataMatches.map((result) => {
         key++
+
+        let type
+        if (result.director) {
+          type = "movie"
+        }
+        else {
+          type = "show"
+        }
+
         return(
-          <li key={key}>{result.name}</li>
+          <NewOwnershipForm
+            key={key}
+            id={result.id}
+            userId={userId}
+            name={result.name}
+            type={type}
+            clearPage={this.handleClearSearch}
+            passMessage={this.grabMessage}
+          />
         )
       })
 
@@ -106,6 +157,7 @@ class NewMediaContainer extends Component {
 
     return(
       <div>
+        <p>{this.state.message}</p>
         <div className="new-media-page">
           <p className="intro">
             Welcome to MediaManaged's add page! To add a movie to your collection, please search for it below.
