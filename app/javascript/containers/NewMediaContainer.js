@@ -39,7 +39,7 @@ class NewMediaContainer extends Component {
     event.preventDefault()
     let valid = this.validateSearch(this.state.searchValue)
     if (valid) {
-      fetch(`/api/v1/search.json?name=${this.state.searchValue}`)
+      fetch(`/api/v1/search.json?name=${this.state.searchValue}`, { credentials: 'same-origin' })
         .then(response => {
           if (response.ok) {
             return response;
@@ -71,8 +71,19 @@ class NewMediaContainer extends Component {
   }
 
   render() {
-
     console.log(this.state)
+    let results
+    let dataMatches = this.state.databaseMatches
+
+    if (dataMatches.length !== 0) {
+      let key = 0
+      results = dataMatches.map((result) => {
+        key++
+        return(
+          <li key={key}>{result.name}</li>
+        )
+      })
+    }
 
     return(
       <div className="new-media-page">
@@ -90,6 +101,9 @@ class NewMediaContainer extends Component {
           />
           <button className='button' id='submit' onClick={ this.handleSubmit }>Submit</button>
         </form>
+        <div>
+          {results}
+        </div>
       </div>
     )
   }
