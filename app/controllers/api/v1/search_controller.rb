@@ -3,14 +3,14 @@ class Api::V1::SearchController < ApplicationController
   protect_from_forgery unless: -> { request.format.json? }
 
   def index
-    query = params[:name]
+    query = params[:name].strip.downcase
     user_id = current_user.id
 
-    relevant_movies = Movie.where("name LIKE ?", "%#{query}%")
+    relevant_movies = Movie.where("LOWER(name) LIKE ?", "%#{query}%")
     owned_movies = User.find(user_id).movies
     unowned_movie_results = relevant_movies.reject { |movie| owned_movies.include?(movie) }
 
-    relevant_shows = Show.where("name LIKE ?", "%#{query}%")
+    relevant_shows = Show.where("LOWER(name) LIKE ?", "%#{query}%")
     owned_shows = User.find(user_id).shows
     unowned_show_results = relevant_shows.reject { |show| owned_shows.include?(show) }
 

@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import TextInput from '../components/TextInput'
 
+const regex = /.*\S.*/
+
 class NewMediaContainer extends Component {
   constructor(props) {
     super(props)
@@ -8,25 +10,27 @@ class NewMediaContainer extends Component {
       searchValue: '',
       databaseMatches: [],
       omdbMatch: {},
+      searched: false,
       searchError: ''
     }
 
     this.handleChange = this.handleChange.bind(this)
     this.validateSearch = this.validateSearch.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.databaseQuery = this.databaseQuery.bind(this)
     this.handleClearSearch = this.handleClearSearch.bind(this)
+    this.handleFormSubmit = this.handleFormSubmit.bind(this)
   }
 
   handleChange(event) {
     let fieldName = event.target.name
     let input = event.target.value
     this.setState({ [fieldName]: input })
+    this.databaseQuery(input)
   }
 
   validateSearch(input) {
-    let regex = /.*\S.*/
     if (!(regex.test(input))) {
-      this.setState({ searchError: 'You must provide a search term' })
+      this.setState({ searchError: 'Please provide a search term' })
       return false
     }
     else {
@@ -35,11 +39,11 @@ class NewMediaContainer extends Component {
     }
   }
 
-  handleSubmit(event) {
+  databaseQuery(input) {
     event.preventDefault()
-    let valid = this.validateSearch(this.state.searchValue)
+    let valid = this.validateSearch(input)
     if (valid) {
-      fetch(`/api/v1/search.json?name=${this.state.searchValue}`, { credentials: 'same-origin' })
+      fetch(`/api/v1/search.json?name=${input}`, { credentials: 'same-origin' })
         .then(response => {
           if (response.ok) {
             return response;
@@ -53,11 +57,17 @@ class NewMediaContainer extends Component {
           return response.json()
         })
         .then(body => {
-          this.setState({ databaseMatches: body.results })
+          this.setState({
+            databaseMatches: body.results,
+            searched: true
+          })
         })
         .catch(error => console.error(`Error in fetch: ${error.message}`));
-      this.handleClearSearch(event)
     }
+  }
+
+  handleFormSubmit(event) {
+    event.preventDefault();
   }
 
   handleClearSearch(event) {
@@ -66,6 +76,7 @@ class NewMediaContainer extends Component {
       searchValue: '',
       databaseMatches: [],
       omdbMatch: {},
+      searched: false,
       searchError: ''
     })
   }
@@ -74,8 +85,11 @@ class NewMediaContainer extends Component {
     console.log(this.state)
     let results
     let dataMatches = this.state.databaseMatches
+    let searchValue = this.state.searchValue
+    let searched = this.state.searched
+    let omdbButton;
 
-    if (dataMatches.length !== 0) {
+    if (dataMatches.length !== 0 && regex.test(searchValue)) {
       let key = 0
       results = dataMatches.map((result) => {
         key++
@@ -83,26 +97,35 @@ class NewMediaContainer extends Component {
           <li key={key}>{result.name}</li>
         )
       })
+
+      results.push(<li key={"search"}>No Match? Click here to search Omdb!</li>)
+    }
+    else if (dataMatches.length === 0 && regex.test(searchValue) && searched === true) {
+      omdbButton = <button className='search-button' onClick={ this.handleSubmit }>Search Omdb</button>
     }
 
     return(
-      <div className="new-media-page">
-        <span>
-          Welcome to MediaManaged's add page! In order to add a movie to your collection, please search for it below.
-          If the movie already exists in our database you will be directed to select it. If we do not have the movie but can find in through Omdb,
-          we will pre-populate the add form for you. Even if we can't find it for you, you can still add it yourself!
-        </span>
-        <form>
-          <TextInput
-            label={'Find Media'}
-            name="searchValue"
-            value={ this.state.searchValue }
-            handleChange={ this.handleChange }
-          />
-          <button className='button' id='submit' onClick={ this.handleSubmit }>Submit</button>
-        </form>
-        <div>
-          {results}
+      <div>
+        <div className="new-media-page">
+          <p className="intro">
+            Welcome to MediaManaged's add page! To add a movie to your collection, please search for it below.
+            If the movie already exists in our database you can click "select" to add it. If we don't have the movie stored,
+            but can find it through Omdb, we'll pre-populate a form for you. Even if we can't find it for you on Omdb,
+            you can still add it yourself!
+          </p>
+          <form onSubmit={this.handleSubmit}>
+            <TextInput
+              label={'Find Media'}
+              name="searchValue"
+              value={ this.state.searchValue }
+              handleChange={ this.handleChange }
+            />
+          </form>
+          <p>{this.state.searchError}</p>
+          {omdbButton}
+          <div>
+            {results}
+          </div>
         </div>
       </div>
     )

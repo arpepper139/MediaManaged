@@ -38,17 +38,19 @@
     <%- flash.each do |key, value| -%>
       <div class="flash flash-<%= key %>">
         <%= value %>
-        <div id="close-flash">
-          <i class="fas fa-times" aria-hidden="true"></i>
-        </div>
+        <% if current_user %>
+          <div id="close-flash">
+            <i class="fas fa-times" aria-hidden="true"></i>
+          </div>
+        <% end %>
       </div>
     <%- end -%>
 
     <%= yield %>
-    
+
     <% if current_user %>
-      <%= javascript_pack_tag 'application' %>
       <%= javascript_include_tag 'application' %>
+      <%= javascript_pack_tag 'application' %>
     <% elsif !request.path.include?("users") %>
       <h1 class="greeting">Welcome to Media Managed! Please sign up or sign in to keep track of all your shows and movies.</h1>
     <% end %>

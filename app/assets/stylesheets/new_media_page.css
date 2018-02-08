@@ -1,3 +1,23 @@
 div.new-media-page {
   margin: 2%;
 }
+
+.intro {
+  background-color: #87cefa;
+  color: white;
+  border: solid #198FD5 3px;
+  opacity: 60px;
+  text-align: justify;
+  font-size: 14px;
+  padding: 3px 5px;
+}
+
+.search-button {
+  color: white;
+  background-color: #1A1E6E;
+}
+
+.search-button:hover, .search-button:focus {
+  color: #87cefa;
+  background-color: #1A1E6E;
+}

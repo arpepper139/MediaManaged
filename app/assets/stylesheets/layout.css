@@ -27,6 +27,10 @@ li a:hover {
   color: white;
 }
 
+button {
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
 /* LoggedOutMessage */
 
 h1.greeting {
