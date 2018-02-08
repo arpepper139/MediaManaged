@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180206132041) do
+ActiveRecord::Schema.define(version: 20180208150814) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 20180206132041) do
   create_table "movie_ownerships", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "movie_id", null: false
+    t.integer "user_rating"
     t.index ["movie_id"], name: "index_movie_ownerships_on_movie_id"
     t.index ["user_id"], name: "index_movie_ownerships_on_user_id"
   end
@@ -30,7 +31,7 @@ ActiveRecord::Schema.define(version: 20180206132041) do
     t.string "year", null: false
     t.string "runtime"
     t.text "description"
-    t.integer "rating"
+    t.integer "imdb_rating"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -38,6 +39,7 @@ ActiveRecord::Schema.define(version: 20180206132041) do
   create_table "show_ownerships", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "show_id", null: false
+    t.integer "user_rating"
     t.index ["show_id"], name: "index_show_ownerships_on_show_id"
     t.index ["user_id"], name: "index_show_ownerships_on_user_id"
   end
@@ -50,7 +52,7 @@ ActiveRecord::Schema.define(version: 20180206132041) do
     t.string "start_year", null: false
     t.string "end_year"
     t.text "description"
-    t.integer "rating"
+    t.integer "imdb_rating"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

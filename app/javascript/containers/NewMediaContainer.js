@@ -113,7 +113,7 @@ class NewMediaContainer extends Component {
             but can find it through Omdb, we'll pre-populate a form for you. Even if we can't find it for you on Omdb,
             you can still add it yourself!
           </p>
-          <form onSubmit={this.handleSubmit}>
+          <form onSubmit={this.handleFormSubmit}>
             <TextInput
               label={'Find Media'}
               name="searchValue"
