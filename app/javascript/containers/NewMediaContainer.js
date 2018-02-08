@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import TextInput from '../components/TextInput'
 import NewOwnershipForm from '../containers/NewOwnershipForm'
+import NewMediaFormContainer from '../containers/NewMediaFormContainer'
 
 const regex = /.*\S.*/
 
@@ -54,7 +55,10 @@ class NewMediaContainer extends Component {
   handleChange(event) {
     let fieldName = event.target.name
     let input = event.target.value
-    this.setState({ [fieldName]: input })
+    this.setState({
+      [fieldName]: input,
+      message: ''
+    })
     this.databaseQuery(input)
   }
 
@@ -116,15 +120,23 @@ class NewMediaContainer extends Component {
       })
       .then(body => {
         let foundMedia
+        let type
+
         if (body.movie) {
           foundMedia = body.movie
+          type = "movie"
+        }
+        else if (body.show) {
+          foundMedia = body.show
+          type = "show"
         }
         else {
-          foundMedia = body.show
+          foundMedia = null
+          type = null
         }
 
         this.setState({
-          omdbMatch: foundMedia,
+          omdbMatch: { result: foundMedia, type: type},
           message: body.message,
           searchValue: '',
           searchedOMDB: true
@@ -155,14 +167,15 @@ class NewMediaContainer extends Component {
   }
 
   render() {
-    console.log(this.state)
-    let results
-    let omdbButton
-
     let dataMatches = this.state.databaseMatches
     let searchValue = this.state.searchValue
     let searchedDatabase = this.state.searchedDatabase
+    let searchedOMDB = this.state.searchedOMDB
     let userId = this.state.userId
+
+    let results
+    let omdbButton
+    let addMediaForm
 
     if (dataMatches.length !== 0 && regex.test(searchValue)) {
       let key = 0
@@ -195,6 +208,13 @@ class NewMediaContainer extends Component {
     else if (dataMatches.length === 0 && regex.test(searchValue) && searchedDatabase === true) {
       omdbButton = <button className='search-button' onClick={ this.omdbQuery }>Search Omdb</button>
     }
+    else if (searchedOMDB === true) {
+      addMediaForm =
+        <NewMediaFormContainer
+          searchResult={this.state.omdbMatch.result}
+          type={this.state.omdbMatch.type}
+        />
+    }
 
     return(
       <div>
@@ -215,10 +235,11 @@ class NewMediaContainer extends Component {
             />
           </form>
           <p>{this.state.searchError}</p>
-          {omdbButton}
           <div>
             {results}
           </div>
+          {omdbButton}
+          {addMediaForm}
         </div>
       </div>
     )
