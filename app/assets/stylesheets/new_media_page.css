@@ -27,7 +27,7 @@ div.new-media-page {
   text-align: center;
 }
 
-fieldset.rating-field {
+.rating-field {
   display: inline-block;
   margin: 0px;
   padding: 0px;
@@ -65,4 +65,14 @@ label.radio-label {
 
 .form-select-button {
   margin-right: 10px;
+}
+
+/* Forms */
+
+h1.form-header {
+  font-size: 24px;
+  margin-top: 10px;
+  color: #191970;
+  font-weight: bold;
+  font-family: 'Source Sans Pro';
 }

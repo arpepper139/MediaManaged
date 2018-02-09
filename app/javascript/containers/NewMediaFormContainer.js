@@ -8,10 +8,47 @@ class NewMediaFormContainer extends Component {
     this.state = {
       fieldInfo: this.props.searchResult,
       givenType: this.props.type,
-      selectedType: null
+      selectedType: null,
+      saveError: ''
     }
 
     this.selectForm = this.selectForm.bind(this)
+    this.addMedia = this.addMedia.bind(this)
+  }
+
+  addMedia(type, formPayload) {
+    fetch(`/api/v1/${type}s`, {
+      credentials: 'same-origin',
+      method: 'POST',
+      body: JSON.stringify(formPayload),
+      headers: {  'Accept': 'application/json', 'Content-Type': 'application/json' }
+    })
+      .then(response => {
+        if (response.ok) {
+          return response;
+        } else {
+          let errorMessage = `${response.status} (${response.statusText})`,
+          error = new Error(errorMessage);
+          throw(error, response);
+        }
+      })
+      .then(response => {
+        return response.json()
+      })
+      .then(body => {
+        this.props.passMessage(body.message)
+        this.props.clearPage()
+      })
+      .catch(error => {
+        console.error(`Error in fetch: ${error.message}`)
+        return error.json()
+      })
+      .then((errorBody) => {
+        if (errorBody !== undefined) {
+          this.setState({ saveError: errorBody.error })
+          this.props.passMessage('')
+        }
+      })
   }
 
   selectForm(event) {
@@ -22,32 +59,50 @@ class NewMediaFormContainer extends Component {
   render() {
     let buttons
     let renderedForm
+    console.log(this.state)
 
     if (this.state.givenType === "movie" || this.state.selectedType === "movie") {
-      renderedForm =
-        <NewMovieForm
-          name={''}
-          director={''}
-          studio={''}
-          poster={''}
-          year={''}
-          runtime={''}
-          description={''}
-          imdbRating={''}
-        />
+      if (this.state.fieldInfo !== null) {
+        renderedForm =
+          <NewMovieForm
+            name={this.state.fieldInfo.name}
+            director={this.state.fieldInfo.director}
+            studio={this.state.fieldInfo.studio}
+            year={this.state.fieldInfo.year}
+            runtime={this.state.fieldInfo.runtime}
+            description={this.state.fieldInfo.description}
+            imdbRating={this.state.fieldInfo.imdb_rating}
+            poster={this.state.fieldInfo.poster}
+            addMedia={ this.addMedia }
+          />
+      }
+      else {
+        renderedForm =
+          <NewMovieForm
+            addShow={ this.addMedia }
+          />
+      }
     }
     else if (this.state.givenType === "show" || this.state.selectedType === "show") {
-      renderedForm =
-        <NewShowForm
-          name={''}
-          writer={''}
-          studio={''}
-          poster={''}
-          startYear={''}
-          endYear={''}
-          description={''}
-          imdbRating={''}
-        />
+      if (this.state.fieldInfo !== null) {
+        renderedForm =
+          <NewShowForm
+            name={this.state.fieldInfo.name}
+            writer={this.state.fieldInfo.writer}
+            startYear={this.state.fieldInfo.start_year}
+            endYear={this.state.fieldInfo.end_year}
+            description={this.state.fieldInfo.description}
+            imdbRating={this.state.fieldInfo.imdb_rating}
+            poster={this.state.fieldInfo.poster}
+            addMedia={ this.addMedia }
+          />
+      }
+      else {
+        renderedForm =
+          <NewShowForm
+            addShow={ this.addMedia }
+          />
+      }
     }
 
     if (this.state.givenType === null) {
@@ -61,7 +116,11 @@ class NewMediaFormContainer extends Component {
     return(
       <div>
         {buttons}
-        {renderedForm}
+        <div>
+          {renderedForm}
+          <p>{this.state.saveError}</p>
+        </div>
+
       </div>
     )
   }

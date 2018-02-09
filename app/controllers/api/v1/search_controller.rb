@@ -44,7 +44,7 @@ class Api::V1::SearchController < ApplicationController
               description: response["Plot"],
               imdb_rating: response["imdbRating"]
             },
-            message: "Movie Found! Add #{response["Title"]} through the form below."
+            message: "Movie Found! #{response["Title"]}"
           }
       elsif response["Type"] == "series"
         years = response["Year"].split("–")
@@ -58,7 +58,7 @@ class Api::V1::SearchController < ApplicationController
             description: response["Plot"],
             imdb_rating: response["imdbRating"]
           },
-          message: "Show Found! Add #{response["Title"]} through the form below."
+          message: "Show Found! #{response["Title"]}"
         }
       else
         processed_response = default_response

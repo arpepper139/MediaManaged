@@ -10,7 +10,9 @@ RSpec.describe Show, type: :model do
   describe "validations" do
     let!(:show1) { FactoryBot.create(:show) }
 
-    it { should have_valid(:name).when(show1.name) }
+    it { should have_valid(:name).when("New Show!")}
+    it { should validate_uniqueness_of(:name) }
+    it { should_not have_valid(:name).when(show1.name) }
     it { should_not have_valid(:name).when(nil, '') }
 
     it { should have_valid(:writer).when(show1.writer) }
@@ -28,8 +30,8 @@ RSpec.describe Show, type: :model do
     it { should have_valid(:description).when(nil, '') }
     it { should_not have_valid(:description).when("a"*5001) }
 
-    it { should have_valid(:imdb_rating).when(5,4,3,2,1) }
+    it { should have_valid(:imdb_rating).when(10,9.5,9,8,7,6,5,4,3,2,1,0) }
     it { should have_valid(:imdb_rating).when(nil, '') }
-    it { should_not have_valid(:imdb_rating).when(6,0) }
+    it { should_not have_valid(:imdb_rating).when(11,-1, "one") }
   end
 end

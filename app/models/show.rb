@@ -4,7 +4,7 @@ class Show < ApplicationRecord
   has_many :show_ownerships
   has_many :users, through: :show_ownerships
 
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: true
   validates :writer, presence: true
   validates :start_year, presence: true, length: { is: 4 }
   validates :end_year, length: { is: 4 }, allow_blank: true
@@ -12,5 +12,5 @@ class Show < ApplicationRecord
     length: { maximum: 5000 }, allow_nil: true
   validates :imdb_rating,
     numericality: true,
-    inclusion: { in: 1..5 }, allow_nil: true
+    inclusion: { in: 0..10 }, allow_nil: true
 end

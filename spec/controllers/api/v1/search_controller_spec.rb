@@ -8,7 +8,7 @@ RSpec.describe Api::V1::SearchController, type: :controller do
       movie1 = FactoryBot.create(:movie)
       show1 = FactoryBot.create(:show, name: movie1.name)
 
-      movie2 = FactoryBot.create(:movie, name: movie1.name)
+      movie2 = FactoryBot.create(:movie, name: "#{movie1.name} 2")
       movie_ownership1 = FactoryBot.create(:movie_ownership, user: user1, movie: movie2)
 
       sign_in(user1)
@@ -43,7 +43,7 @@ RSpec.describe Api::V1::SearchController, type: :controller do
       expect(response.status).to eq 200
       expect(response.content_type).to eq("application/json")
 
-      expect(returned_json["message"]).to eq("Movie Found! Add Star Wars: Episode IV - A New Hope through the form below.")
+      expect(returned_json["message"]).to eq("Movie Found! Star Wars: Episode IV - A New Hope")
     end
 
     it "returns a formatted response if a show is found" do
@@ -53,7 +53,7 @@ RSpec.describe Api::V1::SearchController, type: :controller do
       expect(response.status).to eq 200
       expect(response.content_type).to eq("application/json")
 
-      expect(returned_json["message"]).to eq("Show Found! Add Game of Thrones through the form below.")
+      expect(returned_json["message"]).to eq("Show Found! Game of Thrones")
     end
 
     it "only returns a message if nothing is found" do
