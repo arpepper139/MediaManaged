@@ -43,6 +43,7 @@ class NewMovieForm extends Component {
     console.log(this.state)
     return(
       <form>
+        <h1 className="form-header">Add New Movie</h1>
         <TextInput
           label="Movie Name"
           value={ this.state.name }

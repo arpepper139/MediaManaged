@@ -45,6 +45,7 @@ class NewShowForm extends Component {
 
     return(
       <form>
+        <h1 className="form-header">Add New Show</h1>
         <TextInput
           label="Show Name"
           value={ this.state.name }
