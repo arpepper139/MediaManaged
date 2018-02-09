@@ -24,7 +24,7 @@ RSpec.describe Api::V1::MoviesController, type: :controller do
       expect(returned_json["movie"]["year"]).to eq movie1.year
       expect(returned_json["movie"]["runtime"]).to eq movie1.runtime
       expect(returned_json["movie"]["description"]).to eq movie1.description
-      expect(returned_json["movie"]["imdb_rating"]).to eq movie1.imdb_rating
+      expect(returned_json["movie"]["imdb_rating"]).to eq "#{movie1.imdb_rating}"
       expect(returned_json["movie"]["owned"]).to eq true
     end
   end

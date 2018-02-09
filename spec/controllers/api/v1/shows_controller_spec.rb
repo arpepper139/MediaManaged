@@ -24,7 +24,7 @@ RSpec.describe Api::V1::ShowsController, type: :controller do
       expect(returned_json["show"]["start_year"]).to eq show1.start_year
       expect(returned_json["show"]["end_year"]).to eq show1.end_year
       expect(returned_json["show"]["description"]).to eq show1.description
-      expect(returned_json["show"]["imdb_rating"]).to eq show1.imdb_rating
+      expect(returned_json["show"]["imdb_rating"]).to eq "#{show1.imdb_rating}"
       expect(returned_json["show"]["owned"]).to eq true
     end
   end

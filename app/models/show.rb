@@ -12,5 +12,5 @@ class Show < ApplicationRecord
     length: { maximum: 5000 }, allow_nil: true
   validates :imdb_rating,
     numericality: true,
-    inclusion: { in: 1..5 }, allow_nil: true
+    inclusion: { in: 0..10 }, allow_nil: true
 end
