@@ -8,7 +8,7 @@ RSpec.describe Api::V1::SearchController, type: :controller do
       movie1 = FactoryBot.create(:movie)
       show1 = FactoryBot.create(:show, name: movie1.name)
 
-      movie2 = FactoryBot.create(:movie, name: movie1.name)
+      movie2 = FactoryBot.create(:movie, name: "#{movie1.name} 2")
       movie_ownership1 = FactoryBot.create(:movie_ownership, user: user1, movie: movie2)
 
       sign_in(user1)

@@ -175,6 +175,8 @@ class NewMediaContainer extends Component {
           />
         )
       })
+
+      omdbButton = <button className='search-button' onClick={ this.omdbQuery }>Search Omdb</button>
     }
     else if (dataMatches.length === 0 && regex.test(searchValue) && searchedDatabase === true) {
       omdbButton = <button className='search-button' onClick={ this.omdbQuery }>Search Omdb</button>
@@ -184,15 +186,17 @@ class NewMediaContainer extends Component {
         <NewMediaFormContainer
           searchResult={this.state.omdbMatch.result}
           type={this.state.omdbMatch.type}
+          clearPage={this.handleClearSearch}
+          passMessage={this.grabMessage}
         />
     }
 
     return(
       <div className="new-media-page">
         <p className="intro">
-          Welcome to MediaManaged's add page! To add a movie to your collection, please search for it below.
-          If the movie already exists in our database you can click "select" to add it. If we don't have the movie stored,
-          but can find it through Omdb, we'll pre-populate a form for you. Even if we can't find it for you on Omdb,
+          Welcome to MediaManaged's add page! To add media to your collection, please search for it below.
+          If we already have the movie stored, you can click select it to add it. If we don't have the movie stored,
+          but can it through Omdb, we'll pre-populate an add form for you. Even if we can't find it for you on Omdb,
           you can still add it yourself!
         </p>
         <p>{this.state.message}</p>

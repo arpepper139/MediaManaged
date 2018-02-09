@@ -10,9 +10,9 @@ const RatingField = (props) => {
   })
 
   return(
-    <fieldset className="rating-field">
+    <div className="rating-field">
       {ratingOptions}
-    </fieldset>
+    </div>
   )
 }
 

@@ -4,7 +4,7 @@ class Movie < ApplicationRecord
   has_many :movie_ownerships
   has_many :users, through: :movie_ownerships
 
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: true
   validates :director, presence: true
   validates :year, presence: true, length: { is: 4 }
   validates :description,

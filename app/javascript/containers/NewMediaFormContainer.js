@@ -12,6 +12,35 @@ class NewMediaFormContainer extends Component {
     }
 
     this.selectForm = this.selectForm.bind(this)
+    this.addMedia = this.addMedia.bind(this)
+  }
+
+  addMedia(type, formPayload) {
+    fetch(`/api/v1/${type}s`, {
+      credentials: 'same-origin',
+      method: 'POST',
+      body: JSON.stringify(formPayload),
+      headers: {  'Accept': 'application/json', 'Content-Type': 'application/json' }
+    })
+      .then(response => {
+        if (response.ok) {
+          return response;
+        } else {
+          let errorMessage = `${response.status} (${response.statusText})`,
+          error = new Error(errorMessage);
+          throw(error);
+        }
+      })
+      .then(response => {
+        return response.json()
+      })
+      .then(body => {
+        this.props.passMessage(body.message)
+        this.props.clearPage()
+      })
+      .catch(error => {
+        console.error(`Error in fetch: ${error.message}`)
+      });
   }
 
   selectForm(event) {
@@ -22,8 +51,7 @@ class NewMediaFormContainer extends Component {
   render() {
     let buttons
     let renderedForm
-
-    // console.log(this.props)
+    console.log(this.state)
 
     if (this.state.givenType === "movie" || this.state.selectedType === "movie") {
       if (this.state.fieldInfo !== null) {
@@ -36,10 +64,15 @@ class NewMediaFormContainer extends Component {
             runtime={this.state.fieldInfo.runtime}
             description={this.state.fieldInfo.description}
             imdbRating={this.state.fieldInfo.imdb_rating}
+            poster={this.state.fieldInfo.poster}
+            addMedia={ this.addMedia }
           />
       }
       else {
-        renderedForm = <NewMovieForm />
+        renderedForm =
+          <NewMovieForm
+            addShow={ this.addMedia }
+          />
       }
     }
     else if (this.state.givenType === "show" || this.state.selectedType === "show") {
@@ -52,10 +85,15 @@ class NewMediaFormContainer extends Component {
             endYear={this.state.fieldInfo.end_year}
             description={this.state.fieldInfo.description}
             imdbRating={this.state.fieldInfo.imdb_rating}
+            poster={this.state.fieldInfo.poster}
+            addMedia={ this.addMedia }
           />
       }
       else {
-        renderedForm = <NewShowForm />
+        renderedForm =
+          <NewShowForm
+            addShow={ this.addMedia }
+          />
       }
     }
 

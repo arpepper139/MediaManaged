@@ -10,7 +10,9 @@ RSpec.describe Show, type: :model do
   describe "validations" do
     let!(:show1) { FactoryBot.create(:show) }
 
-    it { should have_valid(:name).when(show1.name) }
+    it { should have_valid(:name).when("New Show!")}
+    it { should validate_uniqueness_of(:name) }
+    it { should_not have_valid(:name).when(show1.name) }
     it { should_not have_valid(:name).when(nil, '') }
 
     it { should have_valid(:writer).when(show1.writer) }

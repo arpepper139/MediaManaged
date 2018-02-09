@@ -27,7 +27,7 @@ div.new-media-page {
   text-align: center;
 }
 
-fieldset.rating-field {
+.rating-field {
   display: inline-block;
   margin: 0px;
   padding: 0px;

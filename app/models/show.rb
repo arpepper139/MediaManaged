@@ -4,7 +4,7 @@ class Show < ApplicationRecord
   has_many :show_ownerships
   has_many :users, through: :show_ownerships
 
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: true
   validates :writer, presence: true
   validates :start_year, presence: true, length: { is: 4 }
   validates :end_year, length: { is: 4 }, allow_blank: true

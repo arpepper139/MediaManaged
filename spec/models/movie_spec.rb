@@ -10,7 +10,9 @@ RSpec.describe Movie, type: :model do
   describe "validations" do
     let!(:movie1) { FactoryBot.create(:movie) }
 
-    it { should have_valid(:name).when(movie1.name) }
+    it { should have_valid(:name).when("New Movie!")}
+    it { should validate_uniqueness_of(:name) }
+    it { should_not have_valid(:name).when(movie1.name) }
     it { should_not have_valid(:name).when(nil, '') }
 
     it { should have_valid(:director).when(movie1.director) }

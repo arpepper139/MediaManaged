@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 import TextInput from '../components/TextInput'
+import RatingInput from '../components/RatingInput'
 
 class NewShowForm extends Component {
   constructor(props) {
@@ -12,32 +13,54 @@ class NewShowForm extends Component {
       startYear: '',
       endYear: '',
       description: '',
+      poster: '',
       imdbRating: '',
-      userRating: ''
+      userRating: '',
+      userRatings: [1,2,3,4,5]
     }
 
     this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   componentDidMount() {
-    if (Object.keys(this.props).length !== 0) {
+    if (Object.keys(this.props).length > 1) {
       this.setState({
         name: this.props.name,
         writer: this.props.writer,
         startYear: this.props.startYear,
         endYear: this.props.endYear,
         description: this.props.description,
-        imdbRating: this.props.imdbRating
+        imdbRating: this.props.imdbRating,
+        poster: this.props.poster
       })
     }
 
-    //Note --> conditionally render my Dropzone depending on if props have been passed
+    //Note --> set boolean here to conditionally render my Dropzone depending on if props have been passed
   }
 
   handleChange(event) {
     let fieldName = event.target.name
     let input = event.target.value
     this.setState({ [fieldName]: input })
+  }
+
+  handleSubmit(event) {
+    event.preventDefault()
+    let formPayload = {
+      show: {
+        name: this.state.name,
+        writer: this.state.writer,
+        studio: this.state.studio,
+        start_year: this.state.startYear,
+        end_year: this.state.endYear,
+        description: this.state.description,
+        poster: this.state.poster,
+        imdb_rating: this.state.imdbRating
+      },
+      user_rating: this.state.userRating
+    }
+    this.props.addMedia('show', formPayload)
   }
 
   render() {
@@ -82,12 +105,20 @@ class NewShowForm extends Component {
           name="imdbRating"
           handleChange={ this.handleChange }
         />
+        <label htmlFor="rating">Your Rating</label>
+        <RatingInput
+          name='rating'
+          value={this.state.userRating}
+          ratings={this.state.userRatings}
+          handleChange={this.handleChange}
+        />
         <TextInput
           label="Description"
           value={ this.state.description }
           name="description"
           handleChange={ this.handleChange }
         />
+        <button className="submit" onClick={ this.handleSubmit }>Submit</button>
       </form>
     )
   }
