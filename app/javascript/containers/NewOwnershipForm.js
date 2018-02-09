@@ -48,7 +48,7 @@ class NewOwnershipForm extends Component {
       })
       .then(body => {
         this.props.passMessage(body.message)
-        this.props.clearPage(event)
+        this.props.clearPage()
       })
       .catch(error => {
         console.error(`Error in fetch: ${error.message}`)

@@ -125,8 +125,7 @@ class NewMediaContainer extends Component {
     event.preventDefault();
   }
 
-  handleClearSearch(event) {
-    event.preventDefault()
+  handleClearSearch() {
     this.setState({
       searchValue: '',
       databaseMatches: [],
