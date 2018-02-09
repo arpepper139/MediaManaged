@@ -12,12 +12,57 @@ div.new-media-page {
   padding: 3px 5px;
 }
 
-.search-button {
-  color: white;
-  background-color: #1A1E6E;
+/* Database Search Results */
+
+.add-ownership {
+  margin-bottom: 5px;
+  border: 2px solid #1B226C;
+  background-color: white;
+  width: 60%;
 }
 
-.search-button:hover, .search-button:focus {
-  color: #87cefa;
-  background-color: #1A1E6E;
+.media-title {
+  display: inline-block;
+  margin: 5px;
+  text-align: center;
+}
+
+fieldset.rating-field {
+  display: inline-block;
+  margin: 0px;
+  padding: 0px;
+  border: none;
+}
+
+input[type=radio] {
+  float: left;
+  clear: none;
+}
+
+label.radio-label {
+  float: left;
+  clear: none;
+  padding: 2px 1em 0 0;
+}
+
+.submit-ownership {
+  margin: 10px;
+  padding: 5px;
+  display: inline-block;
+  height: 30px;
+  width: 70px;
+  font-size: 14px;
+  text-align: center;
+}
+
+/* Form Select Buttons */
+
+.select-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-select-button {
+  margin-right: 10px;
 }

@@ -28,7 +28,14 @@ li a:hover {
 }
 
 button {
+  color: white;
+  background-color: #1A1E6E;
   font-family: 'Source Sans Pro', sans-serif;
+}
+
+button:hover, button:focus {
+  color: #87cefa;
+  background-color: #1A1E6E;
 }
 
 /* LoggedOutMessage */

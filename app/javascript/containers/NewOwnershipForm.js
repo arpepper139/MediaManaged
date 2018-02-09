@@ -57,19 +57,17 @@ class NewOwnershipForm extends Component {
 
   render() {
     return(
-      <div>
-        <p>{this.props.name}</p>
-        <form>
-          <RatingInput
-            label='Rating'
-            name='rating'
-            value={this.state.rating}
-            ratings={this.state.ratings}
-            handleChange={this.handleChange}
-          />
-          <button className='submit' onClick={ this.handleSubmit }>Add</button>
-        </form>
-      </div>
+      <form className="add-ownership">
+        <p className="media-title">{this.props.name}</p>
+        <RatingInput
+          label='Rating'
+          name='rating'
+          value={this.state.rating}
+          ratings={this.state.ratings}
+          handleChange={this.handleChange}
+        />
+        <button className='submit-ownership' onClick={ this.handleSubmit }>Add</button>
+      </form>
     )
   }
 }

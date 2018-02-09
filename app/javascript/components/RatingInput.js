@@ -3,17 +3,16 @@ import React from 'react'
 const RatingField = (props) => {
   let ratingOptions = props.ratings.map((rating) => {
     return(
-      <label key={rating} htmlFor={props.name}>{rating}
+      <label className="radio-label" key={rating} htmlFor={props.name}>{rating}
         <input type="radio" name={props.name} value={rating} onChange={props.handleChange} />
       </label>
     )
   })
 
   return(
-    <div>
-      <label>{ props.label }</label>
+    <fieldset className="rating-field">
       {ratingOptions}
-    </div>
+    </fieldset>
   )
 }
 

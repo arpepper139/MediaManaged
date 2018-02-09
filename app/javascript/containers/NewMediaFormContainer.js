@@ -23,7 +23,7 @@ class NewMediaFormContainer extends Component {
     let buttons
     let renderedForm
 
-    if (this.state.givenType === "movie" || this.state.selectedType === "show") {
+    if (this.state.givenType === "movie" || this.state.selectedType === "movie") {
       renderedForm =
         <NewMovieForm
           name={''}
@@ -52,10 +52,10 @@ class NewMediaFormContainer extends Component {
 
     if (this.state.givenType === null) {
       buttons =
-        <span>
+        <div className="select-buttons">
           <button className='form-select-button' value="movie" onClick={ this.selectForm }>Add Movie</button>
           <button className='form-select-button' value="show" onClick={ this.selectForm }>Add Show</button>
-        </span>
+        </div>
     }
 
     return(

@@ -174,8 +174,6 @@ class NewMediaContainer extends Component {
           />
         )
       })
-
-      results.push(<li key={"search"}>No Match? Click here to search Omdb!</li>)
     }
     else if (dataMatches.length === 0 && regex.test(searchValue) && searchedDatabase === true) {
       omdbButton = <button className='search-button' onClick={ this.omdbQuery }>Search Omdb</button>
@@ -189,30 +187,28 @@ class NewMediaContainer extends Component {
     }
 
     return(
-      <div>
+      <div className="new-media-page">
+        <p className="intro">
+          Welcome to MediaManaged's add page! To add a movie to your collection, please search for it below.
+          If the movie already exists in our database you can click "select" to add it. If we don't have the movie stored,
+          but can find it through Omdb, we'll pre-populate a form for you. Even if we can't find it for you on Omdb,
+          you can still add it yourself!
+        </p>
         <p>{this.state.message}</p>
-        <div className="new-media-page">
-          <p className="intro">
-            Welcome to MediaManaged's add page! To add a movie to your collection, please search for it below.
-            If the movie already exists in our database you can click "select" to add it. If we don't have the movie stored,
-            but can find it through Omdb, we'll pre-populate a form for you. Even if we can't find it for you on Omdb,
-            you can still add it yourself!
-          </p>
-          <form autoComplete="off" onSubmit={this.handleFormSubmit}>
-            <TextInput
-              label={'Find Media'}
-              name="searchValue"
-              value={ this.state.searchValue }
-              handleChange={ this.handleChange }
-            />
-          </form>
-          <p>{this.state.searchError}</p>
-          <div>
-            {results}
-          </div>
-          {omdbButton}
-          {addMediaForm}
+        <form autoComplete="off" onSubmit={this.handleFormSubmit}>
+          <TextInput
+            label={'Find Media'}
+            name="searchValue"
+            value={ this.state.searchValue }
+            handleChange={ this.handleChange }
+          />
+        </form>
+        <p>{this.state.searchError}</p>
+        <div className="search-results">
+          {results}
         </div>
+        {omdbButton}
+        {addMediaForm}
       </div>
     )
   }

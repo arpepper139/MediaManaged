@@ -70,13 +70,3 @@ div.col {
   margin-top: 50px;
   font-size: 60px;
 }
-
-.add-media {
-  color: white;
-  background-color: #1A1E6E;
-}
-
-.add-media:hover {
-  color: #87cefa;
-  background-color: #1A1E6E;
-}
