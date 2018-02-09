@@ -26,13 +26,13 @@ class NewOwnershipForm extends Component {
     let media_field = `${type}_id`
 
     let formPayload = {
-      [ownership_field]: { [media_field]: this.props.id, user_id: this.props.userId, user_rating: +this.state.rating }
+      [ownership_field]: { [media_field]: this.props.id, user_rating: this.state.rating }
     }
     fetch(`/api/v1/${type}_ownerships`, {
       credentials: 'same-origin',
       method: 'POST',
       body: JSON.stringify(formPayload),
-      headers: { 'Content-Type': 'application/json' }
+      headers: {  'Accept': 'application/json', 'Content-Type': 'application/json' }
     })
       .then(response => {
         if (response.ok) {
@@ -48,26 +48,26 @@ class NewOwnershipForm extends Component {
       })
       .then(body => {
         this.props.passMessage(body.message)
-        this.props.clearPage(event)
+        this.props.clearPage()
       })
-      .catch(error => console.error(`Error in fetch: ${error.message}`));
+      .catch(error => {
+        console.error(`Error in fetch: ${error.message}`)
+      });
   }
 
   render() {
     return(
-      <div>
-        <p>{this.props.name}</p>
-        <form>
-          <RatingInput
-            label='Rating'
-            name='rating'
-            value={this.state.rating}
-            ratings={this.state.ratings}
-            handleChange={this.handleChange}
-          />
-          <button className='submit' onClick={ this.handleSubmit }>Add</button>
-        </form>
-      </div>
+      <form className="add-ownership">
+        <p className="media-title">{this.props.name}</p>
+        <RatingInput
+          label='Rating'
+          name='rating'
+          value={this.state.rating}
+          ratings={this.state.ratings}
+          handleChange={this.handleChange}
+        />
+        <button className='submit-ownership' onClick={ this.handleSubmit }>Add</button>
+      </form>
     )
   }
 }
