@@ -25,7 +25,7 @@ RSpec.describe Api::V1::MovieOwnershipsController, type: :controller do
       expect(response.status).to eq 201
       expect(response.content_type).to eq("application/json")
 
-      expect(returned_json["message"]).to eq("Sucessfully added!")
+      expect(returned_json["message"]).to eq("Sucessfully added #{movie1.name}!")
     end
 
     it "should return status 422 and errors if movie not created" do

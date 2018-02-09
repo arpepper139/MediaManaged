@@ -8,7 +8,8 @@ class NewMediaFormContainer extends Component {
     this.state = {
       fieldInfo: this.props.searchResult,
       givenType: this.props.type,
-      selectedType: null
+      selectedType: null,
+      saveError: ''
     }
 
     this.selectForm = this.selectForm.bind(this)
@@ -28,7 +29,7 @@ class NewMediaFormContainer extends Component {
         } else {
           let errorMessage = `${response.status} (${response.statusText})`,
           error = new Error(errorMessage);
-          throw(error);
+          throw(error, response);
         }
       })
       .then(response => {
@@ -40,7 +41,11 @@ class NewMediaFormContainer extends Component {
       })
       .catch(error => {
         console.error(`Error in fetch: ${error.message}`)
-      });
+        return error.json()
+      })
+      .then((errorBody) => {
+        this.setState({ saveError: errorBody.error })
+      })
   }
 
   selectForm(event) {
@@ -108,7 +113,11 @@ class NewMediaFormContainer extends Component {
     return(
       <div>
         {buttons}
-        {renderedForm}
+        <div>
+          {renderedForm}
+          <p>{this.state.saveError}</p>
+        </div>
+
       </div>
     )
   }

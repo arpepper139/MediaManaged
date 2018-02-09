@@ -6,15 +6,16 @@ class Api::V1::MovieOwnershipsController < ApplicationController
     user_id = current_user.id
     movie_id = movie_ownership_params[:movie_id]
 
-    movie = MovieOwnership.new({user_id: user_id, movie_id: movie_id})
+    movie_ownership = MovieOwnership.new({user_id: user_id, movie_id: movie_id})
     if movie_ownership_params[:user_rating] != ""
-      movie.user_rating = movie_ownership_params[:user_rating]
+      movie_ownership.user_rating = movie_ownership_params[:user_rating]
     end
 
-    if movie.save
-      render json: {message: "Sucessfully added!"}, status: 201
+    if movie_ownership.save
+      movie = Movie.find(movie_id)
+      render json: { message: "Sucessfully added #{movie.name}!" }, status: 201
     else
-      render json: { error: movie.errors.full_messages }, status: :unprocessable_entity
+      render json: { error: movie_ownership.errors.full_messages }, status: :unprocessable_entity
     end
   end
 

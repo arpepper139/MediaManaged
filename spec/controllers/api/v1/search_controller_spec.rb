@@ -43,7 +43,7 @@ RSpec.describe Api::V1::SearchController, type: :controller do
       expect(response.status).to eq 200
       expect(response.content_type).to eq("application/json")
 
-      expect(returned_json["message"]).to eq("Movie Found! Add Star Wars: Episode IV - A New Hope through the form below.")
+      expect(returned_json["message"]).to eq("Movie Found! Star Wars: Episode IV - A New Hope")
     end
 
     it "returns a formatted response if a show is found" do
@@ -53,7 +53,7 @@ RSpec.describe Api::V1::SearchController, type: :controller do
       expect(response.status).to eq 200
       expect(response.content_type).to eq("application/json")
 
-      expect(returned_json["message"]).to eq("Show Found! Add Game of Thrones through the form below.")
+      expect(returned_json["message"]).to eq("Show Found! Game of Thrones")
     end
 
     it "only returns a message if nothing is found" do

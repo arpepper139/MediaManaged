@@ -17,7 +17,7 @@ class Api::V1::ShowsController < ApplicationController
 
       render json: { message: "#{new_show.name} sucessfully added!" }
     else
-      render json: { error: new_show.errors.full_messages }, status: :unprocessable_entity
+      render json: { error: "Whoops! Looks like we already have #{new_show.name}. Please add it by searching above." }, status: :unprocessable_entity
     end
   end
 
