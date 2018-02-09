@@ -9,7 +9,9 @@ class NewMovieForm extends Component {
   }
 
   render() {
-    return(<h1>Hello from the New Movie Form</h1>)
+    return(
+      <h1>Hello from the New Movie Form</h1>
+    )
   }
 }
 

@@ -3,7 +3,14 @@ class Api::V1::ShowOwnershipsController < ApplicationController
   protect_from_forgery unless: -> { request.format.json? }
 
   def create
-    show = ShowOwnership.new(show_ownership_params)
+    user_id = current_user.id
+    show_id = show_ownership_params[:show_id]
+
+    show = ShowOwnership.new({user_id: user_id, show_id: show_id})
+    if show_ownership_params[:user_rating] != ""
+      show.user_rating = show_ownership_params[:user_rating]
+    end
+
     if show.save
       render json: {message: "Sucessfully added!"}, status: 201
     else
@@ -13,6 +20,6 @@ class Api::V1::ShowOwnershipsController < ApplicationController
 
   private
     def show_ownership_params
-      params.require(:show_ownership).permit(:user_rating, :user_id, :show_id)
+      params.require(:show_ownership).permit(:show_id, :user_rating)
     end
 end

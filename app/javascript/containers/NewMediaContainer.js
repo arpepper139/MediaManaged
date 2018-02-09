@@ -9,7 +9,6 @@ class NewMediaContainer extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      userId: '',
       message: '',
       searchValue: '',
       databaseMatches: [],
@@ -26,30 +25,6 @@ class NewMediaContainer extends Component {
     this.handleClearSearch = this.handleClearSearch.bind(this)
     this.handleFormSubmit = this.handleFormSubmit.bind(this)
     this.grabMessage = this.grabMessage.bind(this)
-  }
-
-  componentDidMount() {
-    fetch('/api/v1/users/current.json', { credentials: 'same-origin' })
-    .then(response => {
-      if (response.ok) {
-        return response;
-      } else {
-        let errorMessage = `${response.status} (${response.statusText})`,
-        error = new Error(errorMessage);
-        throw(error);
-      }
-    })
-    .then(response => {
-      return response.json()
-    })
-    .then(body => {
-      this.setState({
-        userId: body.user.id
-      })
-    })
-    .catch(error => {
-      console.error(`Error in fetch: ${error.message}`)
-    });
   }
 
   handleChange(event) {
@@ -171,7 +146,6 @@ class NewMediaContainer extends Component {
     let searchValue = this.state.searchValue
     let searchedDatabase = this.state.searchedDatabase
     let searchedOMDB = this.state.searchedOMDB
-    let userId = this.state.userId
 
     let results
     let omdbButton
@@ -194,7 +168,6 @@ class NewMediaContainer extends Component {
           <NewOwnershipForm
             key={key}
             id={result.id}
-            userId={userId}
             name={result.name}
             type={type}
             clearPage={this.handleClearSearch}

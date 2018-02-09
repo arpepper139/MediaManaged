@@ -26,7 +26,7 @@ class NewOwnershipForm extends Component {
     let media_field = `${type}_id`
 
     let formPayload = {
-      [ownership_field]: { [media_field]: this.props.id, user_id: this.props.userId, user_rating: +this.state.rating }
+      [ownership_field]: { [media_field]: this.props.id, user_rating: this.state.rating }
     }
     fetch(`/api/v1/${type}_ownerships`, {
       credentials: 'same-origin',
@@ -50,7 +50,9 @@ class NewOwnershipForm extends Component {
         this.props.passMessage(body.message)
         this.props.clearPage(event)
       })
-      .catch(error => console.error(`Error in fetch: ${error.message}`));
+      .catch(error => {
+        console.error(`Error in fetch: ${error.message}`)
+      });
   }
 
   render() {

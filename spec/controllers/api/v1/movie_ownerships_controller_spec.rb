@@ -6,14 +6,19 @@ RSpec.describe Api::V1::MovieOwnershipsController, type: :controller do
 
   describe "POST#create" do
     it "should create a new movie" do
-      new_movie_ownership = { movie_ownership: { user_id: user1.id, user_rating: 5, movie_id: movie1.id } }
+      new_movie_ownership = { movie_ownership: { user_rating: 5, movie_id: movie1.id } }
+
+      sign_in(user1)
+
       prev_count = user1.movies.count
       post(:create, params: new_movie_ownership)
       expect(user1.movies.count).to eq(prev_count + 1)
     end
 
     it "should return status 201 and a sucess message" do
-      new_movie_ownership = { movie_ownership: { user_id: user1.id, user_rating: 5, movie_id: movie1.id } }
+      new_movie_ownership = { movie_ownership: { user_rating: 5, movie_id: movie1.id } }
+
+      sign_in(user1)
       post(:create, params: new_movie_ownership)
 
       returned_json = JSON.parse(response.body)
@@ -24,7 +29,9 @@ RSpec.describe Api::V1::MovieOwnershipsController, type: :controller do
     end
 
     it "should return status 422 and errors if movie not created" do
-      new_movie_ownership = {movie_ownership: { user_id: user1.id }}
+      new_movie_ownership = {movie_ownership: { user_rating: 3 }}
+
+      sign_in(user1)
       post(:create, params: new_movie_ownership)
 
       returned_json = JSON.parse(response.body)

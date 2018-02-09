@@ -7,15 +7,24 @@ class NewMediaFormContainer extends Component {
     super(props)
     this.state = {
       fieldInfo: this.props.searchResult,
-      type: this.props.type
+      givenType: this.props.type,
+      selectedType: null
     }
+
+    this.selectForm = this.selectForm.bind(this)
+  }
+
+  selectForm(event) {
+    let selectedType = event.target.value
+    this.setState({ selectedType: selectedType })
   }
 
   render() {
-    let renderedJSX
+    let buttons
+    let renderedForm
 
-    if (this.state.type === "movie") {
-      renderedJSX =
+    if (this.state.givenType === "movie" || this.state.selectedType === "show") {
+      renderedForm =
         <NewMovieForm
           name={''}
           director={''}
@@ -27,8 +36,8 @@ class NewMediaFormContainer extends Component {
           imdbRating={''}
         />
     }
-    else if (this.state.type === "show") {
-      renderedJSX =
+    else if (this.state.givenType === "show" || this.state.selectedType === "show") {
+      renderedForm =
         <NewShowForm
           name={''}
           writer={''}
@@ -40,16 +49,19 @@ class NewMediaFormContainer extends Component {
           imdbRating={''}
         />
     }
-    else {
-      renderedJSX =
-        <div>
-          <h1>Buttons</h1>
-        </div>
+
+    if (this.state.givenType === null) {
+      buttons =
+        <span>
+          <button className='form-select-button' value="movie" onClick={ this.selectForm }>Add Movie</button>
+          <button className='form-select-button' value="show" onClick={ this.selectForm }>Add Show</button>
+        </span>
     }
 
     return(
       <div>
-        {renderedJSX}
+        {buttons}
+        {renderedForm}
       </div>
     )
   }

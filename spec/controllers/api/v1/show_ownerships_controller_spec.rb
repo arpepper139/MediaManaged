@@ -6,14 +6,18 @@ RSpec.describe Api::V1::ShowOwnershipsController, type: :controller do
 
   describe "POST#create" do
     it "should create a new show" do
-      new_show_ownership = { show_ownership: { user_id: user1.id, user_rating: 5, show_id: show1.id } }
+      new_show_ownership = { show_ownership: { user_rating: 5, show_id: show1.id } }
+
+      sign_in(user1)
       prev_count = user1.shows.count
       post(:create, params: new_show_ownership)
       expect(user1.shows.count).to eq(prev_count + 1)
     end
 
     it "should return status 201 and a sucess message" do
-      new_show_ownership = { show_ownership: { user_id: user1.id, user_rating: 5, show_id: show1.id } }
+      new_show_ownership = { show_ownership: { user_rating: 5, show_id: show1.id } }
+
+      sign_in(user1)
       post(:create, params: new_show_ownership)
 
       returned_json = JSON.parse(response.body)
@@ -24,7 +28,9 @@ RSpec.describe Api::V1::ShowOwnershipsController, type: :controller do
     end
 
     it "should return status 422 and errors if show not created" do
-      new_show_ownership = {show_ownership: { user_id: user1.id }}
+      new_show_ownership = {show_ownership: { user_rating: "" }}
+
+      sign_in(user1)
       post(:create, params: new_show_ownership)
 
       returned_json = JSON.parse(response.body)
