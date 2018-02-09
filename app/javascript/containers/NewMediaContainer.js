@@ -68,7 +68,8 @@ class NewMediaContainer extends Component {
       .then(body => {
         this.setState({
           databaseMatches: body.results,
-          searchedDatabase: true
+          searchedDatabase: true,
+          searchedOMDB: false
         })
       })
       .catch(error => console.error(`Error in fetch: ${error.message}`));
