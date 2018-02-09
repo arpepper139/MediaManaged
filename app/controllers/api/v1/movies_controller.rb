@@ -15,7 +15,7 @@ class Api::V1::MoviesController < ApplicationController
       new_movie.update_attributes(remote_poster_url: params[:movie][:poster])
       MovieOwnership.create(user_id: user_id, movie_id: new_movie.id, user_rating: params[:user_rating])
 
-      render json: { message: "#{new_movie.name} sucessfully added!" }
+      render json: { message: "Sucessfully added #{new_movie.name}!" }, status: 201
     else
       render json: { error: "Whoops! Looks like we already have #{new_movie.name}. Please add it by searching above." }, status: :unprocessable_entity
     end

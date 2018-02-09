@@ -5,7 +5,7 @@ RSpec.describe Api::V1::ShowOwnershipsController, type: :controller do
   let!(:show1) {FactoryBot.create(:show)}
 
   describe "POST#create" do
-    it "should create a new show" do
+    it "should create a new show ownership" do
       new_show_ownership = { show_ownership: { user_rating: 5, show_id: show1.id } }
 
       sign_in(user1)
@@ -14,7 +14,7 @@ RSpec.describe Api::V1::ShowOwnershipsController, type: :controller do
       expect(user1.shows.count).to eq(prev_count + 1)
     end
 
-    it "should return status 201 and a sucess message" do
+    it "should return status 201 and a success message" do
       new_show_ownership = { show_ownership: { user_rating: 5, show_id: show1.id } }
 
       sign_in(user1)
@@ -27,7 +27,7 @@ RSpec.describe Api::V1::ShowOwnershipsController, type: :controller do
       expect(returned_json["message"]).to eq("Sucessfully added #{show1.name}!")
     end
 
-    it "should return status 422 and errors if show not created" do
+    it "should return status 422 and errors if show ownership not created" do
       new_show_ownership = {show_ownership: { user_rating: "" }}
 
       sign_in(user1)

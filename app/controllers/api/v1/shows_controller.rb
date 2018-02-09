@@ -15,7 +15,7 @@ class Api::V1::ShowsController < ApplicationController
       new_show.update_attributes(remote_poster_url: params[:show][:poster])
       ShowOwnership.create(user_id: user_id, show_id: new_show.id, user_rating: params[:user_rating])
 
-      render json: { message: "#{new_show.name} sucessfully added!" }
+      render json: { message: "Sucessfully added #{new_show.name}!" }, status: 201
     else
       render json: { error: "Whoops! Looks like we already have #{new_show.name}. Please add it by searching above." }, status: :unprocessable_entity
     end

@@ -5,7 +5,7 @@ RSpec.describe Api::V1::MovieOwnershipsController, type: :controller do
   let!(:movie1) {FactoryBot.create(:movie)}
 
   describe "POST#create" do
-    it "should create a new movie" do
+    it "should create a new movie ownership" do
       new_movie_ownership = { movie_ownership: { user_rating: 5, movie_id: movie1.id } }
 
       sign_in(user1)
@@ -15,7 +15,7 @@ RSpec.describe Api::V1::MovieOwnershipsController, type: :controller do
       expect(user1.movies.count).to eq(prev_count + 1)
     end
 
-    it "should return status 201 and a sucess message" do
+    it "should return status 201 and a success message" do
       new_movie_ownership = { movie_ownership: { user_rating: 5, movie_id: movie1.id } }
 
       sign_in(user1)
@@ -28,7 +28,7 @@ RSpec.describe Api::V1::MovieOwnershipsController, type: :controller do
       expect(returned_json["message"]).to eq("Sucessfully added #{movie1.name}!")
     end
 
-    it "should return status 422 and errors if movie not created" do
+    it "should return status 422 and errors if movie ownership not created" do
       new_movie_ownership = {movie_ownership: { user_rating: 3 }}
 
       sign_in(user1)
