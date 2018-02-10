@@ -70,3 +70,14 @@ div.col {
   margin-top: 50px;
   font-size: 60px;
 }
+
+/* Pagination */
+
+div.pagination {
+  display: inline-block;
+  float: right;
+}
+
+div.pagination button {
+  margin-left: 10px;
+}

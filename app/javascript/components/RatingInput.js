@@ -1,6 +1,6 @@
 import React from 'react'
 
-const RatingField = (props) => {
+const RatingInput = (props) => {
   let ratingOptions = props.ratings.map((rating) => {
     return(
       <label className="radio-label" key={rating} htmlFor={props.name}>{rating}
@@ -11,9 +11,10 @@ const RatingField = (props) => {
 
   return(
     <div className="rating-field">
+      <label>{props.label}</label>
       {ratingOptions}
     </div>
   )
 }
 
-export default RatingField
+export default RatingInput

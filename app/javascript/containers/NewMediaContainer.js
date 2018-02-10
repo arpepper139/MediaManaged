@@ -196,7 +196,7 @@ class NewMediaContainer extends Component {
         <p className="intro">
           Welcome to MediaManaged's add page! To add media to your collection, please search for it below.
           If we already have the movie stored, you can click select it to add it. If we don't have the movie stored,
-          but can it through Omdb, we'll pre-populate an add form for you. Even if we can't find it for you on Omdb,
+          but can find it through Omdb, we'll pre-populate an add form for you. Even if we can't find it for you on Omdb,
           you can still add it yourself!
         </p>
         <p>{this.state.message}</p>

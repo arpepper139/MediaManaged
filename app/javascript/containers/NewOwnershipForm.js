@@ -60,7 +60,7 @@ class NewOwnershipForm extends Component {
       <form className="add-ownership">
         <p className="media-title">{this.props.name}</p>
         <RatingInput
-          label='Rating'
+          label=''
           name='rating'
           value={this.state.rating}
           ratings={this.state.ratings}
