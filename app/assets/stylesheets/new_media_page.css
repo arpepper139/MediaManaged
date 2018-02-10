@@ -76,3 +76,9 @@ h1.form-header {
   font-weight: bold;
   font-family: 'Source Sans Pro';
 }
+
+.fa-exclamation:before {
+  color: #B21519;
+  font-size: 20px;
+  margin-left: 10px;
+}

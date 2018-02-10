@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import NewMovieForm from '../containers/NewMovieForm'
-import NewShowForm from '../containers/NewShowForm'
+import NewMediaForm from '../containers/NewMediaForm'
 
 class NewMediaFormContainer extends Component {
   constructor(props) {
@@ -14,6 +13,20 @@ class NewMediaFormContainer extends Component {
 
     this.selectForm = this.selectForm.bind(this)
     this.addMedia = this.addMedia.bind(this)
+
+    // this.validatePresence = this.validatePresence.bind(this)
+    // this.validateNumericality = this.validateNumericality.bind(this)
+    // this.validateLength = this.validateLength.bind(this)
+    // this.validateUniqueness = this.validateUniqueness.bind(this)
+  }
+
+  capitalize(title) {
+    return title.charAt(0).toUpperCase() + title.slice(1);
+  }
+
+  selectForm(event) {
+    let selectedType = event.target.value
+    this.setState({ selectedType: selectedType })
   }
 
   addMedia(type, formPayload) {
@@ -51,20 +64,22 @@ class NewMediaFormContainer extends Component {
       })
   }
 
-  selectForm(event) {
-    let selectedType = event.target.value
-    this.setState({ selectedType: selectedType })
-  }
-
   render() {
     let buttons
     let renderedForm
-    console.log(this.state)
+
+    let formType
+    if (this.state.givenType) {
+      formType = "Add New " + this.capitalize(this.state.givenType)
+    }
+    else if (this.state.selectedType) {
+      formType = "Add New " + this.capitalize(this.state.selectedType)
+    }
 
     if (this.state.givenType === "movie" || this.state.selectedType === "movie") {
       if (this.state.fieldInfo !== null) {
         renderedForm =
-          <NewMovieForm
+          <NewMediaForm
             name={this.state.fieldInfo.name}
             director={this.state.fieldInfo.director}
             studio={this.state.fieldInfo.studio}
@@ -74,19 +89,21 @@ class NewMediaFormContainer extends Component {
             imdbRating={this.state.fieldInfo.imdb_rating}
             poster={this.state.fieldInfo.poster}
             addMedia={ this.addMedia }
+            formType="movie"
           />
       }
       else {
         renderedForm =
-          <NewMovieForm
+          <NewMediaForm
             addShow={ this.addMedia }
+            formType="movie"
           />
       }
     }
     else if (this.state.givenType === "show" || this.state.selectedType === "show") {
       if (this.state.fieldInfo !== null) {
         renderedForm =
-          <NewShowForm
+          <NewMediaForm
             name={this.state.fieldInfo.name}
             writer={this.state.fieldInfo.writer}
             startYear={this.state.fieldInfo.start_year}
@@ -95,12 +112,14 @@ class NewMediaFormContainer extends Component {
             imdbRating={this.state.fieldInfo.imdb_rating}
             poster={this.state.fieldInfo.poster}
             addMedia={ this.addMedia }
+            formType="show"
           />
       }
       else {
         renderedForm =
-          <NewShowForm
+          <NewMediaForm
             addShow={ this.addMedia }
+            formType="show"
           />
       }
     }
@@ -117,10 +136,10 @@ class NewMediaFormContainer extends Component {
       <div>
         {buttons}
         <div>
-          {renderedForm}
+          <h1 className="form-header">{formType}</h1>
           <p>{this.state.saveError}</p>
+          {renderedForm}
         </div>
-
       </div>
     )
   }

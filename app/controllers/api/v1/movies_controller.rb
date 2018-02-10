@@ -17,7 +17,7 @@ class Api::V1::MoviesController < ApplicationController
 
       render json: { message: "Sucessfully added #{new_movie.name}!" }, status: 201
     else
-      render json: { error: "Whoops! Looks like we already have #{new_movie.name}. Please add it by searching above." }, status: :unprocessable_entity
+      render json: { error: "Whoops! Looks like we already have #{new_movie.name}. If you haven't already selected it, you can by searching above!" }, status: :unprocessable_entity
     end
   end
 

@@ -67,6 +67,6 @@ RSpec.describe Api::V1::MoviesController, type: :controller do
     expect(response.status).to eq 422
     expect(response.content_type).to eq("application/json")
 
-    expect(returned_json["error"]).to eq("Whoops! Looks like we already have #{movie1.name}. Please add it by searching above.")
+    expect(returned_json["error"]).to eq("Whoops! Looks like we already have #{movie1.name}. If you haven't already selected it, you can by searching above!")
   end
 end
