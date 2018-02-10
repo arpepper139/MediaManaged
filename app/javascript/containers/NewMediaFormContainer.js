@@ -169,83 +169,26 @@ class NewMediaFormContainer extends Component {
   }
 
   render() {
-    let buttons
-    let renderedForm
+    let buttons,
+    formHeader,
+    formType,
+    validator,
+    returnedForm,
+    errorListItems,
+    errorDiv
 
-    let formType
     if (this.state.givenType) {
-      formType = "Add New " + this.capitalize(this.state.givenType)
+      formHeader = "Add New " + this.capitalize(this.state.givenType)
+      formType = this.state.givenType
     }
     else if (this.state.selectedType) {
-      formType = "Add New " + this.capitalize(this.state.selectedType)
+      formHeader = "Add New " + this.capitalize(this.state.selectedType)
+      formType = this.state.selectedType
     }
-
-    if (this.state.givenType === "movie" || this.state.selectedType === "movie") {
-      if (this.state.fieldInfo !== null) {
-        renderedForm =
-          <NewMediaForm
-            name={this.state.fieldInfo.name}
-            director={this.state.fieldInfo.director}
-            studio={this.state.fieldInfo.studio}
-            year={this.state.fieldInfo.year}
-            runtime={this.state.fieldInfo.runtime}
-            description={this.state.fieldInfo.description}
-            imdbRating={this.state.fieldInfo.imdb_rating}
-            poster={this.state.fieldInfo.poster}
-            addMedia={ this.addMedia }
-            validate={ this.validateMovie }
-            errors={ this.state.errors }
-            formType="movie"
-          />
-      }
-      else {
-        renderedForm =
-          <NewMediaForm
-            addMedia={ this.addMedia }
-            validate={ this.validateMovie }
-            errors={ this.state.errors }
-            formType="movie"
-          />
-      }
+    else {
+      formHeader = ''
+      formType = null
     }
-    else if (this.state.givenType === "show" || this.state.selectedType === "show") {
-      if (this.state.fieldInfo !== null) {
-        renderedForm =
-          <NewMediaForm
-            name={this.state.fieldInfo.name}
-            writer={this.state.fieldInfo.writer}
-            startYear={this.state.fieldInfo.start_year}
-            endYear={this.state.fieldInfo.end_year}
-            description={this.state.fieldInfo.description}
-            imdbRating={this.state.fieldInfo.imdb_rating}
-            poster={this.state.fieldInfo.poster}
-            addMedia={ this.addMedia }
-            validate={ this.validateShow }
-            errors={ this.state.errors }
-            formType="show"
-          />
-      }
-      else {
-        renderedForm =
-          <NewMediaForm
-            addMedia={ this.addMedia }
-            validate={ this.validateShow }
-            errors={ this.state.errors }
-            formType="show"
-          />
-      }
-    }
-
-    if (this.state.givenType === null) {
-      buttons =
-        <div className="select-buttons">
-          <button className='form-select-button' value="movie" onClick={ this.selectForm }>Add Movie</button>
-          <button className='form-select-button' value="show" onClick={ this.selectForm }>Add Show</button>
-        </div>
-    }
-
-    let errorListItems
-    let errorDiv
 
     if(Object.keys(this.state.errors).length > 0) {
       errorListItems = Object.values(this.state.errors).map((error) => {
@@ -260,13 +203,39 @@ class NewMediaFormContainer extends Component {
         </div>
     }
 
+    if (formType === "movie") {
+      validator = this.validateMovie
+    }
+    else {
+      validator = this.validateShow
+    }
+
+    if (this.state.givenType === null) {
+      buttons =
+        <div className="select-buttons">
+          <button className='form-select-button' value="movie" onClick={ this.selectForm }>Add Movie</button>
+          <button className='form-select-button' value="show" onClick={ this.selectForm }>Add Show</button>
+        </div>
+    }
+
+    if (formType !== null) {
+      returnedForm =
+        <NewMediaForm
+          fieldInfo={this.state.fieldInfo}
+          addMedia={ this.addMedia }
+          validate={ validator }
+          errors={ this.state.errors }
+          formType={ formType }
+        />
+    }
+
     return(
       <div>
         {buttons}
         <div>
-          <h1 className="form-header">{formType}</h1>
+          <h1 className="form-header">{formHeader}</h1>
           {errorDiv}
-          {renderedForm}
+          {returnedForm}
         </div>
       </div>
     )

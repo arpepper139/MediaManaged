@@ -35,35 +35,35 @@ class NewMediaForm extends Component {
   componentDidMount() {
     if (this.props.formType === "show") {
       let endYear
-      if (this.props.endYear === null) {
+      if (this.props.fieldInfo.end_year === null) {
         endYear = ''
       }
       else {
-        endYear = this.props.endYear
+        endYear = this.props.fieldInfo.end_year
       }
 
-      if (Object.keys(this.props).length > 4) {
+      if (this.props.fieldInfo !== null) {
         this.setState({
-          name: this.props.name,
-          writer: this.props.writer,
-          startYear: this.props.startYear,
+          name: this.props.fieldInfo.name,
+          writer: this.props.fieldInfo.writer,
+          startYear: this.props.fieldInfo.start_year,
           endYear: endYear,
-          description: this.props.description,
-          imdbRating: this.props.imdbRating,
-          poster: this.props.poster
+          description: this.props.fieldInfo.description,
+          imdbRating: this.props.fieldInfo.imdb_rating,
+          poster: this.props.fieldInfo.poster
         })
       }
     }
-    else if (Object.keys(this.props).length > 4 && this.props.formType === "movie") {
+    else if (this.props.fieldInfo !== null && this.props.formType === "movie") {
       this.setState({
-        name: this.props.name,
-        director: this.props.director,
-        studio: this.props.studio,
-        year: this.props.year,
-        runtime: this.props.runtime,
-        description: this.props.description,
-        imdbRating: this.props.imdbRating,
-        poster: this.props.poster
+        name: this.props.fieldInfo.name,
+        director: this.props.fieldInfo.director,
+        studio: this.props.fieldInfo.studio,
+        year: this.props.fieldInfo.year,
+        runtime: this.props.fieldInfo.runtime,
+        description: this.props.fieldInfo.description,
+        imdbRating: this.props.fieldInfo.imdb_rating,
+        poster: this.props.fieldInfo.poster
       })
     }
 
@@ -116,6 +116,7 @@ class NewMediaForm extends Component {
   }
 
   render() {
+    console.log(this.state)
     let formTypeFields;
     if (this.props.formType === "show") {
       formTypeFields = NewShowFields
