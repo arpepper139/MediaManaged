@@ -31,7 +31,10 @@ class NewMediaFormContainer extends Component {
 
   selectForm(event) {
     let selectedType = event.target.value
-    this.setState({ selectedType: selectedType })
+    this.setState({
+      selectedType: selectedType,
+      errors: {}
+    })
   }
 
   capitalize(title) {
