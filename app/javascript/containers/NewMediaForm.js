@@ -33,7 +33,7 @@ class NewMediaForm extends Component {
   }
 
   componentDidMount() {
-    if (Object.keys(this.props).length > 2 && this.props.formType === "show") {
+    if (this.props.formType === "show") {
       let endYear
       if (this.props.endYear === null) {
         endYear = ''
@@ -42,17 +42,19 @@ class NewMediaForm extends Component {
         endYear = this.props.endYear
       }
 
-      this.setState({
-        name: this.props.name,
-        writer: this.props.writer,
-        startYear: this.props.startYear,
-        endYear: endYear,
-        description: this.props.description,
-        imdbRating: this.props.imdbRating,
-        poster: this.props.poster
-      })
+      if (Object.keys(this.props).length > 4) {
+        this.setState({
+          name: this.props.name,
+          writer: this.props.writer,
+          startYear: this.props.startYear,
+          endYear: endYear,
+          description: this.props.description,
+          imdbRating: this.props.imdbRating,
+          poster: this.props.poster
+        })
+      }
     }
-    else if (Object.keys(this.props).length > 2 && this.props.formType === "movie") {
+    else if (Object.keys(this.props).length > 4 && this.props.formType === "movie") {
       this.setState({
         name: this.props.name,
         director: this.props.director,
