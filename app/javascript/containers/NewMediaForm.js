@@ -26,8 +26,6 @@ class NewMediaForm extends Component {
       imdbRating: '',
       userRating: '',
       userRatings: [1,2,3,4,5],
-
-      saved: ''
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -110,13 +108,8 @@ class NewMediaForm extends Component {
       }
     }
     let valid = this.props.validate(formPayload)
-    let saved
     if (valid) {
-      saved = this.props.addMedia(this.props.formType, formPayload)
-    }
-
-    if (!valid || saved !== true) {
-      this.setState({ saved: false })
+      this.props.addMedia(this.props.formType, formPayload)
     }
   }
 
@@ -156,8 +149,8 @@ class NewMediaForm extends Component {
     })
 
     let exclamationClass = "fas fa-exclamation hidden"
-    if (this.state.saved === false) {
-      exclamationClass = "fas fa-exclamation"
+    if (Object.keys(this.props.errors).length !== 0) {
+     exclamationClass = "fas fa-exclamation"
     }
 
     return(
