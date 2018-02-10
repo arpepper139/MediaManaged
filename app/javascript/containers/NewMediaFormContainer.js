@@ -152,7 +152,6 @@ class NewMediaFormContainer extends Component {
       .then(body => {
         this.props.passMessage(body.message)
         this.props.clearPage()
-        return true
       })
       .catch(error => {
         console.error(`Error in fetch: ${error.message}`)
@@ -192,6 +191,7 @@ class NewMediaFormContainer extends Component {
             poster={this.state.fieldInfo.poster}
             addMedia={ this.addMedia }
             validate={ this.validateMovie }
+            errors={ this.state.errors }
             formType="movie"
           />
       }
@@ -200,6 +200,7 @@ class NewMediaFormContainer extends Component {
           <NewMediaForm
             addMedia={ this.addMedia }
             validate={ this.validateMovie }
+            errors={ this.state.errors }
             formType="movie"
           />
       }
@@ -217,6 +218,7 @@ class NewMediaFormContainer extends Component {
             poster={this.state.fieldInfo.poster}
             addMedia={ this.addMedia }
             validate={ this.validateShow }
+            errors={ this.state.errors }
             formType="show"
           />
       }
@@ -225,6 +227,7 @@ class NewMediaFormContainer extends Component {
           <NewMediaForm
             addMedia={ this.addMedia }
             validate={ this.validateShow }
+            errors={ this.state.errors }
             formType="show"
           />
       }
