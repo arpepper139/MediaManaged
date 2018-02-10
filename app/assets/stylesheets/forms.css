@@ -10,7 +10,7 @@ h2.form-header {
   font-family: 'Source Sans Pro';
 }
 
-div#error_explanation {
+div#error_explanation, div.errors {
   color: white;
   background-color: #F35659;
   border: 3px solid;
@@ -18,7 +18,7 @@ div#error_explanation {
   margin-bottom: 5px;
 }
 
-div#error_explanation h2 {
+div#error_explanation h2, div.errors h2 {
   color: white;
   font-size: 14px;
   font-family: 'Source Sans Pro';
@@ -27,7 +27,7 @@ div#error_explanation h2 {
   margin: 0px;
 }
 
-div#error_explanation ul {
+div#error_explanation ul, div.errors ul {
   padding: 0px 25px;
   font-size: 12px;
   margin-bottom: 10px;

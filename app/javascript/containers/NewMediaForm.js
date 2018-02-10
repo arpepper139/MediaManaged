@@ -25,7 +25,9 @@ class NewMediaForm extends Component {
       poster: '',
       imdbRating: '',
       userRating: '',
-      userRatings: [1,2,3,4,5]
+      userRatings: [1,2,3,4,5],
+
+      saved: ''
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -38,6 +40,10 @@ class NewMediaForm extends Component {
       if (this.props.endYear === null) {
         endYear = ''
       }
+      else {
+        endYear = this.props.endYear
+      }
+
       this.setState({
         name: this.props.name,
         writer: this.props.writer,
@@ -103,7 +109,15 @@ class NewMediaForm extends Component {
         user_rating: this.state.user_rating
       }
     }
-    this.props.addMedia(this.props.formType, formPayload)
+    let valid = this.props.validate(formPayload)
+    let saved
+    if (valid) {
+      saved = this.props.addMedia(this.props.formType, formPayload)
+    }
+
+    if (!valid || saved !== true) {
+      this.setState({ saved: false })
+    }
   }
 
   render() {
@@ -142,11 +156,16 @@ class NewMediaForm extends Component {
       }
     })
 
+    let exclamationClass = "fas fa-exclamation hidden"
+    if (this.state.saved === false) {
+      exclamationClass = "fas fa-exclamation"
+    }
+
     return(
       <form>
         {inputFieldComponents}
         <button className="submit" onClick={ this.handleSubmit }>Submit</button>
-        <i className="fas fa-exclamation"></i>
+        <i className={exclamationClass}></i>
       </form>
     )
   }

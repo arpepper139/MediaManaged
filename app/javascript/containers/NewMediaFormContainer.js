@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import NewMediaForm from '../containers/NewMediaForm'
 
+const regex = /.*\S.*/
+
 class NewMediaFormContainer extends Component {
   constructor(props) {
     super(props)
@@ -8,25 +10,116 @@ class NewMediaFormContainer extends Component {
       fieldInfo: this.props.searchResult,
       givenType: this.props.type,
       selectedType: null,
-      saveError: ''
+      errors: {}
     }
 
     this.selectForm = this.selectForm.bind(this)
     this.addMedia = this.addMedia.bind(this)
 
-    // this.validatePresence = this.validatePresence.bind(this)
-    // this.validateNumericality = this.validateNumericality.bind(this)
-    // this.validateLength = this.validateLength.bind(this)
-    // this.validateUniqueness = this.validateUniqueness.bind(this)
+    this.addError = this.addError.bind(this)
+    this.deleteError = this.deleteError.bind(this)
+
+    this.validatePresence = this.validatePresence.bind(this)
+    this.validateNumericality = this.validateNumericality.bind(this)
+    this.validateNumberRange = this.validateNumberRange.bind(this)
+    this.validateYear = this.validateYear.bind(this)
+    this.validateDescription = this.validateDescription.bind(this)
+
+    this.validateShow = this.validateShow.bind(this)
+    this.validateMovie = this.validateMovie.bind(this)
+  }
+
+  selectForm(event) {
+    let selectedType = event.target.value
+    this.setState({ selectedType: selectedType })
   }
 
   capitalize(title) {
     return title.charAt(0).toUpperCase() + title.slice(1);
   }
 
-  selectForm(event) {
-    let selectedType = event.target.value
-    this.setState({ selectedType: selectedType })
+  formatFieldName(fieldName) {
+    return fieldName.replace(/_/, " ")
+  }
+
+  addError(fieldName) {
+    let newError = { [fieldName]: `You must provide a valid ${this.formatFieldName(fieldName)}` }
+    this.setState({ errors: Object.assign(this.state.errors, newError) })
+    return false
+  }
+
+  deleteError(fieldName) {
+    let errorState = this.state.errors
+    delete errorState[fieldName]
+    this.setState({ errors: errorState })
+    return true
+  }
+
+  validateNumericality(value) {
+    return typeof +value === 'number'
+  }
+
+  validatePresence(fieldName, value) {
+    if (!(regex.test(value))) {
+      return this.addError(fieldName)
+    }
+    else {
+      return this.deleteError(fieldName)
+    }
+  }
+
+  validateNumberRange(fieldName, value, start, end) {
+    if (!(regex.test(value))) {
+      return this.deleteError(fieldName)
+    }
+    else if (!(this.validateNumericality(+value)) || +value < start || +value > end) {
+      return this.addError(fieldName)
+    }
+    else {
+      return this.deleteError(fieldName)
+    }
+  }
+
+  validateDescription(fieldName, value) {
+    if (value.trim().length > 5000) {
+      return this.addError(fieldName)
+    }
+    else {
+      return this.deleteError(fieldName)
+    }
+  }
+
+  validateYear(fieldName, value) {
+    if (fieldName == "end_year" && !(regex.test(value))) {
+      return this.deleteError(fieldName)
+    }
+    else if (value.trim().length !== 4 || !(this.validateNumericality(value))) {
+      return this.addError(fieldName)
+    }
+    else {
+      return this.deleteError(fieldName)
+    }
+  }
+
+  validateMovie(formPayload) {
+    // if (
+    //
+    // )
+  }
+
+  validateShow(formPayload) {
+    if (
+      this.validatePresence('name', formPayload.show.name) &&
+      this.validatePresence('writer', formPayload.show.writer) &&
+      this.validateYear('start_year', formPayload.show.start_year) &&
+      this.validateYear('end_year', formPayload.show.end_year) &&
+      this.validateDescription('description', formPayload.show.description) &&
+      this.validateNumberRange('imdb_rating', formPayload.show.imdb_rating, 0, 10) &&
+      this.validateNumberRange('user_rating', formPayload.user_rating, 1, 5)
+    ) {
+      return true
+    }
+    else { return false }
   }
 
   addMedia(type, formPayload) {
@@ -51,6 +144,7 @@ class NewMediaFormContainer extends Component {
       .then(body => {
         this.props.passMessage(body.message)
         this.props.clearPage()
+        return true
       })
       .catch(error => {
         console.error(`Error in fetch: ${error.message}`)
@@ -58,13 +152,15 @@ class NewMediaFormContainer extends Component {
       })
       .then((errorBody) => {
         if (errorBody !== undefined) {
-          this.setState({ saveError: errorBody.error })
+          this.setState({ errors: { saveError: errorBody.error } })
           this.props.passMessage('')
         }
       })
   }
 
   render() {
+    console.log(this.state)
+
     let buttons
     let renderedForm
 
@@ -95,7 +191,7 @@ class NewMediaFormContainer extends Component {
       else {
         renderedForm =
           <NewMediaForm
-            addShow={ this.addMedia }
+            addMedia={ this.addMedia }
             formType="movie"
           />
       }
@@ -112,13 +208,15 @@ class NewMediaFormContainer extends Component {
             imdbRating={this.state.fieldInfo.imdb_rating}
             poster={this.state.fieldInfo.poster}
             addMedia={ this.addMedia }
+            validate={ this.validateShow }
             formType="show"
           />
       }
       else {
         renderedForm =
           <NewMediaForm
-            addShow={ this.addMedia }
+            addMedia={ this.addMedia }
+            validate={ this.validateShow }
             formType="show"
           />
       }
@@ -132,12 +230,28 @@ class NewMediaFormContainer extends Component {
         </div>
     }
 
+    let errorListItems
+    let errorDiv
+
+    if(Object.keys(this.state.errors).length > 0) {
+      errorListItems = Object.values(this.state.errors).map((error) => {
+        return <li key={error}>{error}</li>
+      })
+      errorDiv =
+        <div className="errors">
+          <h2>The following errors prevented save:</h2>
+          <ul>
+            { errorListItems }
+          </ul>
+        </div>
+    }
+
     return(
       <div>
         {buttons}
         <div>
           <h1 className="form-header">{formType}</h1>
-          <p>{this.state.saveError}</p>
+          {errorDiv}
           {renderedForm}
         </div>
       </div>
