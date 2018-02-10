@@ -102,9 +102,17 @@ class NewMediaFormContainer extends Component {
   }
 
   validateMovie(formPayload) {
-    // if (
-    //
-    // )
+    if (
+      this.validatePresence('name', formPayload.movie.name) &&
+      this.validatePresence('director', formPayload.movie.director) &&
+      this.validateYear('year', formPayload.movie.year) &&
+      this.validateDescription('description', formPayload.movie.description) &&
+      this.validateNumberRange('imdb_rating', formPayload.movie.imdb_rating, 0, 10) &&
+      this.validateNumberRange('user_rating', formPayload.user_rating, 1, 5)
+    ) {
+      return true
+    }
+    else { return false }
   }
 
   validateShow(formPayload) {
@@ -159,8 +167,6 @@ class NewMediaFormContainer extends Component {
   }
 
   render() {
-    console.log(this.state)
-
     let buttons
     let renderedForm
 
@@ -185,6 +191,7 @@ class NewMediaFormContainer extends Component {
             imdbRating={this.state.fieldInfo.imdb_rating}
             poster={this.state.fieldInfo.poster}
             addMedia={ this.addMedia }
+            validate={ this.validateMovie }
             formType="movie"
           />
       }
@@ -192,6 +199,7 @@ class NewMediaFormContainer extends Component {
         renderedForm =
           <NewMediaForm
             addMedia={ this.addMedia }
+            validate={ this.validateMovie }
             formType="movie"
           />
       }
