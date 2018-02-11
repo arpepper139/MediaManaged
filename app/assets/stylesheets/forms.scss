@@ -56,9 +56,25 @@ p.goodbye {
 a.edit-password, a.edit-password:visited {
   font-size: 14px;
   color: $secondary-color;
-  padding-top: 5px;
+  margin-top: 10px;
+  padding-top: 10px;
 }
 
 a.edit-password:hover {
-  color: $white;
+  color: $primary-color;
+}
+
+div.actions {
+  input {
+    color: $white;
+    background-color: $secondary-color;
+    border: none;
+    padding: 10px;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 12px;
+  }
+
+  input:hover, input:focus {
+    color: $primary-color;
+  }
 }
