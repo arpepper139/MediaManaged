@@ -5,18 +5,15 @@ class NewOwnershipForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      rating: '',
-      ratings: [1,2,3,4,5]
+      rating: ''
     }
 
-    this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleStarSelection = this.handleStarSelection.bind(this)
   }
 
-  handleChange(event) {
-    let fieldName = event.target.name
-    let input = event.target.value
-    this.setState({ [fieldName]: input })
+  handleStarSelection(rating) {
+    this.setState({ rating })
   }
 
   handleSubmit(event) {
@@ -59,14 +56,14 @@ class NewOwnershipForm extends Component {
     return(
       <form className="add-ownership">
         <p className="media-title">{this.props.name}</p>
-        <RatingInput
-          label=''
-          name='rating'
-          value={this.state.rating}
-          ratings={this.state.ratings}
-          handleChange={this.handleChange}
-        />
-        <button className='submit-ownership' onClick={ this.handleSubmit }>Add</button>
+        <div>
+          <RatingInput
+            name='rating'
+            value={this.state.rating}
+            handleClick={this.handleStarSelection}
+          />
+          <button className='submit-ownership' onClick={ this.handleSubmit }>Add</button>
+        </div>
       </form>
     )
   }

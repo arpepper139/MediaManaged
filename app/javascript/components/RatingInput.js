@@ -1,17 +1,26 @@
 import React from 'react'
 
-const RatingInput = (props) => {
-  let ratingOptions = props.ratings.map((rating) => {
+const RatingInput = ({ name, handleClick, value, label }) => {
+  let ratingsArray = Array.from(Array(5).keys());
+
+  let ratingOptions = ratingsArray.map((rating) => {
+    const ratingValue = rating + 1;
+    const star = `fa${ratingValue <= value ? "s" : "r"} fa-star`
+
     return(
-      <label className="radio-label" key={rating} htmlFor={props.name}>{rating}
-        <input type="radio" name={props.name} value={rating} onChange={props.handleChange} />
-      </label>
+      <button
+        key={ratingValue}
+        type="button"
+        name={name}
+        onClick={() => handleClick(ratingValue)}
+      >
+        <i className={star}></i>
+      </button>
     )
   })
 
   return(
     <div className="rating-field">
-      <label>{props.label}</label>
       {ratingOptions}
     </div>
   )
