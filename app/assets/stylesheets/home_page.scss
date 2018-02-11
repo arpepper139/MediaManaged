@@ -1,3 +1,5 @@
+@import './constants';
+
 div.homepage {
   margin: 2%;
 }
@@ -17,7 +19,7 @@ div.col {
   height: 350px;
   width: 233px;
 
-  color: #353333;
+  color: $preview-default;
 
   margin: auto;
   padding: 10px;
