@@ -195,7 +195,7 @@ class NewMediaContainer extends Component {
         {flash}
         <div className="new-media-page">
           <p className="intro">
-            Add movies and shows to your personal collection below! If we can't find what you're looking for in our database,
+            Add movies and shows to your personal collection below! Search our database for movies you haven't already added. If we can't find what you're looking for,
             try searching OMDb. If that doesn't work, go ahead and add it yourself!
           </p>
           <form autoComplete="off" onSubmit={this.handleFormSubmit}>

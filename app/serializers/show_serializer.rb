@@ -1,13 +1,18 @@
 class ShowSerializer < ActiveModel::Serializer
-  attributes :id, :name, :writer, :studio, :poster, :start_year, :end_year, :description, :imdb_rating, :owned
+  attributes :id, :name, :writer, :studio, :poster, :start_year, :end_year, :description, :imdb_rating, :ownership_info
 
-  def owned
+  def ownership_info
     if current_user != nil
-      owner_ids = object.users.map { |user| user.id }
-      if owner_ids.include?(current_user.id)
-        return true
+      user_id = current_user.id
+      show_id = object.id
+      ownership = ShowOwnership.where({user_id: user_id, show_id: show_id})
+      if ownership == []
+        nil
       else
-        return false
+        {
+          user_rating: ownership[0].user_rating,
+          ownership_id: ownership[0].id
+        }
       end
     end
   end

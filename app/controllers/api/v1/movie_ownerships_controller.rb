@@ -19,6 +19,16 @@ class Api::V1::MovieOwnershipsController < ApplicationController
     end
   end
 
+  def update
+    movie_ownership = MovieOwnership.find(params[:id])
+    movie_ownership.update_attributes(movie_ownership_params)
+    if movie_ownership.save
+      render json: { user_rating: movie_ownership.user_rating }
+    else
+      render json: { error: movie_ownership.errors.full_messages }, status: :unprocessable_entity
+    end
+  end
+
   private
     def movie_ownership_params
       params.require(:movie_ownership).permit(:movie_id, :user_rating)

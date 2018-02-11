@@ -19,6 +19,16 @@ class Api::V1::ShowOwnershipsController < ApplicationController
     end
   end
 
+  def update
+    show_ownership = ShowOwnership.find(params[:id])
+    show_ownership.update_attributes(show_ownership_params)
+    if show_ownership.save
+      render json: { user_rating: show_ownership.user_rating }
+    else
+      render json: { error: show_ownership.errors.full_messages }, status: :unprocessable_entity
+    end
+  end
+
   private
     def show_ownership_params
       params.require(:show_ownership).permit(:show_id, :user_rating)

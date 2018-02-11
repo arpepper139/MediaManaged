@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 
-import MovieShowTile from '../components/MovieShowTile'
-import ShowShowTile from '../components/ShowShowTile'
+import MediaInfoTile from '../components/MediaInfoTile'
 
 class MediaShowContainer extends Component {
   constructor(props) {
@@ -38,27 +37,19 @@ class MediaShowContainer extends Component {
   }
 
   render() {
-    let type = this.state.type
-    let renderedJSX;
+    let mediaTile;
 
     if (Object.keys(this.state.media).length !== 0) {
-      if (type === "movie") {
-        renderedJSX =
-          <MovieShowTile
-            data={ this.state.media }
-          />
-      }
-      else {
-        renderedJSX =
-          <ShowShowTile
-            data={ this.state.media }
-          />
-      }
+      mediaTile =
+        <MediaInfoTile
+          type={this.state.type}
+          data={this.state.media}
+        />
     }
 
     return(
       <div className="showpage">
-        {renderedJSX}
+        {mediaTile}
       </div>
     )
   }
