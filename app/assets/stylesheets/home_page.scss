@@ -29,6 +29,15 @@ div.col {
   background-size: cover;
 }
 
+.preview-item:hover {
+  opacity: 1.0;
+}
+
+.fa-film {
+  margin-top: 50px;
+  font-size: 60px;
+}
+
 @media screen and (min-width: 90em) and (max-width: 110em) {
   .preview-item {
     height: 300px;
@@ -73,15 +82,6 @@ div.col {
   }
 }
 
-.preview-item:hover {
-  opacity: 1.0;
-}
-
-.fa-film {
-  margin-top: 50px;
-  font-size: 60px;
-}
-
 /* Pagination */
 
 .homepage-options {
@@ -89,9 +89,10 @@ div.col {
   .pagination {
     display: inline-block;
     float: right;
-
+    
     button {
       margin-left: 10px;
+      outline: none;
     }
   }
 }

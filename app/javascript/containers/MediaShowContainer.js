@@ -28,14 +28,7 @@ class MediaShowContainer extends Component {
         return response.json()
       })
       .then(body => {
-        let type
-        if (path.includes("movie")) {
-          type = "movie"
-        }
-        else {
-          type = "show"
-        }
-
+        let type = `${path.includes("movie") ? "movie" : "show"}`
         this.setState({
           media: body[type],
           type: type

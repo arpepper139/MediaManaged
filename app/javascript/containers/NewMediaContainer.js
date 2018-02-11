@@ -154,15 +154,8 @@ class NewMediaContainer extends Component {
     if (dataMatches.length !== 0 && regex.test(searchValue)) {
       let key = 0
       results = dataMatches.map((result) => {
+        let type = `${result.director ? "movie" : "show"}`
         key++
-
-        let type
-        if (result.director) {
-          type = "movie"
-        }
-        else {
-          type = "show"
-        }
 
         return(
           <NewOwnershipForm
@@ -176,10 +169,10 @@ class NewMediaContainer extends Component {
         )
       })
 
-      omdbButton = <button className='search-button' onClick={ this.omdbQuery }>Search Omdb</button>
+      omdbButton = <button className='search-button' onClick={ this.omdbQuery }>Search OMDb</button>
     }
     else if (dataMatches.length === 0 && regex.test(searchValue) && searchedDatabase === true) {
-      omdbButton = <button className='search-button' onClick={ this.omdbQuery }>Search Omdb</button>
+      omdbButton = <button className='search-button' onClick={ this.omdbQuery }>Search OMDb</button>
     }
     else if (searchedOMDB === true) {
       addMediaForm =
@@ -200,7 +193,7 @@ class NewMediaContainer extends Component {
         <p>{this.state.message}</p>
         <form autoComplete="off" onSubmit={this.handleFormSubmit}>
           <TextInput
-            label={'Find Media'}
+            placeholder="Search Our Collection"
             name="searchValue"
             value={ this.state.searchValue }
             handleChange={ this.handleChange }
