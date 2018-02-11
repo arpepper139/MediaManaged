@@ -6,14 +6,22 @@ class MediaInfoTile extends Component {
     super(props)
     this.state = {
       userRating: '',
-      owned: ''
+      ownershipId: ''
     }
 
     this.updateUserRating = this.updateUserRating.bind(this)
     this.removeMedia = this.removeMedia.bind(this)
   }
 
-  updateUserRating() {
+  componentDidMount() {
+    this.setState({
+      userRating: this.props.data.ownership_info.user_rating,
+      ownershipId: this.props.data.ownership_info.ownership_id
+    })
+  }
+
+  updateUserRating(ratingValue) {
+    
     debugger
   }
 
@@ -22,6 +30,8 @@ class MediaInfoTile extends Component {
   }
 
   render() {
+    console.log(this.state)
+
     const buttonText = `${this.props.data.owned ? "Remove From Collection" : "Add To Collection"}`
 
     return(
@@ -44,7 +54,8 @@ class MediaInfoTile extends Component {
           <p>IMDb Rating: {this.props.data.imdb_rating}</p>
           <p>Your Rating</p>
           <RatingInput
-            value={this.props.data.user_rating}
+            value={this.state.userRating}
+            handleClick={this.updateUserRating}
           />
         </div>
         <div className="small-12 medium-6 large-8 columns">

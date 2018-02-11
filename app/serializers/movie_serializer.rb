@@ -1,18 +1,7 @@
 class MovieSerializer < ActiveModel::Serializer
-  attributes :id, :name, :director, :studio, :poster, :year, :runtime, :description, :imdb_rating, :user_rating, :owned
+  attributes :id, :name, :director, :studio, :poster, :year, :runtime, :description, :imdb_rating, :ownership_info
 
-  def owned
-    if current_user != nil
-      owner_ids = object.users.map { |user| user.id }
-      if owner_ids.include?(current_user.id)
-        return true
-      else
-        return false
-      end
-    end
-  end
-
-  def user_rating
+  def ownership_info
     if current_user != nil
       user_id = current_user.id
       movie_id = object.id
@@ -20,7 +9,10 @@ class MovieSerializer < ActiveModel::Serializer
       if ownership == []
         nil
       else
-        ownership[0].user_rating
+        {
+          user_rating: ownership[0].user_rating,
+          ownership_id: ownership[0].id
+        }
       end
     end
   end
