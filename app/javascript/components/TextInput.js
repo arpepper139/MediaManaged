@@ -2,7 +2,7 @@ import React from 'react'
 
 const TextInput = (props) => {
   return(
-    <label>{ props.label }
+    <label className={ `${props.name}-label` }>{ props.label }
       <input
         type='text'
         value={ props.value }

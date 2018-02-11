@@ -56,8 +56,8 @@ ul.top-navbar {
   background-color: $secondary-color;
   list-style-type: none;
   overflow: hidden;
-  margin: 0px;
-  padding: 0px;
+  margin: 0;
+  padding: 0;
 }
 
 ul.links {
@@ -88,7 +88,7 @@ li.dropdown {
     position: absolute;
     background-color: $dropdown-color;
     min-width: 80px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
     z-index: 1;
 }
 
@@ -96,7 +96,7 @@ li.dropdown {
     color: $secondary-color;
     text-decoration: none;
     display: block;
-    padding: 7px 0px;
+    padding: 7px 0;
     height: 40px;
     text-align: center;
 }
@@ -104,7 +104,7 @@ li.dropdown {
 .dropdown:hover .dropdown-content {
     display: block;
     left: auto;
-    right: 0px;
+    right: 0;
 }
 
 /* Flash Notice */

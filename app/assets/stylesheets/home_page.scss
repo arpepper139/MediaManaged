@@ -62,6 +62,15 @@ div.col {
     height: 375px;
     width: 250px;
   }
+
+  .add-media {
+    display: flex;
+    margin: 0 auto 0 auto;
+  }
+
+  .pagination {
+    visibility: hidden;
+  }
 }
 
 .preview-item:hover {
@@ -75,11 +84,14 @@ div.col {
 
 /* Pagination */
 
-div.pagination {
-  display: inline-block;
-  float: right;
-}
+.homepage-options {
 
-div.pagination button {
-  margin-left: 10px;
+  .pagination {
+    display: inline-block;
+    float: right;
+
+    button {
+      margin-left: 10px;
+    }
+  }
 }

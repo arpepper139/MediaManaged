@@ -20,6 +20,7 @@ const MovieShowTile = (props) => {
         <p>Year: {props.data.year}</p>
         <p>Description: {props.data.description}</p>
         <p>Owned? {owned}</p>
+        <p>Your Rating</p>
       </div>
     </div>
   )

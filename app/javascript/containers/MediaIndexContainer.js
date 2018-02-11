@@ -46,12 +46,12 @@ class MediaIndexContainer extends Component {
     });
   }
 
-  pageFlip(event) {
+  pageFlip(value) {
     event.preventDefault()
     let currentSlice1 = this.state.slicePoint1
     let currentSlice2 = this.state.slicePoint2
     let currentSlice3 = this.state.slicePoint3
-    if (event.target.value === "back") {
+    if (value === "back") {
       let nextSlice1 = currentSlice1 - 12
       let nextSlice2 = currentSlice2 - 12
       let nextSlice3 = currentSlice3 - 12
@@ -61,7 +61,7 @@ class MediaIndexContainer extends Component {
         slicePoint3: nextSlice3
       })
     }
-    else if (event.target.value === "next") {
+    else if (value === "next") {
       let nextSlice1 = currentSlice1 + 12
       let nextSlice2 = currentSlice2 + 12
       let nextSlice3 = currentSlice3 + 12
@@ -111,11 +111,17 @@ class MediaIndexContainer extends Component {
       bottomPreviewTiles = mediaPreviewTiles.slice(this.state.slicePoint2, this.state.slicePoint3)
 
       if (this.state.slicePoint1 !== 0 ) {
-        backButton = <button className="back" value="back" onClick={this.pageFlip}>Back</button>
+        backButton =
+          <button value="back" onClick={() => this.pageFlip("back")}>
+            <i className="fas fa-arrow-left" onClick={() => this.pageFlip("back")}></i>
+          </button>
       }
 
       if (this.state.slicePoint3 < media.length) {
-        nextButton = <button className="back" value="next" onClick={this.pageFlip}>Next</button>
+        nextButton =
+          <button type="button" value="next" onClick={() => this.pageFlip("next")}>
+            <i className="fas fa-arrow-right" onClick={() => this.pageFlip("next")}></i>
+          </button>
       }
     }
 
@@ -125,7 +131,7 @@ class MediaIndexContainer extends Component {
           <div>{ topPreviewTiles }</div>
           <div>{ bottomPreviewTiles }</div>
         </div>
-        <div>
+        <div className="homepage-options">
           <Link to={'/media/new'}>
             <button className="add-media">Add Media</button>
           </Link>

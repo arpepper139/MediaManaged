@@ -9,7 +9,7 @@ div.new-media-page {
   color: white;
   border: solid $primary-border 3px;
   text-align: justify;
-  font-size: 14px;
+  font-size: 16px;
   padding: 3px 5px;
 }
 
@@ -28,7 +28,7 @@ div.new-media-page {
 .media-title {
   display: inline-block;
   line-height: 50px;
-  margin: 0px 0px 0px 10px;
+  margin: 0 0 0 10px;
 }
 
 
@@ -78,6 +78,10 @@ h1.form-header {
   color: $secondary-color;
   font-weight: bold;
   font-family: 'Source Sans Pro';
+}
+
+.description-label {
+  margin: 16px 0;
 }
 
 .fa-exclamation:before {

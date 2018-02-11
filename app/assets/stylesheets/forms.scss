@@ -26,11 +26,11 @@ div#error_explanation h2, div.errors h2 {
   font-family: 'Source Sans Pro';
   font-weight: bold;
   padding: 10px 15px 5px 15px;
-  margin: 0px;
+  margin: 0;
 }
 
 div#error_explanation ul, div.errors ul {
-  padding: 0px 25px;
+  padding: 0 25px;
   font-size: 12px;
   margin-bottom: 10px;
 }
@@ -46,7 +46,7 @@ div.user-field i, em {
 
 p.goodbye {
   font-size: 14px;
-  margin: 5px 0px;
+  margin: 5px 0;
 }
 
 a.edit-password, a.edit-password:visited {
