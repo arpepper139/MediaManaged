@@ -24,11 +24,11 @@ class NewMediaForm extends Component {
       description: '',
       poster: '',
       imdbRating: '',
-      userRating: '',
-      userRatings: [1,2,3,4,5],
+      userRating: ''
     }
 
     this.handleChange = this.handleChange.bind(this)
+    this.handleStarSelection = this.handleStarSelection.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
@@ -74,6 +74,10 @@ class NewMediaForm extends Component {
     let fieldName = event.target.name
     let input = event.target.value
     this.setState({ [fieldName]: input })
+  }
+
+  handleStarSelection(rating) {
+    this.setState({ userRating: rating })
   }
 
   handleSubmit(event) {
@@ -136,17 +140,16 @@ class NewMediaForm extends Component {
           />
         )
       }
-      else if (field.type === "radio") {
-        return(
+      else if (field.type === "rating") {
+        return([
+          <label>{ field.label }</label>,
           <RatingInput
             key={ field.id }
-            label={ field.label }
             name={ field.name }
             value={ this.state[field.name] }
-            ratings={this.state.userRatings}
-            handleChange={ this.handleChange }
+            handleClick={ this.handleStarSelection }
           />
-        )
+        ])
       }
     })
 

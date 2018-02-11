@@ -6,7 +6,6 @@ div.new-media-page {
   background-color: #87cefa;
   color: white;
   border: solid #198FD5 3px;
-  opacity: 60px;
   text-align: justify;
   font-size: 14px;
   padding: 3px 5px;
@@ -19,30 +18,31 @@ div.new-media-page {
   border: 2px solid #1B226C;
   background-color: white;
   width: 60%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: nowrap;
 }
 
 .media-title {
   display: inline-block;
-  margin: 5px;
-  text-align: center;
+  line-height: 50px;
+  margin: 0px 0px 0px 10px;
 }
+
 
 .rating-field {
   display: inline-block;
   margin: 0px;
   padding: 0px;
   border: none;
-}
 
-input[type=radio] {
-  float: left;
-  clear: none;
-}
-
-label.radio-label {
-  float: left;
-  clear: none;
-  padding: 2px 1em 0 0;
+  button {
+    margin: 0px;
+    padding: 0px;
+    background: none;
+    color: gold;
+    outline: none;
+  }
 }
 
 .submit-ownership {

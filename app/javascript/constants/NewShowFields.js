@@ -39,7 +39,7 @@ const newShowFields = [
     label: 'Your Rating',
     name: 'userRating',
     id: 'user-rating',
-    type: 'radio'
+    type: 'rating'
   },
   {
     label: 'Description',
