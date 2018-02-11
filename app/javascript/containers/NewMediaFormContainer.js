@@ -174,6 +174,7 @@ class NewMediaFormContainer extends Component {
     formType,
     validator,
     returnedForm,
+    formClass,
     errorListItems,
     errorDiv
 
@@ -227,12 +228,14 @@ class NewMediaFormContainer extends Component {
           errors={ this.state.errors }
           formType={ formType }
         />
+
+      formClass="new-media-form"
     }
 
     return(
       <div>
         {buttons}
-        <div>
+        <div className={formClass}>
           <h1 className="form-header">{formHeader}</h1>
           {errorDiv}
           {returnedForm}

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router'
 
 import MediaPreview from '../components/MediaPreview'
+import PageButton from '../components/PageButton'
 
 class MediaIndexContainer extends Component {
   constructor(props) {
@@ -46,31 +47,19 @@ class MediaIndexContainer extends Component {
     });
   }
 
-  pageFlip(event) {
+  pageFlip(value) {
     event.preventDefault()
+    let flip = (value === "right" ? 12 : -12)
+
     let currentSlice1 = this.state.slicePoint1
     let currentSlice2 = this.state.slicePoint2
     let currentSlice3 = this.state.slicePoint3
-    if (event.target.value === "back") {
-      let nextSlice1 = currentSlice1 - 12
-      let nextSlice2 = currentSlice2 - 12
-      let nextSlice3 = currentSlice3 - 12
-      this.setState({
-        slicePoint1: nextSlice1,
-        slicePoint2: nextSlice2,
-        slicePoint3: nextSlice3
-      })
-    }
-    else if (event.target.value === "next") {
-      let nextSlice1 = currentSlice1 + 12
-      let nextSlice2 = currentSlice2 + 12
-      let nextSlice3 = currentSlice3 + 12
-      this.setState({
-        slicePoint1: nextSlice1,
-        slicePoint2: nextSlice2,
-        slicePoint3: nextSlice3
-      })
-    }
+
+    this.setState({
+      slicePoint1: currentSlice1 + flip,
+      slicePoint2: currentSlice2 + flip,
+      slicePoint3: currentSlice3 + flip
+    })
   }
 
   render() {
@@ -85,15 +74,8 @@ class MediaIndexContainer extends Component {
     if (media.length !== 0) {
       let key = 0
       let mediaPreviewTiles = media.map((media_object) => {
+        let type = `${media_object.director ? "movie" : "show"}`
         key++
-
-        let type
-        if (media_object.director) {
-          type = "movie"
-        }
-        else {
-          type = "show"
-        }
 
         return(
           <MediaPreview
@@ -106,16 +88,23 @@ class MediaIndexContainer extends Component {
         )
       })
 
-
       topPreviewTiles = mediaPreviewTiles.slice(this.state.slicePoint1, this.state.slicePoint2)
       bottomPreviewTiles = mediaPreviewTiles.slice(this.state.slicePoint2, this.state.slicePoint3)
 
       if (this.state.slicePoint1 !== 0 ) {
-        backButton = <button className="back" value="back" onClick={this.pageFlip}>Back</button>
+        backButton =
+          <PageButton
+            direction="left"
+            pageFlip={ this.pageFlip }
+          />
       }
 
       if (this.state.slicePoint3 < media.length) {
-        nextButton = <button className="back" value="next" onClick={this.pageFlip}>Next</button>
+        nextButton =
+          <PageButton
+            direction="right"
+            pageFlip={ this.pageFlip }
+          />
       }
     }
 
@@ -125,7 +114,7 @@ class MediaIndexContainer extends Component {
           <div>{ topPreviewTiles }</div>
           <div>{ bottomPreviewTiles }</div>
         </div>
-        <div>
+        <div className="homepage-options">
           <Link to={'/media/new'}>
             <button className="add-media">Add Media</button>
           </Link>

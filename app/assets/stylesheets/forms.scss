@@ -1,34 +1,40 @@
+@import './constants';
+
 div.form {
-  padding-bottom: 16px
+  padding-bottom: 16px;
+  background-color: $white;
+  border-radius: 5px;
+  margin-bottom: 10px;
 }
 
 h2.form-header {
   font-size: 20px;
   margin-top: 10px;
-  color: #191970;
+  padding-top: 10px;
+  color: $secondary-color;
   font-weight: bold;
   font-family: 'Source Sans Pro';
 }
 
 div#error_explanation, div.errors {
-  color: white;
-  background-color: #F35659;
+  color: $white;
+  background-color: $error-color;
   border: 3px solid;
-  border-color: #B21519;
+  border-color: $error-border;
   margin-bottom: 5px;
 }
 
 div#error_explanation h2, div.errors h2 {
-  color: white;
+  color: $white;
   font-size: 14px;
   font-family: 'Source Sans Pro';
   font-weight: bold;
   padding: 10px 15px 5px 15px;
-  margin: 0px;
+  margin: 0;
 }
 
 div#error_explanation ul, div.errors ul {
-  padding: 0px 25px;
+  padding: 0 25px;
   font-size: 12px;
   margin-bottom: 10px;
 }
@@ -44,15 +50,15 @@ div.user-field i, em {
 
 p.goodbye {
   font-size: 14px;
-  margin: 5px 0px;
+  margin: 5px 0;
 }
 
 a.edit-password, a.edit-password:visited {
   font-size: 14px;
-  color: #191970;
+  color: $secondary-color;
   padding-top: 5px;
 }
 
 a.edit-password:hover {
-  color: white;
+  color: $white;
 }

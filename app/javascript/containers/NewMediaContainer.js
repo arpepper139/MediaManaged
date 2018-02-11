@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import TextInput from '../components/TextInput'
 import NewOwnershipForm from '../containers/NewOwnershipForm'
 import NewMediaFormContainer from '../containers/NewMediaFormContainer'
+import FlashNotice from '../components/FlashNotice'
 
 const regex = /.*\S.*/
 
@@ -14,8 +15,7 @@ class NewMediaContainer extends Component {
       databaseMatches: [],
       omdbMatch: {},
       searchedDatabase: false,
-      searchedOMDB: false,
-      searchError: ''
+      searchedOMDB: false
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -39,11 +39,9 @@ class NewMediaContainer extends Component {
 
   validateSearch(input) {
     if (!(regex.test(input))) {
-      this.setState({ searchError: 'Please provide a search term' })
       return false
     }
     else {
-      this.setState({ searchError: '' })
       return true
     }
   }
@@ -133,7 +131,6 @@ class NewMediaContainer extends Component {
       omdbMatch: {},
       searchedDatabase: false,
       searchedOMDB: false,
-      searchError: ''
     })
   }
 
@@ -150,19 +147,21 @@ class NewMediaContainer extends Component {
     let results
     let omdbButton
     let addMediaForm
+    let flash
+
+    if (this.state.message !== '') {
+      flash =
+        <FlashNotice
+          message={this.state.message}
+          passMessage={this.grabMessage}
+        />
+    }
 
     if (dataMatches.length !== 0 && regex.test(searchValue)) {
       let key = 0
       results = dataMatches.map((result) => {
+        let type = `${result.director ? "movie" : "show"}`
         key++
-
-        let type
-        if (result.director) {
-          type = "movie"
-        }
-        else {
-          type = "show"
-        }
 
         return(
           <NewOwnershipForm
@@ -176,10 +175,10 @@ class NewMediaContainer extends Component {
         )
       })
 
-      omdbButton = <button className='search-button' onClick={ this.omdbQuery }>Search Omdb</button>
+      omdbButton = <button className='search-button' onClick={ this.omdbQuery }>Search OMDb</button>
     }
     else if (dataMatches.length === 0 && regex.test(searchValue) && searchedDatabase === true) {
-      omdbButton = <button className='search-button' onClick={ this.omdbQuery }>Search Omdb</button>
+      omdbButton = <button className='search-button' onClick={ this.omdbQuery }>Search OMDb</button>
     }
     else if (searchedOMDB === true) {
       addMediaForm =
@@ -192,28 +191,27 @@ class NewMediaContainer extends Component {
     }
 
     return(
-      <div className="new-media-page">
-        <p className="intro">
-          Welcome to MediaManaged's add page! To add media to your collection, please search for it below.
-          If we already have the movie stored, you can click select it to add it. If we don't have the movie stored,
-          but can find it through Omdb, we'll pre-populate an add form for you. Even if we can't find it for you on Omdb,
-          you can still add it yourself!
-        </p>
-        <p>{this.state.message}</p>
-        <form autoComplete="off" onSubmit={this.handleFormSubmit}>
-          <TextInput
-            label={'Find Media'}
-            name="searchValue"
-            value={ this.state.searchValue }
-            handleChange={ this.handleChange }
-          />
-        </form>
-        <p>{this.state.searchError}</p>
-        <div className="search-results">
-          {results}
+      <div>
+        {flash}
+        <div className="new-media-page">
+          <p className="intro">
+            Add movies and shows to your personal collection below! If we can't find what you're looking for in our database,
+            try searching OMDb. If that doesn't work, go ahead and add it yourself!
+          </p>
+          <form autoComplete="off" onSubmit={this.handleFormSubmit}>
+            <TextInput
+              placeholder="Search Our Collection"
+              name="searchValue"
+              value={ this.state.searchValue }
+              handleChange={ this.handleChange }
+            />
+          </form>
+          <div className="search-results">
+            {results}
+          </div>
+          {omdbButton}
+          {addMediaForm}
         </div>
-        {omdbButton}
-        {addMediaForm}
       </div>
     )
   }

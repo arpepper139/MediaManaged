@@ -1,3 +1,5 @@
+@import './constants';
+
 div.homepage {
   margin: 2%;
 }
@@ -11,13 +13,41 @@ div.col {
   padding: 10px;
 }
 
+/* Pagination + Main Div */
+
+.homepage-options {
+  background-color: $white;
+  border-radius: 5px;
+
+  button.add-media {
+    margin: 0 30px 30px 30px;
+  }
+
+  .pagination {
+    display: inline-block;
+    float: right;
+    margin: 0 30px 30px 30px;
+
+    button {
+      color: $background-color;
+      margin-left: 20px;
+    }
+
+    button:focus, button:hover {
+      color: $white
+    }
+  }
+}
+
+// Previews
+
 .preview-item {
-  opacity: 0.6;
+  opacity: 0.7;
   position: relative;
   height: 350px;
   width: 233px;
 
-  color: #353333;
+  color: $preview-default;
 
   margin: auto;
   padding: 10px;
@@ -26,6 +56,17 @@ div.col {
   background-repeat: no-repeat;
   background-size: cover;
 }
+
+.preview-item:hover {
+  opacity: 1.0;
+}
+
+.fa-film {
+  margin-top: 50px;
+  font-size: 60px;
+}
+
+// Responsiveness
 
 @media screen and (min-width: 90em) and (max-width: 110em) {
   .preview-item {
@@ -60,24 +101,19 @@ div.col {
     height: 375px;
     width: 250px;
   }
-}
 
-.preview-item:hover {
-  opacity: 1.0;
-}
+  .homepage-options {
+    a {
+      margin: 5px;
+    }
 
-.fa-film {
-  margin-top: 50px;
-  font-size: 60px;
-}
+    button.add-media {
+      display: flex;
+      margin: 0 auto 0 auto;
+    }
+  }
 
-/* Pagination */
-
-div.pagination {
-  display: inline-block;
-  float: right;
-}
-
-div.pagination button {
-  margin-left: 10px;
+  .pagination {
+    visibility: hidden;
+  }
 }
