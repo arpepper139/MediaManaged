@@ -14,7 +14,7 @@ div.col {
 }
 
 .preview-item {
-  opacity: 0.6;
+  opacity: 0.7;
   position: relative;
   height: 350px;
   width: 233px;
@@ -85,14 +85,24 @@ div.col {
 /* Pagination */
 
 .homepage-options {
+  background-color: $white;
+  border-radius: 5px;
+
+  button {
+    margin: 30px;
+  }
 
   .pagination {
     display: inline-block;
     float: right;
-    
+
     button {
       margin-left: 10px;
       outline: none;
+    }
+
+    button:focus, button:hover {
+      color: $white
     }
   }
 }
