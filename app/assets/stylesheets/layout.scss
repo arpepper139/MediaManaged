@@ -34,10 +34,15 @@ li a:hover {
   color: $white;
 }
 
+li a:focus {
+  color: $primary-color
+}
+
 button {
   color: $white;
   background-color: $secondary-color;
   font-family: 'Source Sans Pro', sans-serif;
+  outline: none;
 }
 
 button:hover, button:focus {

@@ -13,6 +13,34 @@ div.col {
   padding: 10px;
 }
 
+/* Pagination + Main Div */
+
+.homepage-options {
+  background-color: $white;
+  border-radius: 5px;
+
+  button.add-media {
+    margin: 0 30px 30px 30px;
+  }
+
+  .pagination {
+    display: inline-block;
+    float: right;
+    margin: 0 30px 30px 30px;
+
+    button {
+      color: $background-color;
+      margin-left: 20px;
+    }
+
+    button:focus, button:hover {
+      color: $white
+    }
+  }
+}
+
+// Previews
+
 .preview-item {
   opacity: 0.7;
   position: relative;
@@ -37,6 +65,8 @@ div.col {
   margin-top: 50px;
   font-size: 60px;
 }
+
+// Responsiveness
 
 @media screen and (min-width: 90em) and (max-width: 110em) {
   .preview-item {
@@ -72,38 +102,18 @@ div.col {
     width: 250px;
   }
 
-  .add-media {
-    display: flex;
-    margin: 0 auto 0 auto;
+  .homepage-options {
+    a {
+      margin: 5px;
+    }
+
+    button.add-media {
+      display: flex;
+      margin: 0 auto 0 auto;
+    }
   }
 
   .pagination {
     visibility: hidden;
-  }
-}
-
-/* Pagination */
-
-.homepage-options {
-  background-color: $white;
-  border-radius: 5px;
-
-  button {
-    margin: 0 30px 30px 30px;
-  }
-
-  .pagination {
-    display: inline-block;
-    float: right;
-
-    button {
-      margin-left: 10px;
-      outline: none;
-      color: $background-color
-    }
-
-    button:focus, button:hover {
-      color: $white
-    }
   }
 }
