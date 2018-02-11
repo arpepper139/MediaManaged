@@ -6,7 +6,7 @@ RSpec.describe Api::V1::MoviesController, type: :controller do
     it "should return the specified movie" do
       user1 = FactoryBot.create(:user)
       movie1 = FactoryBot.create(:movie)
-      movie_ownership1 = FactoryBot.create(:movie_ownership, user: user1, movie: movie1)
+      movie_ownership1 = FactoryBot.create(:movie_ownership, user: user1, movie: movie1, user_rating: 5)
 
       sign_in(user1)
 
@@ -25,6 +25,7 @@ RSpec.describe Api::V1::MoviesController, type: :controller do
       expect(returned_json["movie"]["runtime"]).to eq movie1.runtime
       expect(returned_json["movie"]["description"]).to eq movie1.description
       expect(returned_json["movie"]["imdb_rating"]).to eq "#{movie1.imdb_rating}"
+      expect(returned_json["movie"]["user_rating"]).to eq 5
       expect(returned_json["movie"]["owned"]).to eq true
     end
   end

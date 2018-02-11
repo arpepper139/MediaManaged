@@ -3,3 +3,13 @@
 div.showpage {
   margin: 2%;
 }
+
+.media-info {
+  background-color: $white;
+  border-radius: 5px;
+  margin-bottom: 2%;
+
+  .showpage-poster {
+    padding-bottom: 20px;
+  }
+}
