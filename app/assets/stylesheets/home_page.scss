@@ -89,7 +89,7 @@ div.col {
   border-radius: 5px;
 
   button {
-    margin: 30px;
+    margin: 0 30px 30px 30px;
   }
 
   .pagination {
@@ -99,6 +99,7 @@ div.col {
     button {
       margin-left: 10px;
       outline: none;
+      color: $background-color
     }
 
     button:focus, button:hover {

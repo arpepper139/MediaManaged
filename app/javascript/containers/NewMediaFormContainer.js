@@ -232,7 +232,7 @@ class NewMediaFormContainer extends Component {
     return(
       <div>
         {buttons}
-        <div>
+        <div className="new-media-form">
           <h1 className="form-header">{formHeader}</h1>
           {errorDiv}
           {returnedForm}

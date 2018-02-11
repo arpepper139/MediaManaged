@@ -2,6 +2,7 @@
 
 div.new-media-page {
   margin: 2%;
+  border-radius: 5px;
 }
 
 .intro {
@@ -70,6 +71,12 @@ div.new-media-page {
 }
 
 /* Forms */
+
+.new-media-form {
+  background-color: $white;
+  border-radius: 5px;
+  padding: 20px;
+}
 
 h1.form-header {
   font-size: 24px;
