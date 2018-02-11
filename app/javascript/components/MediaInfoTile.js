@@ -61,7 +61,7 @@ class MediaInfoTile extends Component {
     return(
       <div className="media-info small-12 medium-12 large-12 columns">
         <div className="small-12 medium-12 large-12 columns">
-          <h1>{this.props.data.name}</h1>
+          <h1 className="title-header">{this.props.data.name}</h1>
         </div>
         <div className="small-12 medium-6 large-4 columns">
           <img className="showpage-poster" src={this.props.data.poster.url}></img>
