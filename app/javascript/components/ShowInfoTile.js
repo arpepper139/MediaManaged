@@ -1,13 +1,7 @@
 import React from 'react'
 
-const ShowShowTile = (props) => {
-  let owned
-  if (props.data.owned) {
-    owned = "Yes"
-  }
-  else {
-    owned = "No"
-  }
+const ShowInfoTile = (props) => {
+  const owned = `${props.data.owned ? "Yes" : "No"}`
 
   return(
     <div className="small-12 large-12 columns">
@@ -25,4 +19,4 @@ const ShowShowTile = (props) => {
   )
 }
 
-export default ShowShowTile
+export default ShowInfoTile

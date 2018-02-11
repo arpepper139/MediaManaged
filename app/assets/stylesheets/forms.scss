@@ -64,7 +64,8 @@ a.edit-password:hover {
   color: $primary-color;
 }
 
-div.actions {
+.actions, .button_to {
+
   input {
     color: $white;
     background-color: $secondary-color;
@@ -76,5 +77,6 @@ div.actions {
 
   input:hover, input:focus {
     color: $primary-color;
+    outline: none;
   }
 }

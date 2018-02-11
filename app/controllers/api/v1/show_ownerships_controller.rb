@@ -19,6 +19,10 @@ class Api::V1::ShowOwnershipsController < ApplicationController
     end
   end
 
+  def update
+    binding.pry
+  end
+
   private
     def show_ownership_params
       params.require(:show_ownership).permit(:show_id, :user_rating)

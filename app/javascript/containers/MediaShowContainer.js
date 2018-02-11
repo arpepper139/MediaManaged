@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
-import MovieShowTile from '../components/MovieShowTile'
-import ShowShowTile from '../components/ShowShowTile'
+import MovieInfoTile from '../components/MovieInfoTile'
+import ShowInfoTile from '../components/ShowInfoTile'
 
 class MediaShowContainer extends Component {
   constructor(props) {
@@ -44,13 +44,13 @@ class MediaShowContainer extends Component {
     if (Object.keys(this.state.media).length !== 0) {
       if (type === "movie") {
         renderedJSX =
-          <MovieShowTile
+          <MovieInfoTile
             data={ this.state.media }
           />
       }
       else {
         renderedJSX =
-          <ShowShowTile
+          <ShowInfoTile
             data={ this.state.media }
           />
       }

@@ -1,13 +1,7 @@
 import React from 'react'
 
-const MovieShowTile = (props) => {
-  let owned
-  if (props.data.owned) {
-    owned = "Yes"
-  }
-  else {
-    owned = "No"
-  }
+const MovieInfoTile = (props) => {
+  const owned = `${props.data.owned ? "Yes" : "No"}`
 
   return(
     <div className="small-12 large-12 columns">
@@ -26,4 +20,4 @@ const MovieShowTile = (props) => {
   )
 }
 
-export default MovieShowTile
+export default MovieInfoTile
