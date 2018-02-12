@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
-import { browserHistory } from 'react-router'
+import { Link, browserHistory } from 'react-router'
 
+import FlashNotice from '../components/FlashNotice.js'
 import RatingInput from '../components/RatingInput.js'
+import Button from '../components/Button.js'
 
 class MediaInfoTile extends Component {
   constructor(props) {
@@ -12,6 +14,7 @@ class MediaInfoTile extends Component {
 
     this.updateUserRating = this.updateUserRating.bind(this)
     this.removeMedia = this.removeMedia.bind(this)
+    this.addMedia = this.addMedia.bind(this)
   }
 
   componentDidMount() {
@@ -86,10 +89,51 @@ class MediaInfoTile extends Component {
     .catch(error => console.error(`Error in fetch: ${error.message}`));
   }
 
-  render() {
-    console.log(this.state)
+  addMedia(event) {
+    event.preventDefault()
+    let type = this.props.type
+    let ownership_field = `${type}_ownership`
+    let media_field = `${type}_id`
+    let formPayload = {
+      [ownership_field]: { [media_field]: this.props.data.id }
+    }
+    fetch(`/api/v1/${type}_ownerships`, {
+      credentials: 'same-origin',
+      method: 'POST',
+      body: JSON.stringify(formPayload),
+      headers: {  'Accept': 'application/json', 'Content-Type': 'application/json' }
+    })
+      .then(response => {
+        if (response.ok) {
+          return response;
+        } else {
+          let errorMessage = `${response.status} (${response.statusText})`,
+          error = new Error(errorMessage);
+          throw(error);
+        }
+      })
+      .then(response => {
+        return response.json()
+      })
+      .then(body => {
+        this.props.passMessage(body.message)
+        this.props.fetchData()
+      })
+      .catch(error => {
+        console.error(`Error in fetch: ${error.message}`)
+      });
+  }
 
-    const buttonText = `${this.props.data.ownership_info ? "Remove From Collection" : "Add To Collection"}`
+  render() {
+    let action, onClickFunction;
+    if (this.props.data.ownership_info) {
+      action = "Remove From Collection"
+      onClickFunction = this.removeMedia
+    }
+    else {
+      action = "Add To Collection"
+      onClickFunction = this.addMedia
+    }
 
     return(
       <div className="media-info small-12 medium-12 large-12 columns">
@@ -118,7 +162,10 @@ class MediaInfoTile extends Component {
         </div>
         <div className="small-12 medium-6 large-8 columns">
           <p>Description: {this.props.data.description}</p>
-          <button type="button" onClick={this.removeMedia}>{buttonText}</button>
+          <Button
+            onClickfunction={onClickFunction}
+            text={action}
+          />
         </div>
       </div>
     )

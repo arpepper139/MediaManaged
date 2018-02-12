@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router'
 import RatingInput from '../components/RatingInput'
 
 class NewOwnershipForm extends Component {
@@ -55,7 +56,9 @@ class NewOwnershipForm extends Component {
   render() {
     return(
       <form className="add-ownership">
-        <p className="media-title">{this.props.name}</p>
+        <Link to={`${this.props.type}s/${this.props.id}`}>
+          <p className="media-title">{this.props.name}</p>
+        </Link>
         <div>
           <RatingInput
             name='rating'
