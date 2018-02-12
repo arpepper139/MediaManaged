@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { Link, browserHistory } from 'react-router'
+import { browserHistory } from 'react-router'
 
 import MediaPreview from '../components/MediaPreview'
+import NewMediaButton from '../components/NewMediaButton'
 import PageButton from '../components/PageButton'
 import FlashNotice from '../components/FlashNotice'
 
@@ -77,7 +78,7 @@ class MediaIndexContainer extends Component {
     let flashNotice
     let topPreviewTiles
     let bottomPreviewTiles
-    let link
+    let addMedia
     let backButton
     let nextButton
 
@@ -124,12 +125,12 @@ class MediaIndexContainer extends Component {
             pageFlip={ this.pageFlip }
           />
       }
-
-      link =
-        <Link to={'/media/new'}>
-          <button className="add-media">Add Media</button>
-        </Link>
     }
+
+    addMedia =
+      <NewMediaButton
+        selectedClass="add-media"
+      />
 
     return(
       <div>
@@ -140,7 +141,7 @@ class MediaIndexContainer extends Component {
             <div>{ bottomPreviewTiles }</div>
           </div>
           <div className="homepage-options">
-            {link}
+            {addMedia}
             <div className="pagination">
               {backButton}
               {nextButton}
