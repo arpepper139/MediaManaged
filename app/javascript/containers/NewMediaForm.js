@@ -110,7 +110,7 @@ class NewMediaForm extends Component {
           poster: this.state.poster,
           imdb_rating: this.state.imdbRating
         },
-        user_rating: this.state.user_rating
+        user_rating: this.state.userRating
       }
     }
     let valid = this.props.validate(formPayload)

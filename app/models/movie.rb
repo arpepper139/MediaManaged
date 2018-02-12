@@ -4,6 +4,9 @@ class Movie < ApplicationRecord
   has_many :movie_ownerships
   has_many :users, through: :movie_ownerships
 
+  has_many :genre_assignments, as: :assignable
+  has_many :genres, through: :genre_assignments
+
   validates :name, presence: true, uniqueness: true
   validates :director, presence: true
   validates :year, presence: true, length: { is: 4 }
