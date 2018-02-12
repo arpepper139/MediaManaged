@@ -17,8 +17,8 @@ ActiveRecord::Schema.define(version: 20180212180749) do
 
   create_table "genre_assignments", force: :cascade do |t|
     t.bigint "genre_id", null: false
-    t.string "assignable_type"
-    t.bigint "assignable_id"
+    t.string "assignable_type", null: false
+    t.bigint "assignable_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["assignable_type", "assignable_id"], name: "index_genre_assignments_on_assignable_type_and_assignable_id"
