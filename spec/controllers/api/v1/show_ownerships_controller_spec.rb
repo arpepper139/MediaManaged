@@ -54,9 +54,7 @@ RSpec.describe Api::V1::ShowOwnershipsController, type: :controller do
 
       expect(returned_json["user_rating"]).to eq 3
     end
-  end
 
-  describe "PATCH#update" do
     it "returns error if the update is unsucessful" do
       rating_update_params = { id: show_ownership1.id, show_ownership: { user_rating: 7 } }
       patch(:update, params: rating_update_params)
@@ -66,6 +64,29 @@ RSpec.describe Api::V1::ShowOwnershipsController, type: :controller do
       expect(response.content_type).to eq("application/json")
 
       expect(returned_json["error"][0]).to eq "User rating is not included in the list"
+    end
+  end
+
+  describe "DELETE#destroy" do
+    it "should delete the specified ownership" do
+      show2 = FactoryBot.create(:show)
+      show_ownership2 = FactoryBot.create(:show_ownership, user: user1, show: show2, user_rating: 3)
+      prev_count = user1.shows.count
+      delete(:destroy, params: { id: show_ownership2.id })
+      expect(user1.shows.count).to eq(prev_count - 1)
+    end
+
+    it "should return a message with the show name that is no longer owned" do
+      show2 = FactoryBot.create(:show)
+      show_ownership2 = FactoryBot.create(:show_ownership, user: user1, show: show2, user_rating: 3)
+
+      delete(:destroy, params: { id: show_ownership2.id })
+
+      returned_json = JSON.parse(response.body)
+      expect(response.status).to eq 200
+      expect(response.content_type).to eq("application/json")
+
+      expect(returned_json["message"]).to eq "Removed #{show2.name} from your collection."
     end
   end
 end

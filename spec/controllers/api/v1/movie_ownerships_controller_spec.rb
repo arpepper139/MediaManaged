@@ -55,9 +55,7 @@ RSpec.describe Api::V1::MovieOwnershipsController, type: :controller do
 
       expect(returned_json["user_rating"]).to eq 3
     end
-  end
 
-  describe "PATCH#update" do
     it "returns error if the update is unsucessful" do
       rating_update_params = { id: movie_ownership1.id, movie_ownership: { user_rating: 7 } }
       patch(:update, params: rating_update_params)
@@ -67,6 +65,29 @@ RSpec.describe Api::V1::MovieOwnershipsController, type: :controller do
       expect(response.content_type).to eq("application/json")
 
       expect(returned_json["error"][0]).to eq "User rating is not included in the list"
+    end
+  end
+
+  describe "DELETE#destroy" do
+    it "should delete the specified ownership" do
+      movie2 = FactoryBot.create(:movie)
+      movie_ownership2 = FactoryBot.create(:movie_ownership, user: user1, movie: movie2, user_rating: 3)
+      prev_count = user1.movies.count
+      delete(:destroy, params: { id: movie_ownership2.id })
+      expect(user1.movies.count).to eq(prev_count - 1)
+    end
+
+    it "should return a message with the movie name that is no longer owned" do
+      movie2 = FactoryBot.create(:movie)
+      movie_ownership2 = FactoryBot.create(:movie_ownership, user: user1, movie: movie2, user_rating: 3)
+
+      delete(:destroy, params: { id: movie_ownership2.id })
+
+      returned_json = JSON.parse(response.body)
+      expect(response.status).to eq 200
+      expect(response.content_type).to eq("application/json")
+
+      expect(returned_json["message"]).to eq "Removed #{movie2.name} from your collection."
     end
   end
 end

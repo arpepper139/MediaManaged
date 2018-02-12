@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router'
+import { Link, browserHistory } from 'react-router'
 
 import MediaPreview from '../components/MediaPreview'
 import PageButton from '../components/PageButton'
+import FlashNotice from '../components/FlashNotice'
 
 class MediaIndexContainer extends Component {
   constructor(props) {
@@ -18,6 +19,7 @@ class MediaIndexContainer extends Component {
     }
 
     this.pageFlip = this.pageFlip.bind(this)
+    this.clearFlash = this.clearFlash.bind(this)
   }
 
   componentDidMount() {
@@ -62,14 +64,30 @@ class MediaIndexContainer extends Component {
     })
   }
 
+  clearFlash() {
+    browserHistory.replace({
+        pathname: '/',
+        state: null
+    })
+  }
+
   render() {
     let media = this.state.media
 
+    let flashNotice
     let returnedJSX
     let topPreviewTiles
     let bottomPreviewTiles
     let backButton
     let nextButton
+
+    if (this.props.location.state) {
+      flashNotice =
+        <FlashNotice
+          message={this.props.location.state.message}
+          clearFlash={this.clearFlash}
+        />
+    }
 
     if (media.length !== 0) {
       let key = 0
@@ -109,18 +127,21 @@ class MediaIndexContainer extends Component {
     }
 
     return(
-      <div className="homepage">
-        <div className="main-col small-12 large-12 columns">
-          <div>{ topPreviewTiles }</div>
-          <div>{ bottomPreviewTiles }</div>
-        </div>
-        <div className="homepage-options">
-          <Link to={'/media/new'}>
-            <button className="add-media">Add Media</button>
-          </Link>
-          <div className="pagination">
-            {backButton}
-            {nextButton}
+      <div>
+        {flashNotice}
+        <div className="homepage">
+          <div className="main-col small-12 large-12 columns">
+            <div>{ topPreviewTiles }</div>
+            <div>{ bottomPreviewTiles }</div>
+          </div>
+          <div className="homepage-options">
+            <Link to={'/media/new'}>
+              <button className="add-media">Add Media</button>
+            </Link>
+            <div className="pagination">
+              {backButton}
+              {nextButton}
+            </div>
           </div>
         </div>
       </div>

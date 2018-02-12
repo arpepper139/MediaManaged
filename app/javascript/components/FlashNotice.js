@@ -1,11 +1,11 @@
 import React from 'react'
 
-const FlashNotice = ({ message, passMessage }) => {
+const FlashNotice = ({ message, clearFlash }) => {
   return(
     <div className="flash">
       {message}
       <div id="close-flash">
-        <i className="fas fa-times" aria-hidden="true" onClick={() => passMessage('')}></i>
+        <i className="fas fa-times" aria-hidden="true" onClick={clearFlash}></i>
       </div>
     </div>
   )
