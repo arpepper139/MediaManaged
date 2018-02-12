@@ -73,7 +73,11 @@ class MediaInfoTile extends Component {
 
   removeMedia(event) {
     event.preventDefault()
-    window.confirm("Are you sure you want to remove this item from your collection?")
+    let result = window.confirm("Are you sure you want to remove this item from your collection?")
+
+    if (result === false) {
+      return false
+    }
 
     let ownershipId = this.props.data.ownership_info.ownership_id
     let type = this.props.type
