@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 import TextInput from '../components/TextInput'
 import RatingInput from '../components/RatingInput'
+import GenreSelect from '../components/GenreSelect'
 
 import NewMovieFields from '../constants/NewMovieFields'
 import NewShowFields from '../constants/NewShowFields'
@@ -161,6 +162,7 @@ class NewMediaForm extends Component {
     return(
       <form>
         {inputFieldComponents}
+        <GenreSelect />
         <button className="submit" onClick={ this.handleSubmit }>Submit</button>
         <i className={exclamationClass}></i>
       </form>

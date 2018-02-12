@@ -176,7 +176,8 @@ class NewMediaFormContainer extends Component {
     returnedForm,
     formClass,
     errorListItems,
-    errorDiv
+    errorDiv,
+    icon
 
     if (this.state.givenType) {
       formHeader = "Add New " + this.capitalize(this.state.givenType)
@@ -206,9 +207,11 @@ class NewMediaFormContainer extends Component {
 
     if (formType === "movie") {
       validator = this.validateMovie
+      icon = <i className="fas fa-ticket-alt"></i>
     }
-    else {
+    else if (formType == "show") {
       validator = this.validateShow
+      icon = <i className="fas fa-video"></i>
     }
 
     if (this.state.givenType === null) {
@@ -236,7 +239,7 @@ class NewMediaFormContainer extends Component {
       <div>
         {buttons}
         <div className={formClass}>
-          <h1 className="form-header">{formHeader}</h1>
+          <h1 className="form-header">{icon} {formHeader}</h1>
           {errorDiv}
           {returnedForm}
         </div>
