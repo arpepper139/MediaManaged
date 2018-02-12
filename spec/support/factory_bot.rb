@@ -40,4 +40,8 @@ FactoryBot.define do
     show
     user_rating 5
   end
+
+  factory :genre do
+    sequence(:name) { |n| "Genre#{n}"}
+  end
 end

@@ -13,7 +13,6 @@ class Api::V1::MoviesController < ApplicationController
       user_id = current_user.id
 
       new_movie.update_attributes(remote_poster_url: params[:movie][:poster])
-      binding.pry
       MovieOwnership.create(user_id: user_id, movie_id: new_movie.id, user_rating: params[:user_rating])
 
       render json: { message: "Sucessfully added #{new_movie.name}!" }, status: 201

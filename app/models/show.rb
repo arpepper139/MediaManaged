@@ -4,6 +4,9 @@ class Show < ApplicationRecord
   has_many :show_ownerships
   has_many :users, through: :show_ownerships
 
+  has_many :genre_assignments, as: :assignable
+  has_many :genres, through: :genre_assignments
+
   validates :name, presence: true, uniqueness: true
   validates :writer, presence: true
   validates :start_year, presence: true, length: { is: 4 }
