@@ -4,6 +4,11 @@ div.homepage {
   margin: 2%;
 }
 
+div.no-media-landing {
+  margin: 2%;
+  text-align: center;
+}
+
 div.main-col {
   padding: 10px 10px 30px 10px;
 }
@@ -11,6 +16,24 @@ div.main-col {
 div.col {
   text-align: center;
   padding: 10px;
+}
+
+// No Media Div
+.prompt-to-add {
+  display: inline-block;
+  background-color: $white;
+  border-radius: 5px;
+  margin: 2%;
+  white-space: nowrap;
+
+  p {
+    padding: 10px;
+    color: $secondary-color;
+  }
+
+  a {
+    padding: 50px;
+  }
 }
 
 /* Pagination + Main Div */
