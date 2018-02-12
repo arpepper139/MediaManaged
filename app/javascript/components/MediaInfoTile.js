@@ -15,6 +15,7 @@ class MediaInfoTile extends Component {
     this.updateUserRating = this.updateUserRating.bind(this)
     this.removeMedia = this.removeMedia.bind(this)
     this.addMedia = this.addMedia.bind(this)
+    this.formatField = this.formatField.bind(this)
   }
 
   componentDidMount() {
@@ -23,6 +24,18 @@ class MediaInfoTile extends Component {
         userRating: this.props.data.ownership_info.user_rating,
       })
     }
+  }
+
+  formatField(fieldName) {
+    let splitWords = fieldName.replace(/_/, " ").split(" ")
+    let upcasedWords = splitWords.map((word) => {
+      return(
+        word.charAt(0).toUpperCase() + word.slice(1)
+      )
+    })
+    let formattedField = upcasedWords.join(" ")
+
+    return formattedField
   }
 
   updateUserRating(ratingValue) {
@@ -135,6 +148,17 @@ class MediaInfoTile extends Component {
       onClickFunction = this.addMedia
     }
 
+    let excluded = ['id', 'imdb_rating', 'ownership_info', 'poster', 'name', 'description']
+    let midDisplayFields = Object.keys(this.props.data).filter(field => !excluded.includes(field))
+
+    let key = 0
+    let displayItems = midDisplayFields.map((fieldName) => {
+      if (this.props.data[fieldName]) {
+        key++
+        return <p key={key}>{`${this.formatField(fieldName)}: ${this.props.data[fieldName]}`}</p>
+      }
+    })
+
     return(
       <div className="media-info small-12 medium-12 large-12 columns">
         <div className="small-12 medium-12 large-12 columns">
@@ -144,23 +168,17 @@ class MediaInfoTile extends Component {
           <img className="showpage-poster" src={this.props.data.poster.url}></img>
         </div>
         <div className="small-12 medium-6 large-4 columns">
-          <p>Director(s): {this.props.data.director}</p>
-          <p>Year: {this.props.data.year}</p>
-          <p>Writer(s): {this.props.data.writer}</p>
-          <p>Years: {this.props.data.start_year}-{this.props.data.end_year}</p>
-          <p>Studio: {this.props.data.studio}</p>
-          <p>Runtime: {this.props.data.runtime}</p>
+          {displayItems}
         </div>
         <div className="small-12 medium-6 large-4 columns">
           <p>IMDb Rating: {this.props.data.imdb_rating}</p>
-          {/* Only Render Your Rating If Ownership Id Present */}
           <p>Your Rating</p>
           <RatingInput
             value={this.state.userRating}
             handleClick={this.updateUserRating}
           />
         </div>
-        <div className="small-12 medium-6 large-8 columns">
+        <div className="description small-12 medium-6 large-8 columns">
           <p>Description: {this.props.data.description}</p>
           <Button
             onClickfunction={onClickFunction}
