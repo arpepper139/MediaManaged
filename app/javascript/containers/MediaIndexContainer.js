@@ -75,9 +75,9 @@ class MediaIndexContainer extends Component {
     let media = this.state.media
 
     let flashNotice
-    let returnedJSX
     let topPreviewTiles
     let bottomPreviewTiles
+    let link
     let backButton
     let nextButton
 
@@ -124,6 +124,11 @@ class MediaIndexContainer extends Component {
             pageFlip={ this.pageFlip }
           />
       }
+
+      link =
+        <Link to={'/media/new'}>
+          <button className="add-media">Add Media</button>
+        </Link>
     }
 
     return(
@@ -135,9 +140,7 @@ class MediaIndexContainer extends Component {
             <div>{ bottomPreviewTiles }</div>
           </div>
           <div className="homepage-options">
-            <Link to={'/media/new'}>
-              <button className="add-media">Add Media</button>
-            </Link>
+            {link}
             <div className="pagination">
               {backButton}
               {nextButton}
