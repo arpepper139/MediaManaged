@@ -29,6 +29,13 @@ class Api::V1::MovieOwnershipsController < ApplicationController
     end
   end
 
+  def destroy
+    movie_ownership = MovieOwnership.find(params[:id])
+    movie = movie_ownership.movie
+    movie_ownership.destroy
+    render json: { message: "Removed #{movie.name} from your collection."}
+  end
+
   private
     def movie_ownership_params
       params.require(:movie_ownership).permit(:movie_id, :user_rating)

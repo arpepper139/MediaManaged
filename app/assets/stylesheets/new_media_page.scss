@@ -25,6 +25,14 @@ div.new-media-page {
   display: flex;
   justify-content: space-between;
   flex-wrap: nowrap;
+
+  a {
+    color: $secondary-color
+  }
+
+  a:hover, a:focus {
+    color: $primary-color
+  }
 }
 
 @media screen and (max-width: 63.9375em) {

@@ -1,5 +1,9 @@
 import React, { Component } from 'react'
+import { Link, browserHistory } from 'react-router'
+
+import FlashNotice from '../components/FlashNotice.js'
 import RatingInput from '../components/RatingInput.js'
+import Button from '../components/Button.js'
 
 class MediaInfoTile extends Component {
   constructor(props) {
@@ -10,53 +14,126 @@ class MediaInfoTile extends Component {
 
     this.updateUserRating = this.updateUserRating.bind(this)
     this.removeMedia = this.removeMedia.bind(this)
+    this.addMedia = this.addMedia.bind(this)
   }
 
   componentDidMount() {
-    this.setState({
-      userRating: this.props.data.ownership_info.user_rating,
-    })
+    if (this.props.data.ownership_info !== null) {
+      this.setState({
+        userRating: this.props.data.ownership_info.user_rating,
+      })
+    }
   }
 
   updateUserRating(ratingValue) {
+    if (this.props.data.ownership_info) {
+      let ownershipId = this.props.data.ownership_info.ownership_id
+      let type = this.props.type
+
+      let formPayload = {
+        [`${type}_ownership`]: {
+          user_rating: ratingValue
+        }
+      }
+      fetch(`/api/v1/${type}_ownerships/${ownershipId}.json`, {
+        method: 'PATCH',
+        credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formPayload)
+      })
+      .then(response => {
+        if (response.ok) {
+          return response
+        } else {
+          let errorMessage = `${response.status} (${response.statusText})`;
+          let error = new Error(errorMessage);
+          throw(error)
+        }
+      })
+      .then(response => response.json())
+      .then(body => {
+        this.setState({ userRating: body.user_rating })
+      })
+      .catch(error => console.error(`Error in fetch patch: ${error.message}`))
+    }
+  }
+
+  removeMedia(event) {
+    event.preventDefault()
+    window.confirm("Are you sure you want to remove this item from your collection?")
+
     let ownershipId = this.props.data.ownership_info.ownership_id
     let type = this.props.type
-
-    let formPayload = {
-      [`${type}_ownership`]: {
-        user_rating: ratingValue
-      }
-    }
-    fetch(`/api/v1/${type}_ownerships/${ownershipId}.json`, {
-      method: 'PATCH',
-      credentials: 'same-origin',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formPayload)
+    fetch(`/api/v1/${type}_ownerships/${ownershipId}`, {
+      method: 'DELETE',
+      credentials: 'same-origin'
     })
     .then(response => {
       if (response.ok) {
-        return response
+        return response;
       } else {
-        let errorMessage = `${response.status} (${response.statusText})`;
-        let error = new Error(errorMessage);
-        throw(error)
+        let errorMessage = `${response.status} (${response.statusText})`,
+        error = new Error(errorMessage);
+        throw(error);
       }
     })
-    .then(response => response.json())
-    .then(body => {
-      this.setState({ userRating: body.user_rating })
+    .then(response => {
+      return response.json()
     })
-    .catch(error => console.error(`Error in fetch patch: ${error.message}`))
+    .then(body => {
+      browserHistory.push({
+        pathname: "/",
+        state: { message: body.message }
+      })
+    })
+    .catch(error => console.error(`Error in fetch: ${error.message}`));
   }
 
-  removeMedia() {
-    debugger
+  addMedia(event) {
+    event.preventDefault()
+    let type = this.props.type
+    let ownership_field = `${type}_ownership`
+    let media_field = `${type}_id`
+    let formPayload = {
+      [ownership_field]: { [media_field]: this.props.data.id }
+    }
+    fetch(`/api/v1/${type}_ownerships`, {
+      credentials: 'same-origin',
+      method: 'POST',
+      body: JSON.stringify(formPayload),
+      headers: {  'Accept': 'application/json', 'Content-Type': 'application/json' }
+    })
+      .then(response => {
+        if (response.ok) {
+          return response;
+        } else {
+          let errorMessage = `${response.status} (${response.statusText})`,
+          error = new Error(errorMessage);
+          throw(error);
+        }
+      })
+      .then(response => {
+        return response.json()
+      })
+      .then(body => {
+        this.props.passMessage(body.message)
+        this.props.fetchData()
+      })
+      .catch(error => {
+        console.error(`Error in fetch: ${error.message}`)
+      });
   }
 
   render() {
-    console.log(this.state)
-
-    const buttonText = `${this.props.data.ownership_info.ownership_id ? "Remove From Collection" : "Add To Collection"}`
+    let action, onClickFunction;
+    if (this.props.data.ownership_info) {
+      action = "Remove From Collection"
+      onClickFunction = this.removeMedia
+    }
+    else {
+      action = "Add To Collection"
+      onClickFunction = this.addMedia
+    }
 
     return(
       <div className="media-info small-12 medium-12 large-12 columns">
@@ -85,7 +162,10 @@ class MediaInfoTile extends Component {
         </div>
         <div className="small-12 medium-6 large-8 columns">
           <p>Description: {this.props.data.description}</p>
-          <button type="button">{buttonText}</button>
+          <Button
+            onClickfunction={onClickFunction}
+            text={action}
+          />
         </div>
       </div>
     )

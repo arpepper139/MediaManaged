@@ -18,6 +18,7 @@ class NewMediaContainer extends Component {
       searchedOMDB: false
     }
 
+    this.clearFlash = this.clearFlash.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.validateSearch = this.validateSearch.bind(this)
     this.databaseQuery = this.databaseQuery.bind(this)
@@ -25,6 +26,10 @@ class NewMediaContainer extends Component {
     this.handleClearSearch = this.handleClearSearch.bind(this)
     this.handleFormSubmit = this.handleFormSubmit.bind(this)
     this.grabMessage = this.grabMessage.bind(this)
+  }
+
+  clearFlash() {
+    this.setState({ message: '' })
   }
 
   handleChange(event) {
@@ -153,7 +158,7 @@ class NewMediaContainer extends Component {
       flash =
         <FlashNotice
           message={this.state.message}
-          passMessage={this.grabMessage}
+          clearFlash={this.clearFlash}
         />
     }
 

@@ -29,6 +29,13 @@ class Api::V1::ShowOwnershipsController < ApplicationController
     end
   end
 
+  def destroy
+    show_ownership = ShowOwnership.find(params[:id])
+    show = show_ownership.show
+    show_ownership.destroy
+    render json: { message: "Removed #{show.name} from your collection."}
+  end
+
   private
     def show_ownership_params
       params.require(:show_ownership).permit(:show_id, :user_rating)
