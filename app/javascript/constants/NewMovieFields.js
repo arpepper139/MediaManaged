@@ -36,12 +36,6 @@ const newMovieFields = [
     type: 'text'
   },
   {
-    label: 'Your Rating',
-    name: 'userRating',
-    id: 'user-rating',
-    type: 'rating'
-  },
-  {
     label: 'Description',
     name: 'description',
     id: 'description',

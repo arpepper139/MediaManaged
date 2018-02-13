@@ -30,7 +30,19 @@ class Api::V1::SearchController < ApplicationController
       query = params[:name].strip.downcase
 
       response = HTTParty.get("http://www.omdbapi.com/?t=#{query}&apikey=#{ENV["API_KEY"]}")
+
       default_response = { message: "We couldn't find anything on Omdb, but you can add the movie below!" }
+
+      if response["Genre"] != nil
+        supplied_genres = response["Genre"].split(', ')
+
+        database_genres = []
+        supplied_genres.each do |genre|
+          if Genre.where(name: genre) != []
+            database_genres << genre
+          end
+        end
+      end
 
       if response["Type"] == "movie"
         processed_response = {
@@ -42,7 +54,8 @@ class Api::V1::SearchController < ApplicationController
               year: response["Year"],
               runtime: response["Runtime"],
               description: response["Plot"],
-              imdb_rating: response["imdbRating"]
+              imdb_rating: response["imdbRating"],
+              genres: database_genres
             },
             message: "Movie Found! #{response["Title"]}"
           }
@@ -56,7 +69,8 @@ class Api::V1::SearchController < ApplicationController
             start_year: years[0],
             end_year: years[1],
             description: response["Plot"],
-            imdb_rating: response["imdbRating"]
+            imdb_rating: response["imdbRating"],
+            genres: database_genres
           },
           message: "Show Found! #{response["Title"]}"
         }

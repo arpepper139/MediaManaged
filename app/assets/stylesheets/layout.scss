@@ -17,11 +17,10 @@ body {
   display: flex;
   flex-direction: column;
   background-color: $white;
-  background: url(https://s3.amazonaws.com/media-managed-production/3a2c821cbb1dd1be0ebe0f16a560ae83+2.jpg)
+  background: url(https://s3.amazonaws.com/media-managed-production/popcorn-40.jpg)
     no-repeat
     center
-    fixed
-    rgba(10,0,0,1.0);
+    fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;

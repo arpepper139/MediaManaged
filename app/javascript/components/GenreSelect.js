@@ -31,10 +31,20 @@ class GenreSelect extends Component {
   }
 
   render() {
+    let checked
+    let genres = this.props.genres
     let genreChoices = this.state.genreOptions.map((genre) => {
+      const checked = genres.includes(genre.name) ? true : false
+
       return(
         <span key={ genre.id } className="genre">{ genre.name }
-          <input type="checkbox" value={ genre.name } name={ genre.name } />
+          <input
+            type="checkbox"
+            value={ genre.name }
+            name={ genre.name }
+            defaultChecked={checked}
+            onChange={() => this.props.handleChange(genre.name)}
+          />
         </span>
       )
     })
