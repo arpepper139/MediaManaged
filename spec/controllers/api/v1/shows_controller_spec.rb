@@ -6,7 +6,9 @@ RSpec.describe Api::V1::ShowsController, type: :controller do
     it "should return the specified show" do
       user1 = FactoryBot.create(:user)
       show1 = FactoryBot.create(:show)
+      genre1 = FactoryBot.create(:genre)
       show_ownership1 = FactoryBot.create(:show_ownership, user: user1, show: show1, user_rating: 4)
+      genre_assignment1 = GenreAssignment.create!(genre: genre1, assignable: show1)
 
       sign_in(user1)
 
@@ -27,6 +29,7 @@ RSpec.describe Api::V1::ShowsController, type: :controller do
       expect(returned_json["show"]["imdb_rating"]).to eq "#{show1.imdb_rating}"
       expect(returned_json["show"]["ownership_info"]["user_rating"]).to eq 4
       expect(returned_json["show"]["ownership_info"]["ownership_id"]).to eq show_ownership1.id
+      expect(returned_json["show"]["genres"][0]["name"]).to eq genre1.name
     end
   end
 
@@ -43,8 +46,9 @@ RSpec.describe Api::V1::ShowsController, type: :controller do
   end
 
   it "should return status 201 and a success message" do
+    genre1 = FactoryBot.create(:genre)
     user1 = FactoryBot.create(:user)
-    new_show = { show: { name: "A New Show", writer: "Great Writer", studio: "Disney", start_year: "1995", end_year: "2001", description: "It's Great!", imdb_rating: "8.5" }, user_rating: "5" }
+    new_show = { show: { name: "A New Show", writer: "Great Writer", studio: "Disney", start_year: "1995", end_year: "2001", description: "It's Great!", imdb_rating: "8.5" }, user_rating: "5", genres:[genre1.name] }
 
     sign_in(user1)
     post(:create, params: new_show)

@@ -16,7 +16,7 @@ class Api::V1::ShowsController < ApplicationController
       new_show.update_attributes(remote_poster_url: params[:show][:poster])
       ShowOwnership.create(user_id: user_id, show_id: new_show.id, user_rating: params[:user_rating])
 
-      if provided_genres != []
+      if provided_genres != [] && provided_genres != nil
         provided_genres.each do |provided_genre|
           genre = Genre.where(name: provided_genre)[0]
           new_show.genres << genre

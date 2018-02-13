@@ -7,12 +7,13 @@ div.new-media-page {
 
 .intro {
   background-color: $primary-color;
-  color: white;
-  border: solid $primary-border 3px;
+  color: $secondary-color;
+  border: solid $secondary-color 3px;
   border-radius: 5px;
   text-align: justify;
   font-size: 16px;
   padding: 3px 5px;
+  opacity: 0.8;
 }
 
 /* Database Search Results */

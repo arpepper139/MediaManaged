@@ -8,6 +8,18 @@ html {
   display: none;
 }
 
+::-moz-scrollbar {
+  display: none;
+}
+
+::selection {
+  background: $primary-color;
+}
+
+::-moz-selection {
+  background: $primary-color;
+}
+
 h1, h2, h3, h4, h5, h6, p, span {
   font-family: 'Source Sans Pro', sans-serif;
 }
@@ -133,7 +145,7 @@ li.dropdown {
 
 .flash {
   background-color: $primary-color;
-  color: $white;
+  color: $secondary-color;
   font-size: 12px;
   padding: 3px 5px;
 }
@@ -151,7 +163,7 @@ footer {
   text-align: center;
   font-size: 12px;
   padding: 10px 20px;
-  background-color: $primary-color;
+  background-color: $tertiary-color;
 }
 
 footer a, footer a:visited {
@@ -159,5 +171,5 @@ footer a, footer a:visited {
 }
 
 footer a:hover {
-  color: $secondary-color;
+  text-decoration: underline dotted;
 }

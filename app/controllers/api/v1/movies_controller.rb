@@ -16,7 +16,7 @@ class Api::V1::MoviesController < ApplicationController
       new_movie.update_attributes(remote_poster_url: params[:movie][:poster])
       MovieOwnership.create(user_id: user_id, movie_id: new_movie.id, user_rating: params[:user_rating])
 
-      if provided_genres != []
+      if provided_genres != [] && provided_genres != nil
         provided_genres.each do |provided_genre|
           genre = Genre.where(name: provided_genre)[0]
           new_movie.genres << genre
