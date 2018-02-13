@@ -152,7 +152,7 @@ class MediaInfoTile extends Component {
       onClickFunction = this.addMedia
     }
 
-    let excluded = ['id', 'imdb_rating', 'ownership_info', 'poster', 'name', 'description']
+    let excluded = ['id', 'imdb_rating', 'ownership_info', 'poster', 'name', 'description', 'genres']
     let midDisplayFields = Object.keys(this.props.data).filter(field => !excluded.includes(field))
 
     let key = 0
@@ -162,6 +162,11 @@ class MediaInfoTile extends Component {
         return <p key={key}>{`${this.formatField(fieldName)}: ${this.props.data[fieldName]}`}</p>
       }
     })
+
+    let genresArray = this.props.data.genres.map((genre) => {
+      return genre.name
+    })
+    let genresString = genresArray.sort().join(', ')
 
     return(
       <div className="media-info small-12 medium-12 large-12 columns">
@@ -173,6 +178,7 @@ class MediaInfoTile extends Component {
         </div>
         <div className="small-12 medium-6 large-4 columns">
           {displayItems}
+          <p>Genres: {genresString}</p>
         </div>
         <div className="small-12 medium-6 large-4 columns">
           <p>IMDb Rating: {this.props.data.imdb_rating}</p>

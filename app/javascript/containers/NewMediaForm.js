@@ -114,7 +114,8 @@ class NewMediaForm extends Component {
           poster: this.state.poster,
           imdb_rating: this.state.imdbRating
         },
-        user_rating: this.state.userRating
+        user_rating: this.state.userRating,
+        genres: this.state.genres
       }
     }
     else {
@@ -129,7 +130,8 @@ class NewMediaForm extends Component {
           poster: this.state.poster,
           imdb_rating: this.state.imdbRating
         },
-        user_rating: this.state.userRating
+        user_rating: this.state.userRating,
+        genres: this.state.genres
       }
     }
     let valid = this.props.validate(formPayload)

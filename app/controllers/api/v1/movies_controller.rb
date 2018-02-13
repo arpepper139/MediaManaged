@@ -10,10 +10,18 @@ class Api::V1::MoviesController < ApplicationController
   def create
     new_movie = Movie.new(movie_params)
     if new_movie.save
+      provided_genres = params[:genres]
       user_id = current_user.id
 
       new_movie.update_attributes(remote_poster_url: params[:movie][:poster])
       MovieOwnership.create(user_id: user_id, movie_id: new_movie.id, user_rating: params[:user_rating])
+
+      if provided_genres != []
+        provided_genres.each do |provided_genre|
+          genre = Genre.where(name: provided_genre)[0]
+          new_movie.genres << genre
+        end
+      end
 
       render json: { message: "Sucessfully added #{new_movie.name}!" }, status: 201
     else
