@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 import FlashNotice from '../components/FlashNotice'
-import MediaInfoTile from '../components/MediaInfoTile'
+import MediaInfoTile from '../containers/MediaInfoTile'
 
 class MediaShowContainer extends Component {
   constructor(props) {

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { browserHistory } from 'react-router'
 
 import FlashNotice from '../components/FlashNotice'
-import MediaIndexTile from '../components/MediaIndexTile'
+import MainPage from '../components/MainPage'
 import AddMediaPrompt from '../components/AddMediaPrompt'
 
 class MediaIndexContainer extends Component {
@@ -50,7 +50,7 @@ class MediaIndexContainer extends Component {
   }
 
   sortMedia(param) {
-    //fetch here
+    debugger
   }
 
   render() {
@@ -65,8 +65,9 @@ class MediaIndexContainer extends Component {
 
     if (this.state.media.length !== 0) {
       displayComponent =
-        <MediaIndexTile
+        <MainPage
           media={this.state.media}
+          sortMedia={this.sortMedia}
         />
     }
     else if (this.state.media.length === 0 && this.state.loaded === true){

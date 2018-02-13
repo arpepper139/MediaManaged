@@ -53,11 +53,11 @@ li a, li a:visited {
   color: $primary-color;
 }
 
-li a:hover {
+a:hover {
   color: $white;
 }
 
-li a:focus {
+a:focus {
   color: $primary-color
 }
 
@@ -127,18 +127,14 @@ li.dropdown {
 }
 
 .dropdown-content a {
-    color: $secondary-color;
-    text-decoration: none;
+    text-align: center;
     display: block;
     padding: 7px 0;
     height: 40px;
-    text-align: center;
 }
 
 .dropdown:hover .dropdown-content {
     display: block;
-    left: auto;
-    right: 0;
 }
 
 /* Flash Notice */

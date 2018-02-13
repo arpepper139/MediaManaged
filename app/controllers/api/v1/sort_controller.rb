@@ -4,13 +4,14 @@ class Api::V1::SortController < ApplicationController
 
   def type
     user = current_user
-    if params[:return] == "movies"
+
+    if params[:return] == "movie"
       if user.movies == []
         render json: { results: "Nothing Found" }
       else
         render json: { results: user.movies }
       end
-    elsif params[:return] == "shows"
+    elsif params[:return] == "show"
       if user.shows == []
         render json: { results: "Nothing Found" }
       else
