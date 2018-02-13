@@ -15,7 +15,7 @@ users.each do |user_params|
   email = user_params[:email]
   user = User.find_or_initialize_by(email: email)
   user.assign_attributes(user_params)
-  user.save
+  user.save!
 end
 
 movies = [
@@ -141,4 +141,21 @@ shows.each do |show_params|
   if show.save!
     ShowOwnership.find_or_create_by!(user: User.find(1), show: show)
   end
+end
+
+genres = [
+  {name: "Action"},
+  {name: "Animation"},
+  {name: "Comedy"},
+  {name: "Drama"},
+  {name: "Fantasy"},
+  {name: "Horror"},
+  {name: "Romance"},
+  {name: "Sci-Fi"}
+]
+
+genres.each do |genre_params|
+  name = genre_params[:name]
+  genre = Genre.find_or_initialize_by(name: name)
+  genre.save!
 end

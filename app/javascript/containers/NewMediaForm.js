@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 import TextInput from '../components/TextInput'
 import RatingInput from '../components/RatingInput'
+import GenreSelect from '../components/GenreSelect'
 
 import NewMovieFields from '../constants/NewMovieFields'
 import NewShowFields from '../constants/NewShowFields'
@@ -12,6 +13,7 @@ class NewMediaForm extends Component {
     this.state = {
       name: '',
       studio: '',
+      genres: [],
 
       writer: '',
       startYear: '',
@@ -29,6 +31,7 @@ class NewMediaForm extends Component {
 
     this.handleChange = this.handleChange.bind(this)
     this.handleStarSelection = this.handleStarSelection.bind(this)
+    this.handleGenreSelection = this.handleGenreSelection.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
@@ -50,7 +53,8 @@ class NewMediaForm extends Component {
           endYear: endYear,
           description: this.props.fieldInfo.description,
           imdbRating: this.props.fieldInfo.imdb_rating,
-          poster: this.props.fieldInfo.poster
+          poster: this.props.fieldInfo.poster,
+          genres: this.props.fieldInfo.genres
         })
       }
     }
@@ -63,7 +67,8 @@ class NewMediaForm extends Component {
         runtime: this.props.fieldInfo.runtime,
         description: this.props.fieldInfo.description,
         imdbRating: this.props.fieldInfo.imdb_rating,
-        poster: this.props.fieldInfo.poster
+        poster: this.props.fieldInfo.poster,
+        genres: this.props.fieldInfo.genres
       })
     }
 
@@ -78,6 +83,20 @@ class NewMediaForm extends Component {
 
   handleStarSelection(rating) {
     this.setState({ userRating: rating })
+  }
+
+  handleGenreSelection(genre) {
+    let currentSelectedGenres = this.state.genres
+    let nextSelectedGenres
+    if (currentSelectedGenres.includes(genre)) {
+      nextSelectedGenres = currentSelectedGenres.filter(currentGenre => {
+        return currentGenre !== genre
+      })
+    }
+    else {
+      nextSelectedGenres = currentSelectedGenres.concat(genre)
+    }
+    this.setState({ genres: nextSelectedGenres })
   }
 
   handleSubmit(event) {
@@ -95,7 +114,8 @@ class NewMediaForm extends Component {
           poster: this.state.poster,
           imdb_rating: this.state.imdbRating
         },
-        user_rating: this.state.userRating
+        user_rating: this.state.userRating,
+        genres: this.state.genres
       }
     }
     else {
@@ -110,7 +130,8 @@ class NewMediaForm extends Component {
           poster: this.state.poster,
           imdb_rating: this.state.imdbRating
         },
-        user_rating: this.state.userRating
+        user_rating: this.state.userRating,
+        genres: this.state.genres
       }
     }
     let valid = this.props.validate(formPayload)
@@ -129,28 +150,15 @@ class NewMediaForm extends Component {
     }
 
     let inputFieldComponents = formTypeFields.map((field) => {
-      if (field.type === "text") {
-        return(
-          <TextInput
-            key={ field.id }
-            label={ field.label }
-            value={ this.state[field.name] }
-            name={ field.name }
-            handleChange={ this.handleChange }
-          />
-        )
-      }
-      else if (field.type === "rating") {
-        return([
-          <label>{ field.label }</label>,
-          <RatingInput
-            key={ field.id }
-            name={ field.name }
-            value={ this.state[field.name] }
-            handleClick={ this.handleStarSelection }
-          />
-        ])
-      }
+      return(
+        <TextInput
+          key={ field.id }
+          label={ field.label }
+          value={ this.state[field.name] }
+          name={ field.name }
+          handleChange={ this.handleChange }
+        />
+      )
     })
 
     let exclamationClass = "fas fa-exclamation hidden"
@@ -160,7 +168,19 @@ class NewMediaForm extends Component {
 
     return(
       <form>
-        {inputFieldComponents}
+        {inputFieldComponents.slice(0, 2)}
+        <GenreSelect
+          genres={ this.state.genres }
+          handleChange={ this.handleGenreSelection }
+        />
+        {inputFieldComponents.slice(2, 5)}
+        <label>Your Rating</label>
+        <RatingInput
+          name='userRating'
+          value={ this.state.userRating }
+          handleClick={ this.handleStarSelection }
+        />
+        {inputFieldComponents[6]}
         <button className="submit" onClick={ this.handleSubmit }>Submit</button>
         <i className={exclamationClass}></i>
       </form>
