@@ -14,6 +14,7 @@ class MediaIndexContainer extends Component {
     }
 
     this.clearFlash = this.clearFlash.bind(this)
+    this.sortMedia = this.sortMedia.bind(this)
   }
 
   componentDidMount() {
@@ -46,6 +47,10 @@ class MediaIndexContainer extends Component {
         pathname: '/',
         state: null
     })
+  }
+
+  sortMedia(param) {
+    //fetch here
   }
 
   render() {
