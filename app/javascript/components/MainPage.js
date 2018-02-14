@@ -5,7 +5,9 @@ import SortBar from '../containers/SortBar'
 const MainPage = (props) => {
   return(
     <div className="homepage">
-      <SortBar />
+      <SortBar
+        sortMedia={props.sortMedia}
+      />
       <MediaIndexTile
         media={props.media}
       />

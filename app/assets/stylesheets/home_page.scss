@@ -18,11 +18,19 @@ div.col {
   padding: 10px;
 }
 
+// Message
+.homepage-greeting {
+  margin: 2% 1.5%;
+  font-size: 22px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: bold;
+  color: $secondary-color;
+  text-align: center;
+}
+
 // No Media Div
 .prompt-to-add {
   display: inline-block;
-  background-color: $white;
-  border-radius: 5px;
   margin: 2%;
   white-space: nowrap;
 
@@ -33,6 +41,10 @@ div.col {
 
   a {
     padding: 50px;
+  }
+
+  button {
+    margin: 0
   }
 }
 
@@ -100,8 +112,8 @@ div.col {
 
 @media screen and (min-width: 75em) and (max-width: 89.9375em) {
   .preview-item {
-    height: 250px;
-    width: 166px;
+    height: 225px;
+    width: 150px;
   }
 }
 

@@ -53,7 +53,7 @@ li a, li a:visited {
   color: $primary-color;
 }
 
-a:hover {
+li a:hover {
   color: $white;
 }
 
@@ -76,11 +76,12 @@ button:hover, button:focus {
 /* LoggedOutMessage */
 
 h1.greeting {
-  margin: 2% 1.5%;
-  font-size: 20px;
+  margin: 6% 1.5%;
+  font-size: 24px;
   font-family: 'Source Sans Pro', sans-serif;
   font-weight: bold;
   color: $secondary-color;
+  text-align: center;
 }
 
 /* NavBar */
@@ -135,6 +136,10 @@ li.dropdown {
 
 .dropdown:hover .dropdown-content {
     display: block;
+}
+
+.username {
+  font-size: 18px;
 }
 
 /* Flash Notice */
