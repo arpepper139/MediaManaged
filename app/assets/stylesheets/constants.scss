@@ -1,18 +1,17 @@
 @import url('https://fonts.googleapis.com/css?family=Courgette');
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
 
-$primary-color: #DEBC7B;
-$secondary-color: #740F0B;
-$tertiary-color: #584545;
+$primary-color: #c39e6d;
+$secondary-color: #1F1D1D;
+$tertiary-color: #55565a;
 $background-color: #F2F2F2;
 
 $white: #F2F2F2;
 
-$star-gold: #DEBC7B;
+$star-gold: saturate(#c39e6d, 15%);
 
-$dropdown-color: #f9f9f9;
+$dropdown-color: #F2F2F2;
 
 $preview-default: #353333;
 
-$error-color: #F1575C;
-$error-border: #B01921;
+$error-color: #E31837;

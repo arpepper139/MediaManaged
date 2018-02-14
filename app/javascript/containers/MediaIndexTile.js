@@ -76,7 +76,7 @@ class MediaIndexTile extends Component {
     }
 
     return(
-      <div className="homepage">
+      <div>
         <div className="main-col small-12 large-12 columns">
           <div>{ topPreviewTiles }</div>
           <div>{ bottomPreviewTiles }</div>

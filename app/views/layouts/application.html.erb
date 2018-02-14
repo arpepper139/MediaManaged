@@ -21,7 +21,7 @@
         <ul class="links">
           <%- if current_user -%>
             <li class="dropdown">
-              <a href="javascript:void(0)" class="dropbtn" ><%= "#{current_user.first_name}" %></a>
+              <a href="javascript:void(0)" class="dropbtn username" ><%= "#{current_user.first_name}" %></a>
               <div class="dropdown-content">
                 <%= link_to 'Edit Info', edit_user_registration_path %>
                 <%= link_to 'Sign Out', destroy_user_session_path, method: :delete %>

@@ -43,7 +43,7 @@ class GenreSelect extends Component {
             value={ genre.name }
             name={ genre.name }
             defaultChecked={checked}
-            onChange={() => this.props.handleChange(genre.name)}
+            onClick={() => this.props.handleChange(genre.name)}
           />
         </span>
       )

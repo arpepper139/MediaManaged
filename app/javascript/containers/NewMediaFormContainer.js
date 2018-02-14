@@ -162,6 +162,7 @@ class NewMediaFormContainer extends Component {
       })
       .then((errorBody) => {
         if (errorBody !== undefined) {
+          debugger
           this.setState({ errors: { saveError: errorBody.error } })
           this.props.passMessage('')
         }

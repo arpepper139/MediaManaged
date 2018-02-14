@@ -22,6 +22,12 @@ Rails.application.routes.draw do
       resources :search, only: [:index] do
         get :external, on: :collection
       end
+
+      resources :sort, only: [] do
+        get :type, on: :collection
+        get :genre, on: :collection
+        get :rating, on: :collection
+      end
     end
   end
 

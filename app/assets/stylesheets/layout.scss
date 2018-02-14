@@ -20,6 +20,10 @@ html {
   background: $primary-color;
 }
 
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 30px white inset;
+}
+
 h1, h2, h3, h4, h5, h6, p, span {
   font-family: 'Source Sans Pro', sans-serif;
 }
@@ -57,7 +61,7 @@ li a:hover {
   color: $white;
 }
 
-li a:focus {
+a:focus {
   color: $primary-color
 }
 
@@ -76,11 +80,12 @@ button:hover, button:focus {
 /* LoggedOutMessage */
 
 h1.greeting {
-  margin: 2% 1.5%;
-  font-size: 20px;
+  margin: 5% 1.5%;
+  font-size: 24px;
   font-family: 'Source Sans Pro', sans-serif;
   font-weight: bold;
   color: $secondary-color;
+  text-align: center;
 }
 
 /* NavBar */
@@ -127,18 +132,18 @@ li.dropdown {
 }
 
 .dropdown-content a {
-    color: $secondary-color;
-    text-decoration: none;
+    text-align: center;
     display: block;
     padding: 7px 0;
     height: 40px;
-    text-align: center;
 }
 
 .dropdown:hover .dropdown-content {
     display: block;
-    left: auto;
-    right: 0;
+}
+
+.username {
+  font-size: 18px;
 }
 
 /* Flash Notice */
@@ -163,7 +168,7 @@ footer {
   text-align: center;
   font-size: 12px;
   padding: 10px 20px;
-  background-color: $tertiary-color;
+  background-color: $secondary-color;
 }
 
 footer a, footer a:visited {

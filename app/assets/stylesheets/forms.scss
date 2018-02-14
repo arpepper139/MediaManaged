@@ -20,7 +20,7 @@ div#error_explanation, div.errors {
   color: $white;
   background-color: $error-color;
   border: 3px solid;
-  border-color: $error-border;
+  border-color: darken($error-color, 15%);
   margin-bottom: 5px;
 }
 
