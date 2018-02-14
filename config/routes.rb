@@ -13,8 +13,8 @@ Rails.application.routes.draw do
         get :current, on: :collection
       end
 
-      resources :movies, only: [:show, :create]
-      resources :shows, only: [:show, :create]
+      resources :movies, only: [:show, :create, :update]
+      resources :shows, only: [:show, :create, :update]
       resources :movie_ownerships, only: [:create, :update, :destroy]
       resources :show_ownerships, only: [:create, :update, :destroy]
       resources :genres, only: [:index]

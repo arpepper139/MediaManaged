@@ -4,6 +4,7 @@ import { Link, browserHistory } from 'react-router'
 import FlashNotice from '../components/FlashNotice.js'
 import RatingInput from '../components/RatingInput.js'
 import Button from '../components/Button.js'
+import PhotoUploader from '../containers/PhotoUploader.js'
 
 class MediaInfoTile extends Component {
   constructor(props) {
@@ -163,6 +164,18 @@ class MediaInfoTile extends Component {
       }
     })
 
+    let photoField
+    if (this.props.data.poster.url !== null) {
+      photoField = <img className="showpage-poster" src={this.props.data.poster.url}></img>
+    }
+    else {
+      photoField =
+        <PhotoUploader
+          id={this.props.data.id}
+          type={this.props.type}
+        />
+    }
+
     let genresArray = this.props.data.genres.map((genre) => {
       return genre.name
     })
@@ -174,7 +187,7 @@ class MediaInfoTile extends Component {
           <h1 className="title-header">{this.props.data.name}</h1>
         </div>
         <div className="small-12 medium-6 large-4 columns">
-          <img className="showpage-poster" src={this.props.data.poster.url}></img>
+          {photoField}
         </div>
         <div className="small-12 medium-6 large-4 columns">
           {displayItems}

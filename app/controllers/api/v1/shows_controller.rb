@@ -1,6 +1,6 @@
 class Api::V1::ShowsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:create]
-  protect_from_forgery unless: -> { request.format.json? }
+  protect_from_forgery unless: -> { request.format.form_data? || request.format.json? }
 
   def show
     @show = Show.find(params[:id])
@@ -29,8 +29,18 @@ class Api::V1::ShowsController < ApplicationController
     end
   end
 
+  def update
+    show = Show.find(params[:id])
+    show.poster = params[:poster]
+    if show.save
+      render json: "Sucess"
+    else
+      render json: "Failure"
+    end
+  end
+
   private
     def show_params
-      params.require(:show).permit(:name, :writer, :studio, :start_year, :end_year, :description, :rating)
+      params.require(:show).permit(:name, :writer, :studio, :start_year, :end_year, :description, :rating, :poster)
     end
 end
