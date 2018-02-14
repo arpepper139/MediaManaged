@@ -63,7 +63,7 @@ RSpec.describe Api::V1::SearchController, type: :controller do
       expect(response.status).to eq 200
       expect(response.content_type).to eq("application/json")
 
-      expect(returned_json["message"]).to eq("We couldn't find anything on Omdb, but you can add the movie below!")
+      expect(returned_json["message"]).to eq("We couldn't find anything on Omdb. Add something in the form below!")
     end
 
     it "returns status 422 and a message if no query param is provided" do
