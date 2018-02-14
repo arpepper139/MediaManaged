@@ -50,7 +50,7 @@ class Api::V1::SearchController < ApplicationController
           found_media: nil,
           type: nil,
           owned: true,
-          message: "Looks like we already have that one. If it didn't show up, it's already in your collection!"
+          message: "Looks like we already have #{response["Title"]}. If it didn't show up, it's already in your collection!"
         }
       elsif response["Type"] == "movie"
         processed_response = {

@@ -120,7 +120,7 @@ class MediaIndexContainer extends Component {
     return(
       <div>
         {flashNotice}
-        <h1 className="homepage-greeting">{action} Your Personal Video Collection!</h1>
+        <h1 className="homepage-greeting">{action} your personal video collection!</h1>
         {displayComponent}
       </div>
     )
