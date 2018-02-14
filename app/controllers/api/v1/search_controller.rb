@@ -93,7 +93,7 @@ class Api::V1::SearchController < ApplicationController
           found_media: nil,
           type: nil,
           owned: false,
-          message: "We couldn't find anything on Omdb. Add something in the form below!"
+          message: "We couldn't find anything on OMBd. Add something in the form below!"
         }
       end
     end
