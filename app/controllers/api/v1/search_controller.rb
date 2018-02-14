@@ -19,7 +19,7 @@ class Api::V1::SearchController < ApplicationController
 
       relevant_results = unowned_movie_results + unowned_show_results
 
-      render json: { results: relevant_results, message: "Here's what we found." }
+      render json: { results: relevant_results[0..9], message: "Here's what we found." }
     end
   end
 
@@ -30,8 +30,6 @@ class Api::V1::SearchController < ApplicationController
       query = params[:name].strip.downcase
 
       response = HTTParty.get("http://www.omdbapi.com/?t=#{query}&apikey=#{ENV["API_KEY"]}")
-
-      default_response = { message: "We couldn't find anything on Omdb, but you can add the movie below!" }
 
       if response["Genre"] != nil
         supplied_genres = response["Genre"].split(', ')
@@ -44,41 +42,60 @@ class Api::V1::SearchController < ApplicationController
         end
       end
 
-      if response["Type"] == "movie"
+      show_db_check = Show.where(name: response["Title"])
+      movie_db_check = Movie.where(name: response["Title"])
+
+      if show_db_check != [] || movie_db_check != []
+        render json: {
+          found_media: nil,
+          type: nil,
+          owned: true,
+          message: "Looks like we already have that one. If it didn't show up, it's already in your collection!"
+        }
+      elsif response["Type"] == "movie"
         processed_response = {
-            movie: {
-              name: response["Title"],
-              director: response["Director"],
-              studio: response["Production"],
-              poster: response["Poster"],
-              year: response["Year"],
-              runtime: response["Runtime"],
-              description: response["Plot"],
-              imdb_rating: response["imdbRating"],
-              genres: database_genres
-            },
+            name: response["Title"],
+            director: response["Director"],
+            studio: response["Production"],
+            poster: response["Poster"],
+            year: response["Year"],
+            runtime: response["Runtime"],
+            description: response["Plot"],
+            imdb_rating: response["imdbRating"],
+            genres: database_genres
+          }
+          render json: {
+            found_media: processed_response,
+            type: "movie",
+            owned: false,
             message: "Movie Found! #{response["Title"]}"
           }
       elsif response["Type"] == "series"
         years = response["Year"].split("–")
         processed_response = {
-          show: {
-            name: response["Title"],
-            writer: response["Writer"],
-            poster: response["Poster"],
-            start_year: years[0],
-            end_year: years[1],
-            description: response["Plot"],
-            imdb_rating: response["imdbRating"],
-            genres: database_genres
-          },
+          name: response["Title"],
+          writer: response["Writer"],
+          poster: response["Poster"],
+          start_year: years[0],
+          end_year: years[1],
+          description: response["Plot"],
+          imdb_rating: response["imdbRating"],
+          genres: database_genres
+        }
+        render json: {
+          found_media: processed_response,
+          type: "show",
+          owned: false,
           message: "Show Found! #{response["Title"]}"
         }
       else
-        processed_response = default_response
+        render json: {
+          found_media: nil,
+          type: nil,
+          owned: false,
+          message: "We couldn't find anything on Omdb. Add something in the form below!"
+        }
       end
-
-      render json: processed_response
     end
   end
 end

@@ -15,7 +15,8 @@ class NewMediaContainer extends Component {
       databaseMatches: [],
       omdbMatch: {},
       searchedDatabase: false,
-      searchedOMDB: false
+      searchedOMDB: false,
+      owned: false
     }
 
     this.clearFlash = this.clearFlash.bind(this)
@@ -98,25 +99,15 @@ class NewMediaContainer extends Component {
         return response.json()
       })
       .then(body => {
-        let foundMedia
-        let type
-
-        if (body.movie) {
-          foundMedia = body.movie
-          type = "movie"
-        }
-        else if (body.show) {
-          foundMedia = body.show
-          type = "show"
-        }
-        else {
-          foundMedia = null
-          type = null
+        let changeSearch = ''
+        if (body.owned === true) {
+          changeSearch = this.state.searchValue
         }
 
         this.setState({
-          omdbMatch: { result: foundMedia, type: type},
+          omdbMatch: { result: body.found_media, type: body.type },
           message: body.message,
+          owned: body.owned,
           searchValue: '',
           searchedOMDB: true
         })
@@ -185,7 +176,7 @@ class NewMediaContainer extends Component {
     else if (dataMatches.length === 0 && regex.test(searchValue) && searchedDatabase === true) {
       omdbButton = <button className='search-button' onClick={ this.omdbQuery }>Search OMDb</button>
     }
-    else if (searchedOMDB === true) {
+    else if (searchedOMDB === true && this.state.owned === false) {
       addMediaForm =
         <NewMediaFormContainer
           searchResult={this.state.omdbMatch.result}

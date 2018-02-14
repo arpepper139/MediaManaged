@@ -5,6 +5,12 @@ div.new-media-page {
   border-radius: 5px;
 }
 
+@media screen and (max-width: 63.9375em) {
+  div.new-media-page {
+    margin: 2%;
+  }
+}
+
 .new-media-greeting {
   margin: 2% 1.5%;
   font-size: 22px;
