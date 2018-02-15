@@ -13,11 +13,11 @@ html {
 }
 
 ::selection {
-  background: $primary-color;
+  background: lighten($primary-color, 15%);
 }
 
 ::-moz-selection {
-  background: $primary-color;
+  background: lighten($primary-color, 15%);
 }
 
 input:-webkit-autofill {

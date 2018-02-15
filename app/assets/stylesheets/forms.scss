@@ -1,10 +1,16 @@
 @import './constants';
 
-div.form {
-  padding-bottom: 16px;
+.form {
+  padding: 0 10px 10px 10px;
   background-color: $white;
+  margin: 2% 20%;
   border-radius: 5px;
-  margin-bottom: 10px;
+}
+
+@media screen and (max-width: 63.9375em) {
+  .form {
+    margin: 2%;
+  }
 }
 
 h2.form-header {

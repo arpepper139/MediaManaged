@@ -19,7 +19,11 @@ class PosterUploader extends Component {
   render() {
     return(
       <div className="dropzone">
-        <Dropzone onDrop={this.readFile}>
+        <Dropzone
+          multiple={false}
+          onDrop={this.readFile}
+          accept="image/jpeg, image/jpg, image/png"
+        >
           <button>Upload a new image</button>
         </Dropzone>
       </div>
