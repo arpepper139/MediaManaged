@@ -24,7 +24,7 @@ class PosterUploader extends Component {
           onDrop={this.readFile}
           accept="image/jpeg, image/jpg, image/png"
         >
-          <button>Upload a new image</button>
+          <p>Add a photo!</p>
         </Dropzone>
       </div>
     )
