@@ -4,7 +4,7 @@ import { Link, browserHistory } from 'react-router'
 import FlashNotice from '../components/FlashNotice.js'
 import RatingInput from '../components/RatingInput.js'
 import Button from '../components/Button.js'
-import PhotoUploader from '../containers/PhotoUploader.js'
+import PosterUploader from '../containers/PosterUploader.js'
 
 class MediaInfoTile extends Component {
   constructor(props) {
@@ -170,9 +170,10 @@ class MediaInfoTile extends Component {
     }
     else {
       photoField =
-        <PhotoUploader
+        <PosterUploader
           id={this.props.data.id}
           type={this.props.type}
+          uploader={this.props.uploader}
         />
     }
 

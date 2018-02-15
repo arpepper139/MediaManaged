@@ -3,8 +3,8 @@ class Api::V1::MoviesController < ApplicationController
   protect_from_forgery unless: -> { request.format.form_data? || request.format.json? }
 
   def show
-    @movie = Movie.find(params[:id])
-    render json: @movie
+    movie = Movie.find(params[:id])
+    render json: movie
   end
 
   def create
@@ -33,9 +33,9 @@ class Api::V1::MoviesController < ApplicationController
     movie = Movie.find(params[:id])
     movie.poster = params[:poster]
     if movie.save
-      render json: "Sucess"
+      render json: movie
     else
-      render json: "Failure"
+      render json: { error: "Oops! We had problems on our end. Try again." }
     end
   end
 

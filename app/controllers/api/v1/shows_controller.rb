@@ -3,8 +3,8 @@ class Api::V1::ShowsController < ApplicationController
   protect_from_forgery unless: -> { request.format.form_data? || request.format.json? }
 
   def show
-    @show = Show.find(params[:id])
-    render json: @show
+    show = Show.find(params[:id])
+    render json: show
   end
 
   def create
@@ -33,9 +33,9 @@ class Api::V1::ShowsController < ApplicationController
     show = Show.find(params[:id])
     show.poster = params[:poster]
     if show.save
-      render json: "Sucess"
+      render json: show
     else
-      render json: "Failure"
+      render json: { error: "Oops! We had problems on our end. Try again." }
     end
   end
 
