@@ -17,24 +17,18 @@
   <div class="wrapper">
     <nav>
       <ul class="top-navbar">
-        <li class="name"><a href="/"><i class="fas fa-tv"></i> MediaManaged</a></li>
+        <li class="site-name"><a href="/"><i class="fas fa-tv"></i> MediaManaged</a></li>
         <ul class="links">
           <%- if current_user -%>
+            <li><a href="/"><i class="fas fa-home"></i></a></li>
             <% if !current_user.provider %>
-              <li class="dropdown">
-                <a href="javascript:void(0)" class="dropbtn username" ><%= "#{current_user.first_name}" %></a>
-                <div class="dropdown-content">
-                  <%= link_to 'Edit Info', edit_user_registration_path %>
-                  <%= link_to 'Sign Out', destroy_user_session_path, method: :delete %>
-                </div>
-              </li>
-            <% else %>
-              <li><%= link_to 'Sign Out', destroy_user_session_path, method: :delete %></li>
+              <li><a href="/users/edit/"><i class="far fa-edit"></i></a></li>
             <% end %>
+            <li><a href="/users/sign_out/" data-method="delete"><i class="fas fa-sign-out-alt"></i></a></li>
           <%- else -%>
             <li><a href="/users/auth/facebook/"><i class="fab fa-facebook-square"></i></a></li>
-            <li><%= link_to 'Sign In', new_user_session_path %></li>
-            <li><%= link_to 'Sign Up', new_user_registration_path %></li>
+            <li><a href="/users/sign_in/"><i class="fas fa-sign-in-alt"></i></a></li>
+            <li><a href="/users/sign_up/"><i class="fas fa-user-plus"></i></a></li>
           <%- end -%>
         </ul>
       </ul>
