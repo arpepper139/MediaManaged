@@ -19,7 +19,16 @@ div.showpage {
 }
 
 .dropzone {
+  padding: 10px;
+  width: 300px;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  p {
+    padding: 20px;
+    color: $primary-color;
+    text-align: center;
+    cursor:pointer;
+  }
 }

@@ -77,15 +77,27 @@ button:hover, button:focus {
   background-color: $secondary-color;
 }
 
-/* LoggedOutMessage */
+/* LoggedOutExperience */
 
-h1.greeting {
-  margin: 5% 1.5%;
+.greeting {
+  margin: 5% 20%;
   font-size: 24px;
   font-family: 'Source Sans Pro', sans-serif;
   font-weight: bold;
   color: $secondary-color;
   text-align: center;
+}
+
+@media screen and (min-width: 40em) and (max-width: 63.9375em) {
+  .greeting {
+    margin: 15% 10%
+  }
+}
+
+@media screen and (max-width: 39.9375em) {
+  .greeting {
+    margin: 35% 10%
+  }
 }
 
 /* NavBar */
@@ -102,7 +114,7 @@ ul.links {
   list-style-type: none;
 }
 
-li.name {
+li.site-name {
   float: left;
   font-size: 20px;
   font-family: 'Courgette', cursive;
@@ -112,38 +124,9 @@ ul.links li {
   float: right;
 }
 
-ul.links li a:hover, .dropdown:hover .dropbtn {
+ul.links li a:hover {
   background-color: $primary-color;
   color: $white;
-}
-
-li.dropdown {
-  display: inline-block;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: $dropdown-color;
-    min-width: 65px;
-    max-width: 200px;
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.4);
-    z-index: 1;
-}
-
-.dropdown-content a {
-    text-align: center;
-    display: block;
-    padding: 7px 0;
-    height: 40px;
-}
-
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-
-.username {
-  font-size: 18px;
 }
 
 /* Flash Notice */

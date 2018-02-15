@@ -24,7 +24,7 @@ feature 'user updates profile' do
     click_button 'Save Changes'
 
     expect(page).to have_content('updated successfully')
-    expect(page).to have_content('Sign Out')
+    expect(page).to have_link('Sign Out')
   end
 
   scenario 'user incorrectly updates profile' do

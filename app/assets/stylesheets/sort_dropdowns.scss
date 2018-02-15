@@ -37,7 +37,28 @@
   }
 }
 
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: $primary-color;
+  color: $white;
+}
+
+li.dropdown {
+  display: inline-block;
+}
+
 .dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: $dropdown-color;
+  min-width: 65px;
+  max-width: 200px;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.4);
+  z-index: 1;
+
   p {
     margin: 0;
     padding: 5px;
