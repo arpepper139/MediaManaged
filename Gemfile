@@ -33,6 +33,7 @@ gem "fog-aws"
 gem "fog"
 gem "carrierwave"
 gem "httparty"
+gem "mini_magick"
 
 gem "active_model_serializers", "0.10.6"
 

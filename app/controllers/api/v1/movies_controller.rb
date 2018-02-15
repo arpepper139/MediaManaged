@@ -1,10 +1,10 @@
 class Api::V1::MoviesController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:create]
-  protect_from_forgery unless: -> { request.format.json? }
+  protect_from_forgery unless: -> { request.format.form_data? || request.format.json? }
 
   def show
-    @movie = Movie.find(params[:id])
-    render json: @movie
+    movie = Movie.find(params[:id])
+    render json: movie
   end
 
   def create
@@ -29,8 +29,18 @@ class Api::V1::MoviesController < ApplicationController
     end
   end
 
+  def update
+    movie = Movie.find(params[:id])
+    movie.poster = params[:poster]
+    if movie.save
+      render json: movie
+    else
+      render json: { error: "Oops! We had problems on our end. Try again." }
+    end
+  end
+
   private
     def movie_params
-      params.require(:movie).permit(:name, :director, :studio, :year, :runtime, :description, :imdb_rating)
+      params.require(:movie).permit(:name, :director, :studio, :year, :runtime, :description, :imdb_rating, :poster)
     end
 end
