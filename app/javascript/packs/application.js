@@ -23,10 +23,12 @@ if (closeFlash !== null) {
 let dropdownMenu = document.getElementsByClassName('dropbtn')[0]
 let dropdownItemsDiv = document.getElementsByClassName('dropdown-content')[0]
 
-dropdownMenu.addEventListener('mouseover', () => {
-  let width = dropdownMenu.offsetWidth;
-  dropdownItemsDiv.style.width = `${width}px`;
-})
+if (!!dropdownMenu) {
+  dropdownMenu.addEventListener('mouseover', () => {
+    let width = dropdownMenu.offsetWidth;
+    dropdownItemsDiv.style.width = `${width}px`;
+  })
+}
 
 ReactDOM.render(
   <App />,
