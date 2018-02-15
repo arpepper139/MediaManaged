@@ -79,7 +79,7 @@ RSpec.describe Api::V1::MoviesController, type: :controller do
     it "should return the updated movie with the poster URL" do
       movie1 = FactoryBot.create(:movie)
 
-      patch :update, params: { id: movie1.id, poster: Rack::Test::UploadedFile.new(Rails.root.join('spec', 'support', 'images', 'test_poster.jpg')) }
+      patch :update, params: { id: movie1.id, poster: Rack::Test::UploadedFile.new(Rails.root.join('spec', 'support', 'images', 'test_poster.jpg'), 'image/jpeg') }
 
       returned_json = JSON.parse(response.body)
       expect(response.status).to eq 200

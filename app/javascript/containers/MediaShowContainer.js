@@ -23,7 +23,6 @@ class MediaShowContainer extends Component {
   }
 
   fetchData() {
-    debugger
     let path = this.props.location.pathname
     fetch(`/api/v1/${path}.json`, { credentials: 'same-origin' })
       .then(response => {
