@@ -79,8 +79,13 @@ button:hover, button:focus {
 
 /* LoggedOutExperience */
 
+.logged-out {
+  display: flex;
+  flex-direction: column;
+}
+
 .greeting {
-  margin: 5% 20%;
+  margin: 5% 20% 4% 20%;
   font-size: 24px;
   font-family: 'Source Sans Pro', sans-serif;
   font-weight: bold;
@@ -90,14 +95,32 @@ button:hover, button:focus {
 
 @media screen and (min-width: 40em) and (max-width: 63.9375em) {
   .greeting {
-    margin: 15% 10%
+    margin: 15% 10% 4% 10%;
   }
 }
 
 @media screen and (max-width: 39.9375em) {
   .greeting {
-    margin: 35% 10%
+    margin: 30% 10% 4% 10%;
   }
+}
+
+.facebook, .facebook:hover, .facebook:focus {
+  border-radius: 5px;
+  margin: auto;
+  background-color: #3B5998;
+}
+
+.facebook a, .facebook a:focus {
+  color: lighten($white, 5%)
+}
+
+.facebook a:hover {
+  color: darken($white, 5%)
+}
+
+.fab {
+  margin-right: 5px;
 }
 
 /* NavBar */
