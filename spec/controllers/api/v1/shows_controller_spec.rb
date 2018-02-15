@@ -43,35 +43,50 @@ RSpec.describe Api::V1::ShowsController, type: :controller do
       post(:create, params: new_show)
       expect(user1.shows.count).to eq(prev_count + 1)
     end
+
+    it "should return status 201 and a success message" do
+      genre1 = FactoryBot.create(:genre)
+      user1 = FactoryBot.create(:user)
+      new_show = { show: { name: "A New Show", writer: "Great Writer", studio: "Disney", start_year: "1995", end_year: "2001", description: "It's Great!", imdb_rating: "8.5" }, user_rating: "5", genres:[genre1.name] }
+
+      sign_in(user1)
+      post(:create, params: new_show)
+
+      returned_json = JSON.parse(response.body)
+      expect(response.status).to eq 201
+      expect(response.content_type).to eq("application/json")
+
+      expect(returned_json["message"]).to eq("Sucessfully added A New Show!")
+    end
+
+    it "should return status 422 and an error message if it fails to create" do
+      user1 = FactoryBot.create(:user)
+      show1 = FactoryBot.create(:show)
+      new_show = { show: { name: show1.name, writer: "Great Writer", studio: "Disney", start_year: "1995", end_year: "2001", description: "It's Great!", imdb_rating: "8.5" }, user_rating: "5" }
+
+      sign_in(user1)
+      post(:create, params: new_show)
+
+      returned_json = JSON.parse(response.body)
+      expect(response.status).to eq 422
+      expect(response.content_type).to eq("application/json")
+
+      expect(returned_json["error"]).to eq("Whoops! Looks like we already have #{show1.name}. If it's not in your personal collection, you can add it by searching above!")
+    end
   end
 
-  it "should return status 201 and a success message" do
-    genre1 = FactoryBot.create(:genre)
-    user1 = FactoryBot.create(:user)
-    new_show = { show: { name: "A New Show", writer: "Great Writer", studio: "Disney", start_year: "1995", end_year: "2001", description: "It's Great!", imdb_rating: "8.5" }, user_rating: "5", genres:[genre1.name] }
+  describe "PATCH#Update" do
+    it "should return the updated movie with the poster URL" do
+      show1 = FactoryBot.create(:show)
 
-    sign_in(user1)
-    post(:create, params: new_show)
+      patch :update, params: { id: show1.id, poster: Rack::Test::UploadedFile.new(Rails.root.join('spec', 'support', 'images', 'test_poster.jpg')) }
 
-    returned_json = JSON.parse(response.body)
-    expect(response.status).to eq 201
-    expect(response.content_type).to eq("application/json")
+      returned_json = JSON.parse(response.body)
+      expect(response.status).to eq 200
+      expect(response.content_type).to eq("application/json")
 
-    expect(returned_json["message"]).to eq("Sucessfully added A New Show!")
-  end
-
-  it "should return status 422 and an error message if it fails to create" do
-    user1 = FactoryBot.create(:user)
-    show1 = FactoryBot.create(:show)
-    new_show = { show: { name: show1.name, writer: "Great Writer", studio: "Disney", start_year: "1995", end_year: "2001", description: "It's Great!", imdb_rating: "8.5" }, user_rating: "5" }
-
-    sign_in(user1)
-    post(:create, params: new_show)
-
-    returned_json = JSON.parse(response.body)
-    expect(response.status).to eq 422
-    expect(response.content_type).to eq("application/json")
-
-    expect(returned_json["error"]).to eq("Whoops! Looks like we already have #{show1.name}. If it's not in your personal collection, you can add it by searching above!")
+      expect(returned_json["show"]["name"]).to eq show1.name
+      expect(returned_json["show"]["poster"]["url"]).to eq "/uploads/show/poster/#{show1.id}/test_poster.jpg"
+    end
   end
 end

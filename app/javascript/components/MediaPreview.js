@@ -24,7 +24,7 @@ const MediaPreview = (props) => {
 
   return(
     <Link to={`/${props.type}s/${props.id}`}>
-      <div className="col small-12 medium-4 large-2 columns">
+      <div className="preview col small-12 medium-4 large-2 columns">
         {preview}
       </div>
     </Link>
