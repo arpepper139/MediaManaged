@@ -27,7 +27,7 @@ feature 'NavBar' do
     click_button 'Sign In'
 
     expect(page).to have_content('Signed in successfully')
-    expect(page).to have_link("#{user.first_name}")
+    expect(page).to have_link('Home')
     expect(page).to have_link('Edit Info')
     click_link 'Edit Info'
     expect(page).to have_current_path edit_user_registration_path
@@ -44,7 +44,7 @@ feature 'NavBar' do
     click_button 'Sign In'
 
     expect(page).to have_content('Signed in successfully')
-    expect(page).to have_link("#{user.first_name}")
+    expect(page).to have_link('Home')
     expect(page).to have_link('Sign Out')
 
     click_link 'Sign Out'

@@ -20,7 +20,7 @@ feature 'user registers' do
     click_button 'Sign Up'
 
     expect(page).to have_content('Welcome! You have signed up successfully.')
-    expect(page).to have_content('Sign Out')
+    expect(page).to have_link('Sign Out')
   end
 
   scenario "user uploads a profile photo" do
@@ -46,6 +46,6 @@ feature 'user registers' do
 
     click_button 'Sign Up'
     expect(page).to have_content("can't be blank")
-    expect(page).to_not have_content('Sign Out')
+    expect(page).to_not have_link('Sign Out')
   end
 end

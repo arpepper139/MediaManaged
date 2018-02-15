@@ -17,18 +17,18 @@
   <div class="wrapper">
     <nav>
       <ul class="top-navbar">
-        <li class="site-name"><a href="/"><i class="fas fa-tv"></i> MediaManaged</a></li>
+        <li class="site-name"><a href="/" title="Home"><i class="fas fa-tv"></i> MediaManaged</a></li>
         <ul class="links">
           <%- if current_user -%>
             <li><a href="/"><i class="fas fa-home"></i></a></li>
             <% if !current_user.provider %>
-              <li><a href="/users/edit/"><i class="far fa-edit"></i></a></li>
+              <li><a href="/users/edit" title="Edit Info"><i class="far fa-edit"></i></a></li>
             <% end %>
-            <li><a href="/users/sign_out/" data-method="delete"><i class="fas fa-sign-out-alt"></i></a></li>
+            <li><a href="/users/sign_out" data-method="delete" title="Sign Out"><i class="fas fa-sign-out-alt"></i></a></li>
           <%- else -%>
-            <li><a href="/users/auth/facebook/"><i class="fab fa-facebook-square"></i></a></li>
-            <li><a href="/users/sign_in/"><i class="fas fa-sign-in-alt"></i></a></li>
-            <li><a href="/users/sign_up/"><i class="fas fa-user-plus"></i></a></li>
+            <li><a href="/users/auth/facebook"><i class="fab fa-facebook-square"></i></a></li>
+            <li><a href="/users/sign_in" title="Sign In"><i class="fas fa-sign-in-alt"></i></a></li>
+            <li><a href="/users/sign_up" title="Sign Up"><i class="fas fa-user-plus"></i></a></li>
           <%- end -%>
         </ul>
       </ul>

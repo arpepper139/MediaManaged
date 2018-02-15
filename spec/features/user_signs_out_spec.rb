@@ -19,6 +19,6 @@ feature 'user signs out' do
 
   scenario 'unauthenticated user attempts to sign out' do
     visit '/'
-    expect(page).to_not have_content('Sign Out')
+    expect(page).to_not have_link('Sign Out')
   end
 end

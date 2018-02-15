@@ -12,7 +12,7 @@ feature 'user signs in' do
     click_button 'Sign In'
 
     expect(page).to have_content('Signed in successfully')
-    expect(page).to have_content('Sign Out')
+    expect(page).to have_link('Sign Out')
   end
 
   scenario 'specify invalid credentials' do
@@ -20,6 +20,6 @@ feature 'user signs in' do
 
     click_button 'Sign In'
     expect(page).to have_content('Invalid Email or password')
-    expect(page).to_not have_content('Sign Out')
+    expect(page).to_not have_link('Sign Out')
   end
 end
