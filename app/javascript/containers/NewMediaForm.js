@@ -71,8 +71,6 @@ class NewMediaForm extends Component {
         genres: this.props.fieldInfo.genres
       })
     }
-
-    //Note --> set boolean here to conditionally render my Dropzone depending on if props have been passed
   }
 
   handleChange(event) {

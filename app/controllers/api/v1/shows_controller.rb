@@ -13,7 +13,11 @@ class Api::V1::ShowsController < ApplicationController
       provided_genres = params[:genres]
       user_id = current_user.id
 
+
+      #refactor this to conditionally add via dropzone
       new_show.update_attributes(remote_poster_url: params[:show][:poster])
+
+      
       ShowOwnership.create(user_id: user_id, show_id: new_show.id, user_rating: params[:user_rating])
 
       if provided_genres != [] && provided_genres != nil

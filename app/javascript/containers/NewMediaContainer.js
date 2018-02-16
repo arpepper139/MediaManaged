@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import TextInput from '../components/TextInput'
 import NewOwnershipForm from '../containers/NewOwnershipForm'
 import AlreadyInDB from '../components/AlreadyInDB'
+import OMDBAddForm from '../containers/OMDBAddForm'
 import NewMediaFormContainer from '../containers/NewMediaFormContainer'
 import FlashNotice from '../components/FlashNotice'
 import SearchPrompt from '../components/SearchPrompt'
@@ -140,10 +141,9 @@ class NewMediaContainer extends Component {
     let searchedDatabase = this.state.searchedDatabase
     let searchedOMDB = this.state.searchedOMDB
 
+    let flash
     let databaseResults
     let omdbField
-    let addMediaForm
-    let flash
 
     if (this.state.message !== '') {
       flash =
@@ -183,13 +183,24 @@ class NewMediaContainer extends Component {
       omdbField = <SearchPrompt omdbQuery={this.omdbQuery} />
     }
     else if (searchedOMDB === true && this.state.inDatabase === false) {
-      addMediaForm =
-        <NewMediaFormContainer
-          searchResult={this.state.omdbMatch.result}
-          type={this.state.omdbMatch.type}
-          clearPage={this.handleClearSearch}
-          passMessage={this.grabMessage}
-        />
+      if (this.state.omdbMatch.result !== null) {
+        omdbField =
+          <OMDBAddForm
+            searchResult={this.state.omdbMatch.result}
+            type={this.state.omdbMatch.type}
+            clearPage={this.handleClearSearch}
+            passMessage={this.grabMessage}
+          />
+      }
+      else {
+        omdbField =
+          <NewMediaFormContainer
+            searchResult={this.state.omdbMatch.result}
+            type={this.state.omdbMatch.type}
+            clearPage={this.handleClearSearch}
+            passMessage={this.grabMessage}
+          />
+      }
     }
 
     return(
@@ -209,7 +220,6 @@ class NewMediaContainer extends Component {
             {databaseResults}
           </div>
           {omdbField}
-          {addMediaForm}
         </div>
       </div>
     )
