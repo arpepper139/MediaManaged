@@ -84,11 +84,16 @@ div.new-media-page {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  margin-bottom: 50px;
 
   p {
     color: $secondary-color;
     font-weight: bold;
     margin-bottom: 5px;
+  }
+
+  button {
+    margin: 0;
   }
 }
 
@@ -131,8 +136,12 @@ div.new-media-page {
     align-items: center;
   }
 
-  .form-select-button {
-    margin-right: 10px;
+  .movie-select-button {
+    margin-right: 4px;
+  }
+
+  .show-select-button {
+    margin-left: 4px;
   }
 }
 
@@ -179,4 +188,25 @@ h1.form-header {
   input {
     margin: 0 5px 10px 5px;
   }
+}
+
+textarea {
+  height: 125px;
+  resize: none;
+}
+
+.new-media-drop {
+  margin-bottom: 16px;
+
+  p {
+    text-align: center;
+    color: $primary-color;
+    padding-top: 10px;
+    padding-bottom: 165px;
+    cursor: crosshair;
+  }
+}
+
+.new-media-rating {
+  margin-bottom: 16px;
 }

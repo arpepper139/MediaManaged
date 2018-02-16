@@ -109,6 +109,7 @@ button:hover, button:focus {
   border-radius: 5px;
   margin: auto;
   background-color: $facebook;
+  cursor: default;
 }
 
 .facebook a, .facebook a:focus {
@@ -142,6 +143,10 @@ li.site-name {
   float: left;
   font-size: 20px;
   font-family: 'Courgette', cursive;
+
+  a:hover {
+    color: $primary-color
+  }
 }
 
 ul.links li {

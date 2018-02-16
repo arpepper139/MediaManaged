@@ -100,29 +100,29 @@ class NewMediaFormContainer extends Component {
     }
   }
 
-  validateMovie(formPayload) {
+  validateMovie(fields) {
     if (
-      this.validatePresence('name', formPayload.movie.name) &&
-      this.validatePresence('director', formPayload.movie.director) &&
-      this.validateYear('year', formPayload.movie.year) &&
-      this.validateDescription('description', formPayload.movie.description) &&
-      this.validateNumberRange('imdb_rating', formPayload.movie.imdb_rating, 0, 10) &&
-      this.validateNumberRange('user_rating', formPayload.user_rating, 1, 5)
+      this.validatePresence('name', fields.name) &&
+      this.validatePresence('director', fields.director) &&
+      this.validateYear('year', fields.year) &&
+      this.validateDescription('description', fields.description) &&
+      this.validateNumberRange('imdb_rating', fields.imdb_rating, 0, 10) &&
+      this.validateNumberRange('user_rating', fields.user_rating, 1, 5)
     ) {
       return true
     }
     else { return false }
   }
 
-  validateShow(formPayload) {
+  validateShow(fields) {
     if (
-      this.validatePresence('name', formPayload.show.name) &&
-      this.validatePresence('writer', formPayload.show.writer) &&
-      this.validateYear('start_year', formPayload.show.start_year) &&
-      this.validateYear('end_year', formPayload.show.end_year) &&
-      this.validateDescription('description', formPayload.show.description) &&
-      this.validateNumberRange('imdb_rating', formPayload.show.imdb_rating, 0, 10) &&
-      this.validateNumberRange('user_rating', formPayload.user_rating, 1, 5)
+      this.validatePresence('name', fields.name) &&
+      this.validatePresence('writer', fields.writer) &&
+      this.validateYear('start_year', fields.start_year) &&
+      this.validateYear('end_year', fields.end_year) &&
+      this.validateDescription('description', fields.description) &&
+      this.validateNumberRange('imdb_rating', fields.imdb_rating, 0, 10) &&
+      this.validateNumberRange('user_rating', fields.user_rating, 1, 5)
     ) {
       return true
     }
@@ -133,8 +133,8 @@ class NewMediaFormContainer extends Component {
     fetch(`/api/v1/${type}s`, {
       credentials: 'same-origin',
       method: 'POST',
-      body: JSON.stringify(formPayload),
-      headers: {  'Accept': 'application/json', 'Content-Type': 'application/json' }
+      body: formPayload,
+      headers: { 'Accept': 'application/json' }
     })
       .then(response => {
         if (response.ok) {

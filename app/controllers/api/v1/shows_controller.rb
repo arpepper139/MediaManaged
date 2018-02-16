@@ -8,17 +8,35 @@ class Api::V1::ShowsController < ApplicationController
   end
 
   def create
-    new_show = Show.new(show_params)
+    if params[:show]
+      new_show = Show.new(show_params)
+    else
+      new_show = Show.new(
+        name: params[:name],
+        writer: params[:writer],
+        studio: params[:studio],
+        start_year: params[:start_year],
+        end_year: params[:end_year],
+        description: params[:description],
+        imdb_rating: params[:imdb_rating]
+      )
+    end
+
     if new_show.save
-      provided_genres = params[:genres]
+      if params[:show]
+        new_show.update_attributes(remote_poster_url: params[:show][:poster])
+      else
+        new_show.update_attributes(poster: params[:poster])
+      end
+
       user_id = current_user.id
-
-
-      #refactor this to conditionally add via dropzone
-      new_show.update_attributes(remote_poster_url: params[:show][:poster])
-
-
       ShowOwnership.create(user_id: user_id, show_id: new_show.id, user_rating: params[:user_rating])
+
+      if params[:genres].is_a? String
+        provided_genres = params[:genres].split(",")
+      else
+        provided_genres = params[:genres]
+      end
 
       if provided_genres != [] && provided_genres != nil
         provided_genres.each do |provided_genre|
