@@ -73,23 +73,26 @@ const ratingOptions = [
 
 const SortBar = (props) => {
   return(
-    <ul className="sort-bar">
-      <SortDropdown
-        sortField="Type"
-        options={typeOptions}
-        sortMedia={props.sortMedia}
-      />
-      <SortDropdown
-        sortField="Genre"
-        options={genreOptions}
-        sortMedia={props.sortMedia}
-      />
-      <SortDropdown
-        sortField="Rating"
-        options={ratingOptions}
-        sortMedia={props.sortMedia}
-      />
-    </ul>
+    <div className="sort-div">
+      <ul className="sort-bar">
+        <SortDropdown
+          sortField="Type"
+          options={typeOptions}
+          sortMedia={props.sortMedia}
+        />
+        <SortDropdown
+          sortField="Genre"
+          options={genreOptions}
+          sortMedia={props.sortMedia}
+        />
+        <SortDropdown
+          sortField="Rating"
+          options={ratingOptions}
+          sortMedia={props.sortMedia}
+        />
+      </ul>
+      <p className="sort-result-message">{props.sortMessage}</p>
+    </div>
   )
 }
 

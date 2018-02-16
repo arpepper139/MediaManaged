@@ -54,7 +54,7 @@ class OMDBAddForm extends Component {
           poster: this.props.searchResult.poster,
           imdb_rating: this.props.searchResult.imdb_rating
         },
-        user_rating: this.state.userRating,
+        user_rating: this.state.rating,
         genres: this.props.searchResult.genres
       }
       return formPayload
