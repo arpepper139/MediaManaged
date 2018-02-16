@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import TextInput from '../components/TextInput'
 import NewOwnershipForm from '../containers/NewOwnershipForm'
+import AlreadyInDB from '../components/AlreadyInDB'
 import NewMediaFormContainer from '../containers/NewMediaFormContainer'
 import FlashNotice from '../components/FlashNotice'
+import SearchPrompt from '../components/SearchPrompt'
 
 const regex = /.*\S.*/
 
@@ -16,7 +18,7 @@ class NewMediaContainer extends Component {
       omdbMatch: {},
       searchedDatabase: false,
       searchedOMDB: false,
-      owned: false
+      inDatabase: false
     }
 
     this.clearFlash = this.clearFlash.bind(this)
@@ -99,16 +101,14 @@ class NewMediaContainer extends Component {
         return response.json()
       })
       .then(body => {
-        let changeSearch = ''
-        if (body.owned === true) {
-          changeSearch = this.state.searchValue
+        let setSearch = ''
+        if (body.inDatabase === true) {
+          setSearch = this.state.searchValue
         }
-
         this.setState({
           omdbMatch: { result: body.found_media, type: body.type },
-          message: body.message,
-          owned: body.owned,
-          searchValue: '',
+          inDatabase: body.in_database,
+          searchValue: setSearch,
           searchedOMDB: true
         })
       })
@@ -140,8 +140,8 @@ class NewMediaContainer extends Component {
     let searchedDatabase = this.state.searchedDatabase
     let searchedOMDB = this.state.searchedOMDB
 
-    let results
-    let omdbButton
+    let databaseResults
+    let omdbField
     let addMediaForm
     let flash
 
@@ -153,9 +153,15 @@ class NewMediaContainer extends Component {
         />
     }
 
-    if (dataMatches.length !== 0 && regex.test(searchValue)) {
+    if (searchedOMDB === true && this.state.inDatabase === true) {
+      omdbField =
+        <AlreadyInDB
+          title={this.state.omdbMatch.result}
+        />
+    }
+    else if (dataMatches.length !== 0 && regex.test(searchValue)) {
       let key = 0
-      results = dataMatches.map((result) => {
+      databaseResults = dataMatches.map((result) => {
         let type = `${result.director ? "movie" : "show"}`
         key++
 
@@ -171,12 +177,12 @@ class NewMediaContainer extends Component {
         )
       })
 
-      omdbButton = <button className='search-button' onClick={ this.omdbQuery }>Search OMDb</button>
+      omdbField = <SearchPrompt omdbQuery={this.omdbQuery} />
     }
     else if (dataMatches.length === 0 && regex.test(searchValue) && searchedDatabase === true) {
-      omdbButton = <button className='search-button' onClick={ this.omdbQuery }>Search OMDb</button>
+      omdbField = <SearchPrompt omdbQuery={this.omdbQuery} />
     }
-    else if (searchedOMDB === true && this.state.owned === false) {
+    else if (searchedOMDB === true && this.state.inDatabase === false) {
       addMediaForm =
         <NewMediaFormContainer
           searchResult={this.state.omdbMatch.result}
@@ -200,9 +206,9 @@ class NewMediaContainer extends Component {
             />
           </form>
           <div className="search-results">
-            {results}
+            {databaseResults}
           </div>
-          {omdbButton}
+          {omdbField}
           {addMediaForm}
         </div>
       </div>

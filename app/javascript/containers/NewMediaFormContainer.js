@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import NewMediaForm from '../containers/NewMediaForm'
+import SelectFormType from '../components/SelectFormType'
 
 const regex = /.*\S.*/
 
@@ -162,7 +163,6 @@ class NewMediaFormContainer extends Component {
       })
       .then((errorBody) => {
         if (errorBody !== undefined) {
-          debugger
           this.setState({ errors: { saveError: errorBody.error } })
           this.props.passMessage('')
         }
@@ -176,8 +176,7 @@ class NewMediaFormContainer extends Component {
     validator,
     returnedForm,
     formClass,
-    errorListItems,
-    errorDiv,
+    errorMessage,
     icon
 
     if (this.state.givenType) {
@@ -193,17 +192,9 @@ class NewMediaFormContainer extends Component {
       formType = null
     }
 
-    if(Object.keys(this.state.errors).length > 0) {
-      errorListItems = Object.values(this.state.errors).map((error) => {
-        return <li key={error}>{error}</li>
-      })
-      errorDiv =
-        <div className="errors">
-          <h2>The following errors prevented save:</h2>
-          <ul>
-            { errorListItems }
-          </ul>
-        </div>
+    let errors = this.state.errors
+    if(Object.keys(errors).length > 0) {
+      errorMessage = <h2 className="submit-error">{Object.values(errors)[0]}</h2>
     }
 
     if (formType === "movie") {
@@ -217,10 +208,9 @@ class NewMediaFormContainer extends Component {
 
     if (this.state.givenType === null) {
       buttons =
-        <div className="select-buttons">
-          <button className='form-select-button' value="movie" onClick={ this.selectForm }>Add Movie</button>
-          <button className='form-select-button' value="show" onClick={ this.selectForm }>Add Show</button>
-        </div>
+        <SelectFormType
+          selectForm={this.selectForm}
+        />
     }
 
     if (formType !== null) {
@@ -241,7 +231,7 @@ class NewMediaFormContainer extends Component {
         {buttons}
         <div className={formClass}>
           <h1 className="form-header">{icon} {formHeader}</h1>
-          {errorDiv}
+          {errorMessage}
           {returnedForm}
         </div>
       </div>

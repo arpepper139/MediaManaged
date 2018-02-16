@@ -47,10 +47,9 @@ class Api::V1::SearchController < ApplicationController
 
       if show_db_check != [] || movie_db_check != []
         render json: {
-          found_media: nil,
+          found_media: response["Title"],
           type: nil,
-          owned: true,
-          message: "Looks like we already have #{response["Title"]}. If it didn't show up, it's already in your collection!"
+          in_database: true
         }
       elsif response["Type"] == "movie"
         processed_response = {
@@ -67,8 +66,7 @@ class Api::V1::SearchController < ApplicationController
           render json: {
             found_media: processed_response,
             type: "movie",
-            owned: false,
-            message: "Movie Found! #{response["Title"]}"
+            in_database: false
           }
       elsif response["Type"] == "series"
         years = response["Year"].split("–")
@@ -85,15 +83,13 @@ class Api::V1::SearchController < ApplicationController
         render json: {
           found_media: processed_response,
           type: "show",
-          owned: false,
-          message: "Show Found! #{response["Title"]}"
+          in_database: false
         }
       else
         render json: {
           found_media: nil,
           type: nil,
-          owned: false,
-          message: "We couldn't find anything on OMBd. Add something in the form below!"
+          in_database: false
         }
       end
     end

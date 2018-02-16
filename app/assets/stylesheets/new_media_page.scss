@@ -1,13 +1,13 @@
 @import './constants';
 
 div.new-media-page {
-  margin: 2% 20%;
+  margin: 10% 20% 2% 20%;
   border-radius: 5px;
 }
 
 @media screen and (max-width: 63.9375em) {
   div.new-media-page {
-    margin: 2%;
+    margin: 10% 2% 2% 2%;
   }
 }
 
@@ -77,16 +77,53 @@ div.new-media-page {
   text-align: center;
 }
 
-/* Form Select Buttons */
+// OMDb Search
 
-.select-buttons {
+.search-prompt {
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  p {
+    color: $secondary-color;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
 }
 
-.form-select-button {
-  margin-right: 10px;
+// Already in Database
+
+.in-database-message {
+  text-align: center;
+
+  p {
+    font-weight: bold;
+  }
+}
+
+/* Form Select Buttons */
+
+.select-prompt {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  p {
+    font-weight: bold;
+    color: $secondary-color;
+  }
+
+  .select-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .form-select-button {
+    margin-right: 10px;
+  }
 }
 
 /* Forms */
@@ -110,9 +147,18 @@ h1.form-header {
 }
 
 .fa-exclamation:before {
-  color: darken($error-color, 15%);
+  color: $error-color;
   font-size: 20px;
   margin-left: 10px;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.submit-error {
+  color: $error-color;
+  font-size: 18px;
 }
 
 // Genre Checkboxes
@@ -123,8 +169,4 @@ h1.form-header {
   input {
     margin: 0 5px 10px 5px;
   }
-}
-
-.hidden {
-  visibility: hidden;
 }

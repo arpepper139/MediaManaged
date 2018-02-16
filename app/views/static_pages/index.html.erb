@@ -3,6 +3,6 @@
 <% elsif !request.path.include?("users") %>
   <div class="logged-out">
     <h1 class="greeting">Welcome to Media Managed! Please sign up, sign in, or connect via Facebook to create a collection of your movies and shows.</h1>
-    <button class="facebook"><a href="/users/auth/facebook" title="Sign In With Facebook"><i class="fab fa-facebook-square"></i> Continue With Facebook</a></button>
+    <button class="facebook"><a href="/users/auth/facebook" title="Sign In With Facebook"><i class="fab fa-facebook-square"></i><span class="fb-message">Continue With Facebook</span></a></button>
   </div>
 <% end %>
