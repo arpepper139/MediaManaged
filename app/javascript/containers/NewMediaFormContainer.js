@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import NewMediaForm from '../containers/NewMediaForm'
+import SelectFormType from '../components/SelectFormType'
 
 const regex = /.*\S.*/
 
@@ -7,8 +8,6 @@ class NewMediaFormContainer extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      fieldInfo: this.props.searchResult,
-      givenType: this.props.type,
       selectedType: null,
       errors: {}
     }
@@ -30,15 +29,12 @@ class NewMediaFormContainer extends Component {
   }
 
   selectForm(event) {
+    event.preventDefault()
     let selectedType = event.target.value
     this.setState({
       selectedType: selectedType,
       errors: {}
     })
-  }
-
-  capitalize(title) {
-    return title.charAt(0).toUpperCase() + title.slice(1);
   }
 
   formatFieldName(fieldName) {
@@ -162,7 +158,6 @@ class NewMediaFormContainer extends Component {
       })
       .then((errorBody) => {
         if (errorBody !== undefined) {
-          debugger
           this.setState({ errors: { saveError: errorBody.error } })
           this.props.passMessage('')
         }
@@ -170,67 +165,36 @@ class NewMediaFormContainer extends Component {
   }
 
   render() {
-    let buttons,
-    formHeader,
-    formType,
+    let formHeader,
+    icon,
     validator,
     returnedForm,
     formClass,
-    errorListItems,
-    errorDiv,
-    icon
+    errorMessage
 
-    if (this.state.givenType) {
-      formHeader = "Add New " + this.capitalize(this.state.givenType)
-      formType = this.state.givenType
-    }
-    else if (this.state.selectedType) {
-      formHeader = "Add New " + this.capitalize(this.state.selectedType)
-      formType = this.state.selectedType
-    }
-    else {
-      formHeader = ''
-      formType = null
-    }
-
-    if(Object.keys(this.state.errors).length > 0) {
-      errorListItems = Object.values(this.state.errors).map((error) => {
-        return <li key={error}>{error}</li>
-      })
-      errorDiv =
-        <div className="errors">
-          <h2>The following errors prevented save:</h2>
-          <ul>
-            { errorListItems }
-          </ul>
-        </div>
-    }
-
-    if (formType === "movie") {
-      validator = this.validateMovie
+    if (this.state.selectedType == "movie") {
+      formHeader = "Add New Movie"
       icon = <i className="fas fa-ticket-alt"></i>
+      validator = this.validateMovie
     }
-    else if (formType == "show") {
-      validator = this.validateShow
+    else if (this.state.selectedType === "show") {
+      formHeader = "Add New Show"
       icon = <i className="fas fa-video"></i>
+      validator = this.validateShow
     }
 
-    if (this.state.givenType === null) {
-      buttons =
-        <div className="select-buttons">
-          <button className='form-select-button' value="movie" onClick={ this.selectForm }>Add Movie</button>
-          <button className='form-select-button' value="show" onClick={ this.selectForm }>Add Show</button>
-        </div>
+    let errors = this.state.errors
+    if(Object.keys(errors).length > 0) {
+      errorMessage = <h2 className="submit-error">{Object.values(errors)[0]}</h2>
     }
 
-    if (formType !== null) {
+    if (this.state.selectedType !== null) {
       returnedForm =
         <NewMediaForm
-          fieldInfo={this.state.fieldInfo}
           addMedia={ this.addMedia }
           validate={ validator }
           errors={ this.state.errors }
-          formType={ formType }
+          formType={ this.state.selectedType }
         />
 
       formClass="new-media-form"
@@ -238,10 +202,12 @@ class NewMediaFormContainer extends Component {
 
     return(
       <div>
-        {buttons}
+        <SelectFormType
+          selectForm={this.selectForm}
+        />
         <div className={formClass}>
           <h1 className="form-header">{icon} {formHeader}</h1>
-          {errorDiv}
+          {errorMessage}
           {returnedForm}
         </div>
       </div>

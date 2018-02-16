@@ -1,11 +1,14 @@
 @import './constants';
 
+.sort-div {
+  margin: 0 40% 30px 40%;
+}
+
 .sort-bar {
   display: flex;
   justify-content: space-around;
   align-items: center;
   text-align: center;
-  margin: 0 40% 30px 40%;
 
   li {
     background-color: $secondary-color;
@@ -68,4 +71,11 @@ li.dropdown {
     color: $white;
     background-color: $primary-color;
   }
+}
+
+.sort-result-message {
+  margin: 0;
+  padding: 0;
+  font-weight: bold;
+  text-align: center;
 }

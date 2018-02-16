@@ -11,11 +11,10 @@ class MediaIndexContainer extends Component {
     this.state = {
       media: [],
       loaded: false,
-      message: ''
+      sortMessage: ''
     }
 
     this.clearRouterFlash = this.clearRouterFlash.bind(this)
-    this.clearSortFlash = this.clearSortFlash.bind(this)
     this.sortMedia = this.sortMedia.bind(this)
   }
 
@@ -51,10 +50,6 @@ class MediaIndexContainer extends Component {
     })
   }
 
-  clearSortFlash() {
-    this.setState({ message: ''})
-  }
-
   sortMedia(option, param) {
     fetch(`/api/v1/sort/${option}?return=${param}`, { credentials: 'same-origin' })
     .then(response => {
@@ -71,12 +66,12 @@ class MediaIndexContainer extends Component {
     })
     .then(body => {
       if (body.results === "Nothing Found") {
-        this.setState({ message: "No matches found" })
+        this.setState({ sortMessage: "No matches found" })
       }
       else {
         this.setState({
           media: body.results,
-          message: ''
+          sortMessage: ''
         })
       }
     })
@@ -86,20 +81,16 @@ class MediaIndexContainer extends Component {
   }
 
   render() {
-    console.log(this.state)
-    let flashNotice, displayComponent, action
+    let flashNotice,
+    header,
+    headerClass,
+    displayComponent
+
     if (this.props.location.state) {
       flashNotice =
         <FlashNotice
           message={this.props.location.state.message}
           clearFlash={this.clearRouterFlash}
-        />
-    }
-    else if (this.state.message !== '') {
-      flashNotice =
-        <FlashNotice
-          message={this.state.message}
-          clearFlash={this.clearSortFlash}
         />
     }
 
@@ -108,19 +99,22 @@ class MediaIndexContainer extends Component {
         <MainPage
           media={this.state.media}
           sortMedia={this.sortMedia}
+          sortMessage={this.state.sortMessage}
         />
 
-      action = "Explore"
+      header = "Explore your personal video collection!"
+      headerClass="media-greeting"
     }
     else if (this.state.media.length === 0 && this.state.loaded === true){
       displayComponent = <AddMediaPrompt />
-      action = "Create"
+      header = "Create your personal video collection!"
+      headerClass="no-media-greeting"
     }
 
     return(
       <div>
         {flashNotice}
-        <h1 className="homepage-greeting">{action} your personal video collection!</h1>
+        <h1 className={headerClass}>{header}</h1>
         {displayComponent}
       </div>
     )

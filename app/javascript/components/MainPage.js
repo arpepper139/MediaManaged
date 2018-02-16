@@ -7,6 +7,7 @@ const MainPage = (props) => {
     <div className="homepage">
       <SortBar
         sortMedia={props.sortMedia}
+        sortMessage={props.sortMessage}
       />
       <MediaIndexTile
         media={props.media}

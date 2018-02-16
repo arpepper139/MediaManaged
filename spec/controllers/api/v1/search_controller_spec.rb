@@ -44,9 +44,8 @@ RSpec.describe Api::V1::SearchController, type: :controller do
       expect(response.content_type).to eq("application/json")
 
       expect(returned_json["found_media"]["name"]).to eq "Star Wars: Episode IV - A New Hope"
-      expect(returned_json["message"]).to eq("Movie Found! Star Wars: Episode IV - A New Hope")
       expect(returned_json["type"]).to eq("movie")
-      expect(returned_json["owned"]).to eq false
+      expect(returned_json["in_database"]).to eq false
     end
 
     it "returns a formatted response if a show is found" do
@@ -57,12 +56,11 @@ RSpec.describe Api::V1::SearchController, type: :controller do
       expect(response.content_type).to eq("application/json")
 
       expect(returned_json["found_media"]["name"]).to eq "Game of Thrones"
-      expect(returned_json["message"]).to eq("Show Found! Game of Thrones")
       expect(returned_json["type"]).to eq("show")
-      expect(returned_json["owned"]).to eq false
+      expect(returned_json["in_database"]).to eq false
     end
 
-    it "returns a 'nothing found' message if nothins is found" do
+    it "returns nothing if nothing is found" do
       get :external, params: { name: "Random Words Here Not A Movie" }
 
       returned_json = JSON.parse(response.body)
@@ -70,9 +68,8 @@ RSpec.describe Api::V1::SearchController, type: :controller do
       expect(response.content_type).to eq("application/json")
 
       expect(returned_json["found_media"]).to eq nil
-      expect(returned_json["message"]).to eq("We couldn't find anything on OMBd. Add something in the form below!")
       expect(returned_json["type"]).to eq nil
-      expect(returned_json["owned"]).to eq false
+      expect(returned_json["in_database"]).to eq false
     end
 
     it "tells the user the movie is already in the database" do
@@ -84,10 +81,9 @@ RSpec.describe Api::V1::SearchController, type: :controller do
       expect(response.status).to eq 200
       expect(response.content_type).to eq("application/json")
 
-      expect(returned_json["found_media"]).to eq nil
-      expect(returned_json["message"]).to eq("Looks like we already have #{show1.name}. If it didn't show up, it's already in your collection!")
+      expect(returned_json["found_media"]).to eq "Mad Men"
       expect(returned_json["type"]).to eq nil
-      expect(returned_json["owned"]).to eq true
+      expect(returned_json["in_database"]).to eq true
     end
 
     it "returns status 422 and a message if no query param is provided" do

@@ -13,7 +13,11 @@ class Api::V1::MoviesController < ApplicationController
       provided_genres = params[:genres]
       user_id = current_user.id
 
+
+      #refactor this to conditionally add via dropzone
       new_movie.update_attributes(remote_poster_url: params[:movie][:poster])
+
+
       MovieOwnership.create(user_id: user_id, movie_id: new_movie.id, user_rating: params[:user_rating])
 
       if provided_genres != [] && provided_genres != nil

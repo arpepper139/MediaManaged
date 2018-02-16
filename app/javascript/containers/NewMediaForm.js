@@ -35,46 +35,6 @@ class NewMediaForm extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  componentDidMount() {
-    if (this.props.formType === "show") {
-      let endYear
-      if (this.props.fieldInfo.end_year === null) {
-        endYear = ''
-      }
-      else {
-        endYear = this.props.fieldInfo.end_year
-      }
-
-      if (this.props.fieldInfo !== null) {
-        this.setState({
-          name: this.props.fieldInfo.name,
-          writer: this.props.fieldInfo.writer,
-          startYear: this.props.fieldInfo.start_year,
-          endYear: endYear,
-          description: this.props.fieldInfo.description,
-          imdbRating: this.props.fieldInfo.imdb_rating,
-          poster: this.props.fieldInfo.poster,
-          genres: this.props.fieldInfo.genres
-        })
-      }
-    }
-    else if (this.props.fieldInfo !== null && this.props.formType === "movie") {
-      this.setState({
-        name: this.props.fieldInfo.name,
-        director: this.props.fieldInfo.director,
-        studio: this.props.fieldInfo.studio,
-        year: this.props.fieldInfo.year,
-        runtime: this.props.fieldInfo.runtime,
-        description: this.props.fieldInfo.description,
-        imdbRating: this.props.fieldInfo.imdb_rating,
-        poster: this.props.fieldInfo.poster,
-        genres: this.props.fieldInfo.genres
-      })
-    }
-
-    //Note --> set boolean here to conditionally render my Dropzone depending on if props have been passed
-  }
-
   handleChange(event) {
     let fieldName = event.target.name
     let input = event.target.value
@@ -141,7 +101,6 @@ class NewMediaForm extends Component {
   }
 
   render() {
-    console.log(this.state.genres)
     let formTypeFields;
     if (this.props.formType === "show") {
       formTypeFields = NewShowFields

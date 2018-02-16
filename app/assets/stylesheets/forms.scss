@@ -26,7 +26,7 @@ div#error_explanation, div.errors {
   color: $white;
   background-color: $error-color;
   border: 3px solid;
-  border-color: darken($error-color, 15%);
+  border-color: $error-color;
   margin-bottom: 5px;
 }
 
