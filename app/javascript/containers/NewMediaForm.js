@@ -151,7 +151,6 @@ class NewMediaForm extends Component {
   }
 
   render() {
-    console.log(this.state)
     let formFields;
     if (this.props.formType === "show") {
       formFields = NewShowFields
