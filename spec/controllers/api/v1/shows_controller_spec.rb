@@ -44,10 +44,49 @@ RSpec.describe Api::V1::ShowsController, type: :controller do
       expect(user1.shows.count).to eq(prev_count + 1)
     end
 
-    it "should return status 201 and a success message" do
+    it "should return status 201 and a success message when passed JSON" do
       genre1 = FactoryBot.create(:genre)
       user1 = FactoryBot.create(:user)
-      new_show = { show: { name: "A New Show", writer: "Great Writer", studio: "Disney", start_year: "1995", end_year: "2001", description: "It's Great!", imdb_rating: "8.5" }, user_rating: "5", genres:[genre1.name] }
+      new_show = {
+        show: {
+          name: "A New Show",
+          writer: "Great Writer",
+          studio: "Disney",
+          start_year: "1995",
+          end_year: "2001",
+          description: "It's Great!",
+          imdb_rating: "8.5",
+          poster: "https://images-na.ssl-images-amazon.com/images/M/MV5BNzVlY2MwMjktM2E4OS00Y2Y3LWE3ZjctYzhkZGM3YzA1ZWM2XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SX300.jpg"
+        },
+        user_rating: "5",
+        genres:[genre1.name]
+      }
+
+      sign_in(user1)
+      post(:create, params: new_show)
+
+      returned_json = JSON.parse(response.body)
+      expect(response.status).to eq 201
+      expect(response.content_type).to eq("application/json")
+
+      expect(returned_json["message"]).to eq("Sucessfully added A New Show!")
+    end
+
+    it "should return status 201 and a sucess message when passed Form Data" do
+      genre1 = FactoryBot.create(:genre)
+      user1 = FactoryBot.create(:user)
+      new_show = {
+        name: "A New Show",
+        writer: "Great Writer",
+        studio: "Disney",
+        start_year: "1995",
+        end_year: "2001",
+        description: "It's Great!",
+        imdb_rating: "8.5",
+        poster: Rack::Test::UploadedFile.new(Rails.root.join('spec', 'support', 'images', 'test_poster.jpg'), 'image/jpeg'),
+        user_rating: "5",
+        genres:[genre1.name]
+      }
 
       sign_in(user1)
       post(:create, params: new_show)
