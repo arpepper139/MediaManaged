@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import TextInput from '../components/TextInput'
 import RatingInput from '../components/RatingInput'
 import GenreSelect from '../components/GenreSelect'
+import TextArea from '../components/TextArea'
 
 import NewMovieFields from '../constants/NewMovieFields'
 import NewShowFields from '../constants/NewShowFields'
@@ -101,15 +102,16 @@ class NewMediaForm extends Component {
   }
 
   render() {
-    let formTypeFields;
+    console.log(this.state)
+    let formFields;
     if (this.props.formType === "show") {
-      formTypeFields = NewShowFields
+      formFields = NewShowFields
     }
     else if (this.props.formType === "movie") {
-      formTypeFields = NewMovieFields
+      formFields = NewMovieFields
     }
 
-    let inputFieldComponents = formTypeFields.map((field) => {
+    let inputFieldComponents = formFields.map((field) => {
       return(
         <TextInput
           key={ field.id }
@@ -140,7 +142,12 @@ class NewMediaForm extends Component {
           value={ this.state.userRating }
           handleClick={ this.handleStarSelection }
         />
-        {inputFieldComponents[6]}
+        <TextArea
+          label="Description"
+          value={ this.state.description }
+          name="description"
+          handleChange={ this.handleChange }
+        />
         <button className="submit" onClick={ this.handleSubmit }>Submit</button>
         <i className={exclamationClass}></i>
       </form>

@@ -34,13 +34,7 @@ const newShowFields = [
     name: 'imdbRating',
     id: 'imdb-rating',
     type: 'text'
-  },
-  {
-    label: 'Description',
-    name: 'description',
-    id: 'description',
-    type: 'text'
-  },
+  }
 ]
 
 export default newShowFields
