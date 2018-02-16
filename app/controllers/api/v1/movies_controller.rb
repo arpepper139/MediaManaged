@@ -8,17 +8,35 @@ class Api::V1::MoviesController < ApplicationController
   end
 
   def create
-    new_movie = Movie.new(movie_params)
+    if params[:movie]
+      new_movie = Movie.new(movie_params)
+    else
+      new_movie = Movie.new(
+        name: params[:name],
+        director: params[:director],
+        studio: params[:studio],
+        year: params[:year],
+        runtime: params[:runtime],
+        description: params[:description],
+        imdb_rating: params[:imdb_rating]
+      )
+    end
+
     if new_movie.save
-      provided_genres = params[:genres]
+      if params[:movie]
+        new_movie.update_attributes(remote_poster_url: params[:movie][:poster])
+      else
+        new_movie.update_attributes(poster: params[:poster])
+      end
+
       user_id = current_user.id
-
-
-      #refactor this to conditionally add via dropzone
-      new_movie.update_attributes(remote_poster_url: params[:movie][:poster])
-
-
       MovieOwnership.create(user_id: user_id, movie_id: new_movie.id, user_rating: params[:user_rating])
+
+      if params[:genres].is_a? String
+        provided_genres = params[:genres].split(",")
+      else
+        provided_genres = params[:genres]
+      end
 
       if provided_genres != [] && provided_genres != nil
         provided_genres.each do |provided_genre|

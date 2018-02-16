@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 
+import Dropzone from 'react-dropzone'
 import TextInput from '../components/TextInput'
 import RatingInput from '../components/RatingInput'
 import GenreSelect from '../components/GenreSelect'
@@ -27,13 +28,20 @@ class NewMediaForm extends Component {
       description: '',
       poster: '',
       imdbRating: '',
-      userRating: ''
+      userRating: '',
+
+      poster: ''
     }
 
     this.handleChange = this.handleChange.bind(this)
     this.handleStarSelection = this.handleStarSelection.bind(this)
     this.handleGenreSelection = this.handleGenreSelection.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.readFile = this.readFile.bind(this)
+    this.movieValidationFormatting = this.movieValidationFormatting.bind(this)
+    this.movieFormPayload = this.movieFormPayload.bind(this)
+    this.showValidationFormatting = this.showValidationFormatting.bind(this)
+    this.showFormPayload = this.showFormPayload.bind(this)
   }
 
   handleChange(event) {
@@ -60,44 +68,85 @@ class NewMediaForm extends Component {
     this.setState({ genres: nextSelectedGenres })
   }
 
+  readFile(selectorFiles: FileList) {
+    if (selectorFiles && selectorFiles[0]) {
+      this.setState({ poster: selectorFiles[0] })
+    }
+  }
+
+  movieValidationFormatting() {
+    let movieFields = {
+      name: this.state.name,
+      director: this.state.director,
+      year: this.state.year,
+      description: this.state.description,
+      imdb_rating: this.state.imdbRating,
+      user_rating: this.state.userRating
+    }
+    return movieFields
+  }
+
+  movieFormPayload() {
+    let formPayload = new FormData();
+    formPayload.append('name', this.state.name)
+    formPayload.append('director', this.state.director)
+    formPayload.append('studio', this.state.studio)
+    formPayload.append('year', this.state.year)
+    formPayload.append('runtime', this.state.runtime)
+    formPayload.append('description', this.state.description)
+    formPayload.append('poster', this.state.poster)
+    formPayload.append('imdb_rating', this.state.imdbRating)
+    formPayload.append('user_rating', this.state.userRating)
+    formPayload.append('genres', this.state.genres)
+    return formPayload
+  }
+
+  showValidationFormatting() {
+    let showFields = {
+      name: this.state.name,
+      writer: this.state.writer,
+      start_year: this.state.startYear,
+      end_year: this.state.endYear,
+      description: this.state.description,
+      imdb_rating: this.state.imdbRating,
+      user_rating: this.state.userRating
+    }
+    return showFields
+  }
+
+  showFormPayload() {
+    let formPayload = new FormData();
+    formPayload.append('name', this.state.name)
+    formPayload.append('writer', this.state.writer)
+    formPayload.append('studio', this.state.studio)
+    formPayload.append('start_year', this.state.startYear)
+    formPayload.append('end_year', this.state.endYear)
+    formPayload.append('description', this.state.description)
+    formPayload.append('poster', this.state.poster)
+    formPayload.append('imdb_rating', this.state.imdbRating)
+    formPayload.append('user_rating', this.state.userRating)
+    formPayload.append('genres', this.state.genres)
+    return formPayload
+  }
+
   handleSubmit(event) {
     event.preventDefault()
-    let formPayload
+    let formPayload, validatableFields, valid
     if (this.props.formType == "show") {
-      formPayload = {
-        show: {
-          name: this.state.name,
-          writer: this.state.writer,
-          studio: this.state.studio,
-          start_year: this.state.startYear,
-          end_year: this.state.endYear,
-          description: this.state.description,
-          poster: this.state.poster,
-          imdb_rating: this.state.imdbRating
-        },
-        user_rating: this.state.userRating,
-        genres: this.state.genres
+      validatableFields = this.showValidationFormatting()
+      valid = this.props.validate(validatableFields)
+      if (valid) {
+        formPayload = this.showFormPayload()
+        this.props.addMedia(this.props.formType, formPayload)
       }
     }
     else {
-      formPayload = {
-        movie: {
-          name: this.state.name,
-          director: this.state.director,
-          studio: this.state.studio,
-          year: this.state.year,
-          runtime: this.state.runtime,
-          description: this.state.description,
-          poster: this.state.poster,
-          imdb_rating: this.state.imdbRating
-        },
-        user_rating: this.state.userRating,
-        genres: this.state.genres
+      validatableFields = this.movieValidationFormatting()
+      valid = this.props.validate(validatableFields)
+      if (valid) {
+        formPayload = this.movieFormPayload()
+        this.props.addMedia(this.props.formType, formPayload)
       }
-    }
-    let valid = this.props.validate(formPayload)
-    if (valid) {
-      this.props.addMedia(this.props.formType, formPayload)
     }
   }
 
@@ -110,6 +159,8 @@ class NewMediaForm extends Component {
     else if (this.props.formType === "movie") {
       formFields = NewMovieFields
     }
+
+    let actionText = `${this.state.poster === '' ? "Add a poster!" : "Uploaded!"}`
 
     let inputFieldComponents = formFields.map((field) => {
       return(
@@ -136,12 +187,25 @@ class NewMediaForm extends Component {
           handleChange={ this.handleGenreSelection }
         />
         {inputFieldComponents.slice(2, 5)}
-        <label>Your Rating</label>
-        <RatingInput
-          name='userRating'
-          value={ this.state.userRating }
-          handleClick={ this.handleStarSelection }
-        />
+        <div className="new-media-rating">
+          <label>Your Rating</label>
+          <RatingInput
+            name='userRating'
+            value={ this.state.userRating }
+            handleClick={ this.handleStarSelection }
+          />
+        </div>
+        {inputFieldComponents.slice(5)}
+        <div className="new-media-drop">
+          <label>Poster</label>
+          <Dropzone
+            multiple={false}
+            onDrop={this.readFile}
+            accept="image/jpeg, image/jpg, image/png"
+          >
+            <p>{actionText}</p>
+          </Dropzone>
+        </div>
         <TextArea
           label="Description"
           value={ this.state.description }

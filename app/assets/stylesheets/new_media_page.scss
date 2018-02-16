@@ -194,3 +194,19 @@ textarea {
   height: 125px;
   resize: none;
 }
+
+.new-media-drop {
+  margin-bottom: 16px;
+
+  p {
+    text-align: center;
+    color: $primary-color;
+    padding-top: 10px;
+    padding-bottom: 165px;
+    cursor: crosshair;
+  }
+}
+
+.new-media-rating {
+  margin-bottom: 16px;
+}
