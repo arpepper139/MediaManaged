@@ -166,12 +166,11 @@ class NewMediaFormContainer extends Component {
 
   render() {
     let formHeader,
-    formType,
+    icon,
     validator,
     returnedForm,
     formClass,
-    errorMessage,
-    icon
+    errorMessage
 
     if (this.state.selectedType == "movie") {
       formHeader = "Add New Movie"
@@ -192,7 +191,6 @@ class NewMediaFormContainer extends Component {
     if (this.state.selectedType !== null) {
       returnedForm =
         <NewMediaForm
-          fieldInfo={this.state.fieldInfo}
           addMedia={ this.addMedia }
           validate={ validator }
           errors={ this.state.errors }
