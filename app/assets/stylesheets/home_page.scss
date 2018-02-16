@@ -20,12 +20,18 @@ div.col {
 
 // Message
 .homepage-greeting {
-  margin: 2% 1.5%;
+  margin: 10% 1.5% 1% 1.5%;
   font-size: 22px;
   font-family: 'Source Sans Pro', sans-serif;
   font-weight: bold;
   color: $secondary-color;
   text-align: center;
+}
+
+@media screen and (max-width: 63.9375em) {
+  .homepage-greeting {
+    margin: 15% 1.5% 1% 1.5%;
+  }
 }
 
 // No Media Div

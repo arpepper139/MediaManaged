@@ -105,12 +105,13 @@ class OMDBAddForm extends Component {
     let errorMessage
     let errors = this.state.errors
     if(Object.keys(errors).length > 0) {
-      errorMessage = <p className="submit-error">{Object.values(errors)[0]}</p>
+      let error = Object.values(errors)[0]
+      errorMessage = <p className="submit-error">{error}</p>
     }
 
     return(
       <div className="omdb-add-form">
-        {errors}
+        {errorMessage}
         <p className="message">{type} Found!</p>
         <form className="add-ownership">
           <p className="media-title">{this.props.searchResult.name}</p>
