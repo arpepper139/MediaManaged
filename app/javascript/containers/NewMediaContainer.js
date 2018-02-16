@@ -195,8 +195,6 @@ class NewMediaContainer extends Component {
       else {
         omdbField =
           <NewMediaFormContainer
-            searchResult={this.state.omdbMatch.result}
-            type={this.state.omdbMatch.type}
             clearPage={this.handleClearSearch}
             passMessage={this.grabMessage}
           />

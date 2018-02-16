@@ -5,7 +5,8 @@ class OMDBAddForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      rating: ''
+      rating: '',
+      errors: {}
     }
 
     this.capitalize = this.capitalize.bind(this)
@@ -100,9 +101,16 @@ class OMDBAddForm extends Component {
 
   render() {
     let type = this.capitalize(this.props.type)
-    //return something that looks like the NewOwnershipForm, but has the ability to see info
+
+    let errorMessage
+    let errors = this.state.errors
+    if(Object.keys(errors).length > 0) {
+      errorMessage = <p className="submit-error">{Object.values(errors)[0]}</p>
+    }
+
     return(
       <div className="omdb-add-form">
+        {errors}
         <p className="message">{type} Found!</p>
         <form className="add-ownership">
           <p className="media-title">{this.props.searchResult.name}</p>

@@ -8,8 +8,6 @@ class NewMediaFormContainer extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      fieldInfo: this.props.searchResult,
-      givenType: this.props.type,
       selectedType: null,
       errors: {}
     }
@@ -31,15 +29,12 @@ class NewMediaFormContainer extends Component {
   }
 
   selectForm(event) {
+    event.preventDefault()
     let selectedType = event.target.value
     this.setState({
       selectedType: selectedType,
       errors: {}
     })
-  }
-
-  capitalize(title) {
-    return title.charAt(0).toUpperCase() + title.slice(1);
   }
 
   formatFieldName(fieldName) {
@@ -170,8 +165,7 @@ class NewMediaFormContainer extends Component {
   }
 
   render() {
-    let buttons,
-    formHeader,
+    let formHeader,
     formType,
     validator,
     returnedForm,
@@ -179,17 +173,15 @@ class NewMediaFormContainer extends Component {
     errorMessage,
     icon
 
-    if (this.state.givenType) {
-      formHeader = "Add New " + this.capitalize(this.state.givenType)
-      formType = this.state.givenType
+    if (this.state.selectedType == "movie") {
+      formHeader = "Add New Movie"
+      icon = <i className="fas fa-ticket-alt"></i>
+      validator = this.validateMovie
     }
-    else if (this.state.selectedType) {
-      formHeader = "Add New " + this.capitalize(this.state.selectedType)
-      formType = this.state.selectedType
-    }
-    else {
-      formHeader = ''
-      formType = null
+    else if (this.state.selectedType === "show") {
+      formHeader = "Add New Show"
+      icon = <i className="fas fa-video"></i>
+      validator = this.validateShow
     }
 
     let errors = this.state.errors
@@ -197,30 +189,14 @@ class NewMediaFormContainer extends Component {
       errorMessage = <h2 className="submit-error">{Object.values(errors)[0]}</h2>
     }
 
-    if (formType === "movie") {
-      validator = this.validateMovie
-      icon = <i className="fas fa-ticket-alt"></i>
-    }
-    else if (formType == "show") {
-      validator = this.validateShow
-      icon = <i className="fas fa-video"></i>
-    }
-
-    if (this.state.givenType === null) {
-      buttons =
-        <SelectFormType
-          selectForm={this.selectForm}
-        />
-    }
-
-    if (formType !== null) {
+    if (this.state.selectedType !== null) {
       returnedForm =
         <NewMediaForm
           fieldInfo={this.state.fieldInfo}
           addMedia={ this.addMedia }
           validate={ validator }
           errors={ this.state.errors }
-          formType={ formType }
+          formType={ this.state.selectedType }
         />
 
       formClass="new-media-form"
@@ -228,7 +204,9 @@ class NewMediaFormContainer extends Component {
 
     return(
       <div>
-        {buttons}
+        <SelectFormType
+          selectForm={this.selectForm}
+        />
         <div className={formClass}>
           <h1 className="form-header">{icon} {formHeader}</h1>
           {errorMessage}
