@@ -13,18 +13,18 @@ const MediaPreview = (props) => {
 
   let preview
   if (props.poster === null) {
-    preview = <div className="preview-item" style={noPosterStyle}>
+    preview = <div className="preview-picture" style={noPosterStyle}>
       <p>{props.name}</p>
       <i className="fas fa-film"></i>
     </div>
   }
   else {
-    preview = <div className="preview-item" style={posterStyle} alt={props.name} />
+    preview = <div className="preview-picture" style={posterStyle} alt={props.name} />
   }
 
   return(
     <Link to={`/${props.type}s/${props.id}`}>
-      <div className="preview col small-12 medium-4 large-2 columns">
+      <div className="preview-tile">
         {preview}
       </div>
     </Link>

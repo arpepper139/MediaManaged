@@ -1,12 +1,21 @@
 import React from 'react'
 
 const PageButton = ({ direction, pageFlip }) => {
-  const arrowClass = `fas fa-arrow-${direction}`
+  const arrowClass = `fas fa-chevron-${direction}`
+  const divClass = `page-button ${pageFlip ? "active" : "inactive"}`
+
+  let handleClick
+  if (pageFlip) {
+    handleClick = () => pageFlip(direction)
+  }
+  else {
+    handleClick = ''
+  }
 
   return(
-    <button type="button" onClick={() => pageFlip(direction)}>
-      <i className={arrowClass} onClick={() => pageFlip(direction)}></i>
-    </button>
+    <div className={divClass} onClick={handleClick}>
+      <i className={arrowClass} onClick={handleClick}></i>
+    </div>
   )
 }
 
