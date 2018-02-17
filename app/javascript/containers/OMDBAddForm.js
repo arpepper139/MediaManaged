@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 import RatingInput from '../components/RatingInput'
-import FoundMovieInfoCallout from '../components/FoundMovieInfoCallout'
+import FoundMediaInfoCallout from '../components/FoundMediaInfoCallout'
 
 class OMDBAddForm extends Component {
   constructor(props) {
@@ -135,20 +135,22 @@ class OMDBAddForm extends Component {
           <div>
             <p className="media-title">{this.props.searchResult.name}</p>
           </div>
-          <div>
+          <div className="found-media-options">
             <RatingInput
               name='rating'
               value={this.state.rating}
               handleClick={this.handleStarSelection}
             />
-            <button className="info-button" onClick={this.toggleCallout}>Info</button>
-            <button className='submit-ownership' onClick={this.addMedia}>Add</button>
+            <div>
+              <button className='submit-ownership' onClick={this.addMedia}>Add</button>
+              <button className="info-button" onClick={this.toggleCallout}>Info</button>
+            </div>
           </div>
         </form>
         <div className={calloutBackgroundClass}>
         </div>
         <div className={calloutClass}>
-          <FoundMovieInfoCallout
+          <FoundMediaInfoCallout
             foundInfo={this.props.searchResult}
             closeDisplay={this.toggleCallout}
           />

@@ -1,6 +1,6 @@
 import React from 'react'
 
-const FoundMovieInfoCallout = ({ foundInfo, closeDisplay }) => {
+const FoundMediaInfoCallout = ({ foundInfo, closeDisplay }) => {
 
   let formatField = (fieldName) => {
     let splitWords = fieldName.replace(/_/, " ").split(" ")
@@ -48,4 +48,4 @@ const FoundMovieInfoCallout = ({ foundInfo, closeDisplay }) => {
   )
 }
 
-export default FoundMovieInfoCallout
+export default FoundMediaInfoCallout
