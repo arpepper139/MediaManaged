@@ -1,18 +1,22 @@
 import React, { Component } from 'react'
+
 import RatingInput from '../components/RatingInput'
+import FoundMovieInfoCallout from '../components/FoundMovieInfoCallout'
 
 class OMDBAddForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
       rating: '',
-      errors: {}
+      errors: {},
+      callout: false
     }
 
     this.capitalize = this.capitalize.bind(this)
     this.handleStarSelection = this.handleStarSelection.bind(this)
     this.createFormPayload = this.createFormPayload.bind(this)
     this.addMedia = this.addMedia.bind(this)
+    this.toggleCallout = this.toggleCallout.bind(this)
   }
 
   capitalize(title) {
@@ -21,6 +25,17 @@ class OMDBAddForm extends Component {
 
   handleStarSelection(rating) {
     this.setState({ rating })
+  }
+
+  toggleCallout(event) {
+    event.preventDefault()
+    let currentCalloutState = this.state.callout
+    if (currentCalloutState == true) {
+      this.setState({ callout: false })
+    }
+    else {
+      this.setState({ callout: true })
+    }
   }
 
   createFormPayload(type) {
@@ -102,6 +117,9 @@ class OMDBAddForm extends Component {
   render() {
     let type = this.capitalize(this.props.type)
 
+    let calloutClass = `${this.state.callout == false ? 'hidden' : 'info-callout'}`
+    let calloutBackgroundClass = `${this.state.callout == false ? 'hidden' : 'info-background'}`
+
     let errorMessage
     let errors = this.state.errors
     if(Object.keys(errors).length > 0) {
@@ -114,16 +132,27 @@ class OMDBAddForm extends Component {
         {errorMessage}
         <p className="message">{type} Found!</p>
         <form className="add-ownership">
-          <p className="media-title">{this.props.searchResult.name}</p>
+          <div>
+            <p className="media-title">{this.props.searchResult.name}</p>
+          </div>
           <div>
             <RatingInput
               name='rating'
               value={this.state.rating}
               handleClick={this.handleStarSelection}
             />
+            <button className="info-button" onClick={this.toggleCallout}>Info</button>
             <button className='submit-ownership' onClick={this.addMedia}>Add</button>
           </div>
         </form>
+        <div className={calloutBackgroundClass}>
+        </div>
+        <div className={calloutClass}>
+          <FoundMovieInfoCallout
+            foundInfo={this.props.searchResult}
+            closeDisplay={this.toggleCallout}
+          />
+        </div>
       </div>
     )
   }

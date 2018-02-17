@@ -8,7 +8,7 @@ class Api::V1::UsersController < ApplicationController
       @user = User.find(current_user.id)
       render json: @user, serializer: UserCurrentSerializer
     else
-      render json: nil, status: :unprocessable_entity
+      render json: { error: "Not logged in" }, status: 401
     end
   end
 end
