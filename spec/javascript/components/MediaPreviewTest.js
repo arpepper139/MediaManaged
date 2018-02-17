@@ -29,7 +29,7 @@ describe('Media Preview', () => {
   })
 
   it('should render an image if a poster is provided, and the media object name alt otherwise', () => {
-    expect(noPosterShowWrapper.find('div.preview-item')).toBePresent()
-    expect(posterMovieWrapper.find('div.preview-item')).toBePresent()
+    expect(noPosterShowWrapper.find('div.preview-tile')).toBePresent()
+    expect(posterMovieWrapper.find('div.preview-tile')).toBePresent()
   })
 })
