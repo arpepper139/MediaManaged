@@ -26,14 +26,14 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       expect(returned_json["user"]["media"].length).to eq 2
     end
 
-    it "should return nil and 422 if there is no current user" do
+    it "should return 'Not logged in' and 401 if there is no current user" do
       get :current
 
       returned_json = JSON.parse(response.body)
-      expect(response.status).to eq 422
+      expect(response.status).to eq 401
       expect(response.content_type).to eq("application/json")
 
-      expect(returned_json).to eq nil
+      expect(returned_json['error']).to eq 'Not logged in'
     end
   end
 end

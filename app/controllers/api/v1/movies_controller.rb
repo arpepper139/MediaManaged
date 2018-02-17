@@ -57,7 +57,7 @@ class Api::V1::MoviesController < ApplicationController
     if movie.save
       render json: movie
     else
-      render json: { error: "Oops! We had problems on our end. Try again." }
+      render json: { error: "Oops! We had problems on our end. Try again." }, status: :unprocessable_entity
     end
   end
 

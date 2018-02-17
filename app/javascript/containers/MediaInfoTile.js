@@ -3,7 +3,7 @@ import { Link, browserHistory } from 'react-router'
 
 import FlashNotice from '../components/FlashNotice.js'
 import RatingInput from '../components/RatingInput.js'
-import Button from '../components/Button.js'
+import ToggleOwnershipButton from '../components/ToggleOwnershipButton.js'
 import PosterUploader from '../containers/PosterUploader.js'
 
 class MediaInfoTile extends Component {
@@ -204,7 +204,7 @@ class MediaInfoTile extends Component {
         </div>
         <div className="description small-12 medium-6 large-8 columns">
           <p>Description: {this.props.data.description}</p>
-          <Button
+          <ToggleOwnershipButton
             onClickfunction={onClickFunction}
             text={action}
           />

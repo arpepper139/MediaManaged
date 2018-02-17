@@ -6,7 +6,7 @@ class Api::V1::SortController < ApplicationController
     user = current_user
 
     if user == nil
-      render json: { error: "Not logged in" }, status: :unprocessable_entity
+      render json: { error: "Not logged in" }, status: 401
     elsif params[:return] == "movie"
       if user.movies == []
         render json: { results: "Nothing Found" }
@@ -50,7 +50,7 @@ class Api::V1::SortController < ApplicationController
         render json: { error: "Please provide a valid sort parameter" }, status: :unprocessable_entity
       end
     else
-      render json: { error: "Not logged in" }, status: :unprocessable_entity
+      render json: { error: "Not logged in" }, status: 401
     end
   end
 
@@ -80,7 +80,7 @@ class Api::V1::SortController < ApplicationController
     elsif user!= nil
       render json: { error: "Please provide a valid sort parameter" }, status: :unprocessable_entity
     else
-      render json: { error: "Not logged in" }, status: :unprocessable_entity
+      render json: { error: "Not logged in" }, status: 401
     end
   end
 end

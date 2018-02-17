@@ -57,7 +57,7 @@ class Api::V1::ShowsController < ApplicationController
     if show.save
       render json: show
     else
-      render json: { error: "Oops! We had problems on our end. Try again." }
+      render json: { error: "Oops! We had problems on our end. Try again." }, status: :unprocessable_entity
     end
   end
 

@@ -53,7 +53,7 @@ RSpec.describe Api::V1::SortController, type: :controller do
       get :type, params: { return: "videogame" }
 
       returned_json = JSON.parse(response.body)
-      expect(response.status).to eq 422
+      expect(response.status).to eq 401
       expect(response.content_type).to eq("application/json")
 
       expect(returned_json["error"]).to eq "Not logged in"
@@ -122,7 +122,7 @@ RSpec.describe Api::V1::SortController, type: :controller do
       get :genre, params: { return: "Action" }
 
       returned_json = JSON.parse(response.body)
-      expect(response.status).to eq 422
+      expect(response.status).to eq 401
       expect(response.content_type).to eq("application/json")
 
       expect(returned_json["error"]).to eq "Not logged in"
@@ -188,7 +188,7 @@ RSpec.describe Api::V1::SortController, type: :controller do
       get :rating, params: { return: 4 }
 
       returned_json = JSON.parse(response.body)
-      expect(response.status).to eq 422
+      expect(response.status).to eq 401
       expect(response.content_type).to eq("application/json")
 
       expect(returned_json["error"]).to eq "Not logged in"

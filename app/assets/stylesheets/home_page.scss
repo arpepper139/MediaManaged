@@ -98,9 +98,17 @@ div.no-media-landing {
   width: 233px;
   color: $preview-default;
 
+  flex-direction: column;
+  align-items: center;
+
   background-position: 50% 50%;
   background-repeat: no-repeat;
   background-size: cover;
+
+  p {
+    padding: 5px;
+    margin: 0;
+  }
 }
 
 .preview-picture:hover {
