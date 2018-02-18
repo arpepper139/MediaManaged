@@ -44,7 +44,7 @@ class Api::V1::MoviesController < ApplicationController
           new_movie.genres << genre
         end
       end
-
+      
       render json: { message: "Sucessfully added #{new_movie.name}!" }, status: 201
     else
       render json: { error: "Whoops! Looks like we already have #{new_movie.name}. If it's not in your personal collection, you can add it by searching above!" }, status: :unprocessable_entity
