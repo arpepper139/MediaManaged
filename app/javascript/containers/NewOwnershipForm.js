@@ -59,7 +59,7 @@ class NewOwnershipForm extends Component {
         <Link to={`${this.props.type}s/${this.props.id}`}>
           <p className="media-title">{this.props.name}</p>
         </Link>
-        <div>
+        <div className="found-media-options">
           <RatingInput
             name='rating'
             value={this.state.rating}

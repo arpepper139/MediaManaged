@@ -142,8 +142,8 @@ class OMDBAddForm extends Component {
               handleClick={this.handleStarSelection}
             />
             <div>
-              <button className='submit-ownership' onClick={this.addMedia}>Add</button>
               <button className="info-button" onClick={this.toggleCallout}>Info</button>
+              <button className='submit-ownership' onClick={this.addMedia}>Add</button>
             </div>
           </div>
         </form>
