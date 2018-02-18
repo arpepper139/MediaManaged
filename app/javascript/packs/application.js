@@ -20,16 +20,6 @@ if (closeFlash !== null) {
   });
 }
 
-let dropdownMenu = document.getElementsByClassName('dropbtn')[0]
-let dropdownItemsDiv = document.getElementsByClassName('dropdown-content')[0]
-
-if (!!dropdownMenu) {
-  dropdownMenu.addEventListener('mouseover', () => {
-    let width = dropdownMenu.offsetWidth;
-    dropdownItemsDiv.style.width = `${width}px`;
-  })
-}
-
 if (window.location.hash == '#_=_'){
     history.replaceState
         ? history.replaceState(null, null, window.location.href.split('#')[0])

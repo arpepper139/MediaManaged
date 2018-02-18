@@ -1,99 +1,77 @@
-import React from 'react'
+import React, { Component } from 'react'
 
 import SortDropdown from '../components/SortDropdown'
+import genreOptions from '../constants/GenreOptions'
+import typeOptions from '../constants/TypeOptions'
+import ratingOptions from '../constants/RatingOptions'
 
-const typeOptions = [
-  {
-    display: "Movie",
-    value: "movie"
-  },
-  {
-    display: "Show",
-    value: "show"
+class SortBar extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      typeFieldhidden: true,
+      genreFieldHidden: true,
+      ratingFieldHidden: true
+    }
+
+    this.toggleHidden = this.toggleHidden.bind(this)
   }
-]
 
-const genreOptions = [
-  {
-    display: "Action",
-    value: "Action"
-  },
-  {
-    display: "Animation",
-    value: "Animation"
-  },
-  {
-    display: "Comedy",
-    value: "Comedy"
-  },
-  {
-    display: "Drama",
-    value: "Drama"
-  },
-  {
-    display: "Fantasy",
-    value: "Fantasy"
-  },
-  {
-    display: "Horror",
-    value: "Horror"
-  },
-  {
-    display: "Romance",
-    value: "Romance"
-  },
-  {
-    display: "Sci-Fi",
-    value: "Sci-Fi"
+  toggleHidden(sortField, priorValue) {
+    let nextValue = !priorValue
+    if (sortField == "Type") {
+      this.setState({
+        typeFieldhidden: nextValue,
+        genreFieldHidden: true,
+        ratingFieldHidden: true
+      })
+    }
+    else if (sortField == "Genre") {
+      this.setState({
+        typeFieldhidden: true,
+        genreFieldHidden: nextValue,
+        ratingFieldHidden: true
+      })
+    }
+    else {
+      this.setState({
+        typeFieldhidden: true,
+        genreFieldHidden: true,
+        ratingFieldHidden: nextValue
+      })
+    }
   }
-]
 
-const ratingOptions = [
-  {
-    display: "Five Stars",
-    value: 5
-  },
-  {
-    display: "Four Stars",
-    value: 4
-  },
-  {
-    display: "Three Stars",
-    value: 3
-  },
-  {
-    display: "Two Stars",
-    value: 2
-  },
-  {
-    display: "One Star",
-    value: 1
+  render() {
+    return(
+      <div className="sort-div">
+        <p className="sort-result-message">{this.props.sortMessage}</p>
+        <ul className="sort-bar">
+          <SortDropdown
+            sortField="Type"
+            options={typeOptions}
+            sortMedia={this.props.sortMedia}
+            hidden={this.state.typeFieldhidden}
+            toggleHidden={this.toggleHidden}
+          />
+          <SortDropdown
+            sortField="Genre"
+            options={genreOptions}
+            sortMedia={this.props.sortMedia}
+            hidden={this.state.genreFieldHidden}
+            toggleHidden={this.toggleHidden}
+          />
+          <SortDropdown
+            sortField="Rating"
+            options={ratingOptions}
+            sortMedia={this.props.sortMedia}
+            hidden={this.state.ratingFieldHidden}
+            toggleHidden={this.toggleHidden}
+          />
+        </ul>
+      </div>
+    )
   }
-]
-
-const SortBar = (props) => {
-  return(
-    <div className="sort-div">
-      <ul className="sort-bar">
-        <SortDropdown
-          sortField="Type"
-          options={typeOptions}
-          sortMedia={props.sortMedia}
-        />
-        <SortDropdown
-          sortField="Genre"
-          options={genreOptions}
-          sortMedia={props.sortMedia}
-        />
-        <SortDropdown
-          sortField="Rating"
-          options={ratingOptions}
-          sortMedia={props.sortMedia}
-        />
-      </ul>
-      <p className="sort-result-message">{props.sortMessage}</p>
-    </div>
-  )
 }
 
 export default SortBar
