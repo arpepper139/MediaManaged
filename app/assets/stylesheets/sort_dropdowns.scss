@@ -1,7 +1,22 @@
 @import './constants';
 
+// Dropdown Bar
+
 .sort-div {
   margin: 0 40% 30px 40%;
+}
+
+@media screen and (max-width: 39.9375em) {
+  .sort-div {
+    margin: 0 25% 30px 25%;
+  }
+}
+
+.sort-result-message {
+  margin: 0;
+  padding: 5px 0 0 0;
+  font-weight: bold;
+  text-align: center;
 }
 
 .sort-bar {
@@ -10,48 +25,43 @@
   align-items: center;
   text-align: center;
   margin: 0;
-
-  li {
-    background-color: $secondary-color;
-    margin: 2% 2%;
-    padding-top: 16px;
-    text-align: center;
-
-    p {
-      width: 100px;
-      color: $primary-color;
-    }
-  }
-
-  li:hover {
-    background-color: $primary-color;
-    cursor: pointer;
-
-    p {
-      color: $tertiary-color;
-    }
-
-    p.option {
-      color: $white;
-    }
-
-    p:hover {
-      color: $white
-    }
-  }
 }
 
-.dropdown:hover .dropdown-content {
-    display: block;
-}
+//Dropdown Menus
 
-.dropdown:hover .dropbtn {
-  background-color: $primary-color;
-  color: $white;
-}
-
-li.dropdown {
+.dropdown {
   display: inline-block;
+  background-color: $secondary-color;
+  margin: 2% 2%;
+  padding-top: 16px;
+  text-align: center;
+  cursor: pointer;
+
+  p {
+    width: 100px;
+    color: $primary-color;
+  }
+}
+
+.dropdown-active {
+  color: $white;
+  background-color: $primary-color;
+
+  p {
+    color: $tertiary-color;
+  }
+
+  p.option {
+    color: $white;
+  }
+
+  p:hover {
+    color: $white
+  }
+
+  .dropdown-content {
+    display: block
+  }
 }
 
 .dropdown-content {
@@ -72,11 +82,4 @@ li.dropdown {
     color: $white;
     background-color: $primary-color;
   }
-}
-
-.sort-result-message {
-  margin: 0;
-  padding: 0;
-  font-weight: bold;
-  text-align: center;
 }

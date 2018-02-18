@@ -61,7 +61,7 @@ class MediaIndexTile extends Component {
     return(
       <div>
         <div className="media-display">
-          <div className="medium-up-pagination">
+          <div>
             <PageButton
               direction="left"
               pageFlip={ pageBack }
@@ -85,7 +85,7 @@ class MediaIndexTile extends Component {
               </div>
             </div>
           </div>
-          <div className="medium-up-pagination">
+          <div>
             <PageButton
               direction="right"
               pageFlip={ pageForward }

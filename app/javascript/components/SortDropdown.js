@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 
 const SortDropdown = (props) => {
   let key = 0
@@ -10,8 +10,11 @@ const SortDropdown = (props) => {
     )
   })
 
+  let hidden = props.hidden
+  let dropdownClass = `dropdown ${ !hidden ? 'dropdown-active' : ''}`
+
   return(
-    <li className="dropdown dropbtn">
+    <li className={dropdownClass} onClick={() => props.toggleHidden(props.sortField, props.hidden)}>
       <p className="option">By {props.sortField}</p>
       <div className ="dropdown-content">
         {sortOptions}
