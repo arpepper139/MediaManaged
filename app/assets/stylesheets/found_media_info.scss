@@ -13,7 +13,6 @@
   opacity: 0.5;
 }
 
-
 .info-callout {
   background-color: $white;
   position: absolute;
@@ -42,8 +41,13 @@
 
 .media-info-title {
   color: $primary-color;
-  font-size: 20px;
   text-align: center;
+
+  p {
+    margin: 0;
+    padding: 0 0 0 10.5px;
+    font-size: 20px;
+  }
 }
 
 .media-details {
