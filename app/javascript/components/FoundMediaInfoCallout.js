@@ -34,7 +34,7 @@ const FoundMediaInfoCallout = ({ foundInfo, closeDisplay }) => {
       <i className="fas fa-times close-info-display" aria-hidden="true" onClick={closeDisplay}></i>
       <div className="media-info-display">
         <div className="media-info-title">
-          {foundInfo.name}
+          <p>{foundInfo.name}</p>
         </div>
         <div className="media-details">
           <div className="media-info-picture" style={posterStyle} alt={foundInfo.name} />
