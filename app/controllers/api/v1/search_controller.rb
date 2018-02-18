@@ -33,8 +33,13 @@ class Api::V1::SearchController < ApplicationController
 
       if response["Genre"] != nil
         supplied_genres = response["Genre"].split(', ')
-        database_genres = Genre.where(name: supplied_genres)
-        genre_array = database_genres.map { |genre| genre.name }
+
+        database_genres = []
+        supplied_genres.each do |genre|
+          if Genre.where(name: genre) != []
+            database_genres << genre
+          end
+        end
       end
 
       show_db_check = Show.where(name: response["Title"])
@@ -56,7 +61,7 @@ class Api::V1::SearchController < ApplicationController
             runtime: response["Runtime"],
             description: response["Plot"],
             imdb_rating: response["imdbRating"],
-            genres: genre_array
+            genres: database_genres
           }
           render json: {
             found_media: processed_response,
@@ -73,7 +78,7 @@ class Api::V1::SearchController < ApplicationController
           end_year: years[1],
           description: response["Plot"],
           imdb_rating: response["imdbRating"],
-          genres: genre_array
+          genres: database_genres
         }
         render json: {
           found_media: processed_response,
