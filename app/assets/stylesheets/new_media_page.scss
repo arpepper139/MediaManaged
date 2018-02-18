@@ -20,16 +20,16 @@ div.new-media-page {
   text-align: center;
 }
 
-/* Database Search Results */
+/* Search Results */
 
 .add-ownership {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: nowrap;
   margin-bottom: 5px;
   border: 2px solid $secondary-color;
   background-color: $white;
   width: 100%;
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: nowrap;
 
   a {
     color: $secondary-color
@@ -40,8 +40,19 @@ div.new-media-page {
   }
 }
 
+.found-media-options {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
 @media screen and (max-width: 39.9375em) {
+  .found-media-options {
+    flex-direction: column;
+  }
+
   .add-ownership {
+    text-align: center;
     flex-direction: column;
   }
 }
