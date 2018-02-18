@@ -45,7 +45,6 @@ class SortBar extends Component {
   render() {
     return(
       <div className="sort-div">
-        <p className="sort-result-message">{this.props.sortMessage}</p>
         <ul className="sort-bar">
           <SortDropdown
             sortField="Type"
@@ -69,6 +68,7 @@ class SortBar extends Component {
             toggleHidden={this.toggleHidden}
           />
         </ul>
+        <p className="sort-result-message">{this.props.sortMessage}</p>
       </div>
     )
   }
