@@ -157,7 +157,7 @@ class NewMediaFormContainer extends Component {
         return error.json()
       })
       .then((errorBody) => {
-        if (!!errorBody) {
+        if (errorBody !== undefined) {
           this.setState({ errors: { saveError: errorBody.error } })
           this.props.passMessage('')
         }
