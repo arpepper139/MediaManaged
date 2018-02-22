@@ -26,7 +26,6 @@ class NewMediaForm extends Component {
       runtime: '',
 
       description: '',
-      poster: '',
       imdbRating: '',
       userRating: '',
 

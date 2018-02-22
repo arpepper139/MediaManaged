@@ -4,27 +4,14 @@
 [![Code Climate](https://codeclimate.com/github/arpepper139/MediaManaged/badges/gpa.svg)](https://codeclimate.com/github/arpepper139/MediaManaged)
 [![Coverage Status](https://coveralls.io/repos/github/arpepper139/MediaManaged/badge.svg?branch=master)](https://coveralls.io/github/arpepper139/MediaManaged?branch=master)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
 Author: Andrew Pepper-Anderson
 
-Things you may want to cover:
+MediaManaged is an application that allows users to create a collection of all their shows and movies.
 
-* Ruby version
+Chrome and Safari are fully supported. Mobile and Firefox are supported but remain in development.
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+To download and optimally run MediaManaged, you will need:
+* An API Key from the OMDb API: http://www.omdbapi.com
+* An Amazon Web Services S3 Bucket for photo uploading
+* The ImageMagick command line dependency for resizing uploaded photos, which can be installed using Homebrew and the following command:
+  `brew install imagemagick`
