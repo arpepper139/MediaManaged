@@ -1,5 +1,5 @@
 import React from 'react'
-import MediaIndexTile from '../containers/MediaIndexTile'
+import MediaIndexTile from '../components/MediaIndexTile'
 import SortBar from '../containers/SortBar'
 
 const MainPage = (props) => {
@@ -11,6 +11,9 @@ const MainPage = (props) => {
       />
       <MediaIndexTile
         media={props.media}
+        pageFlip={props.pageFlip}
+        slicePoint1={props.slicePoint1}
+        slicePoint2={props.slicePoint2}
       />
     </div>
   )

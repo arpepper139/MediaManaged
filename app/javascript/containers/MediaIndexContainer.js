@@ -11,11 +11,14 @@ class MediaIndexContainer extends Component {
     this.state = {
       media: [],
       loaded: false,
-      sortMessage: ''
+      sortMessage: '',
+      slicePoint1: 0,
+      slicePoint2: 12
     }
 
     this.clearRouterFlash = this.clearRouterFlash.bind(this)
     this.sortMedia = this.sortMedia.bind(this)
+    this.pageFlip = this.pageFlip.bind(this)
   }
 
   componentDidMount() {
@@ -71,6 +74,8 @@ class MediaIndexContainer extends Component {
       else {
         this.setState({
           media: body.results,
+          slicePoint1: 0,
+          slicePoint2: 12,
           sortMessage: ''
         })
       }
@@ -78,6 +83,19 @@ class MediaIndexContainer extends Component {
     .catch(error => {
       console.error(`Error in fetch: ${error.message}`)
     });
+  }
+
+  pageFlip(value) {
+    event.preventDefault()
+    let flip = (value === "right" ? 12 : -12)
+
+    let currentSlice1 = this.state.slicePoint1
+    let currentSlice2 = this.state.slicePoint2
+
+    this.setState({
+      slicePoint1: currentSlice1 + flip,
+      slicePoint2: currentSlice2 + flip
+    })
   }
 
   render() {
@@ -98,6 +116,9 @@ class MediaIndexContainer extends Component {
       displayComponent =
         <MainPage
           media={this.state.media}
+          pageFlip={this.pageFlip}
+          slicePoint1={this.state.slicePoint1}
+          slicePoint2={this.state.slicePoint2}
           sortMedia={this.sortMedia}
           sortMessage={this.state.sortMessage}
         />
@@ -105,7 +126,7 @@ class MediaIndexContainer extends Component {
       header = "Explore your personal video collection!"
       headerClass="media-greeting"
     }
-    else if (this.state.media.length === 0 && this.state.loaded === true){
+    else if (this.state.media.length === 0 && this.state.loaded === true) {
       displayComponent = <AddMediaPrompt />
       header = "Create your personal video collection!"
       headerClass="no-media-greeting"
