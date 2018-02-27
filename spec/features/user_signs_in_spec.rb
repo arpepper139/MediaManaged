@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'user signs in' do
+feature 'user signs in via devise' do
   scenario 'specify valid credentials' do
     user = FactoryBot.create(:user)
 
@@ -14,7 +14,7 @@ feature 'user signs in' do
     expect(page).to have_content('Signed in successfully')
     expect(page).to have_link('Sign Out')
   end
-
+  
   scenario 'specify invalid credentials' do
     visit new_user_session_path
 

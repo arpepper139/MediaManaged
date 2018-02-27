@@ -67,5 +67,11 @@ Shoulda::Matchers.configure do |config|
 end
 
 RSpec.configure do |config|
+  config.before :each do
+    OmniAuth.config.mock_auth[:facebook] = nil
+  end
+  OmniAuth.config.test_mode = true
+  config.include AuthenticationHelper
+
   config.include Devise::Test::ControllerHelpers, type: :controller
 end
