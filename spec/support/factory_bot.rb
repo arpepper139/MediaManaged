@@ -7,6 +7,14 @@ FactoryBot.define do
     sequence(:email) { |n| "user#{n}@example.com" }
     password "password"
     password_confirmation "password"
+
+    factory :facebook_user do
+      provider "facebook"
+      sequence(:uid) { |n| n }
+      sequence(:first_name) { |n| "New#{n}" }
+      sequence(:last_name) { |n| "User#{n}" }
+      sequence(:email) { |n| "user#{n}@example.com" }
+    end
   end
 
   factory :movie do

@@ -19,7 +19,7 @@ class User < ApplicationRecord
     provider = auth.provider
     uid = auth.uid
 
-    if auth.info.name
+    if !auth.info.name.include?("@")
       names = auth.info.name.split()
       first_name = names.first
       last_name = names.last
