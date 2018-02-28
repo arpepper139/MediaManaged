@@ -19,14 +19,14 @@ class SortBar extends Component {
 
   toggleHidden(sortField, priorValue) {
     let nextValue = !priorValue
-    if (sortField == "Type") {
+    if (sortField == 'Type') {
       this.setState({
         typeFieldhidden: nextValue,
         genreFieldHidden: true,
         ratingFieldHidden: true
       })
     }
-    else if (sortField == "Genre") {
+    else if (sortField == 'Genre') {
       this.setState({
         typeFieldhidden: true,
         genreFieldHidden: nextValue,
@@ -47,21 +47,21 @@ class SortBar extends Component {
       <div className="sort-div">
         <ul className="sort-bar">
           <SortDropdown
-            sortField="Type"
+            sortField='Type'
             options={typeOptions}
             sortMedia={this.props.sortMedia}
             hidden={this.state.typeFieldhidden}
             toggleHidden={this.toggleHidden}
           />
           <SortDropdown
-            sortField="Genre"
+            sortField='Genre'
             options={genreOptions}
             sortMedia={this.props.sortMedia}
             hidden={this.state.genreFieldHidden}
             toggleHidden={this.toggleHidden}
           />
           <SortDropdown
-            sortField="Rating"
+            sortField='Rating'
             options={ratingOptions}
             sortMedia={this.props.sortMedia}
             hidden={this.state.ratingFieldHidden}

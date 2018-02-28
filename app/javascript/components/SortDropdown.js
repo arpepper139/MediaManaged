@@ -16,7 +16,7 @@ const SortDropdown = (props) => {
   return(
     <li className={dropdownClass} onClick={() => props.toggleHidden(props.sortField, props.hidden)}>
       <p className="option">By {props.sortField}</p>
-      <div className ="dropdown-content">
+      <div className="dropdown-content">
         {sortOptions}
       </div>
     </li>
