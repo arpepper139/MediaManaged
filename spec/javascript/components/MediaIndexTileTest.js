@@ -15,7 +15,7 @@ describe('MediaIndexTile', () => {
         slicePoint1={0}
         slicePoint2={12}
       />
-    )
+    );
   });
 
   it('should have a forward and backwards page button', () => {

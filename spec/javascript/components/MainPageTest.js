@@ -19,7 +19,7 @@ describe('MainPage', () => {
         sortMedia={sortMediaSpy}
         sortMessage=''
       />
-    )
+    );
   });
 
   it('should render a div with the class homepage', () => {
