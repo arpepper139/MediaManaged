@@ -323,7 +323,7 @@ GEM
     public_suffix (3.0.1)
     puma (3.11.2)
     rack (2.0.3)
-    rack-proxy (0.6.3)
+    rack-proxy (0.6.4)
       rack
     rack-test (0.8.2)
       rack (>= 1.0, < 3)
@@ -430,7 +430,7 @@ GEM
       activemodel (>= 5.0)
       bindex (>= 0.4.0)
       railties (>= 5.0)
-    webpacker (3.2.1)
+    webpacker (3.3.0)
       activesupport (>= 4.2)
       rack-proxy (>= 0.6.1)
       railties (>= 4.2)
@@ -474,7 +474,7 @@ DEPENDENCIES
   uglifier (>= 1.3.0)
   valid_attribute
   web-console (>= 3.3.0)
-  webpacker (~> 3.2)
+  webpacker (~> 3.3)
 
 BUNDLED WITH
    1.16.1
