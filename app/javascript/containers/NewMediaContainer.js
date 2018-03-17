@@ -125,75 +125,87 @@ class NewMediaContainer extends Component {
     this.setState({ message: message })
   }
 
-  render() {
-    const dataMatches = this.state.databaseMatches
-    const searchValue = this.state.searchValue
-    const searchedDatabase = this.state.searchedDatabase
-    const searchedOMDB = this.state.searchedOMDB
-
-    let flash,
-    databaseResults,
-    omdbField
-
+  renderFlash() {
     if (this.state.message !== '') {
-      flash =
+      return(
         <FlashNotice
           message={this.state.message}
           clearFlash={this.clearFlash}
         />
+      )
     }
+  }
 
-    if (searchedOMDB === true && this.state.inDatabase === true) {
-      omdbField =
-        <AlreadyInDB
-          title={this.state.omdbMatch.result}
-        />
-    }
-    else if (dataMatches.length !== 0 && presenceRegex.test(searchValue)) {
+  renderDatabaseResults() {
+    const dbMatches = this.state.databaseMatches
+    const searchValuePresent = presenceRegex.test(this.state.searchValue)
+    let databaseResults
+    if (dbMatches.length !== 0 && searchValuePresent) {
       let key = 0
-      databaseResults = dataMatches.map((result) => {
-        let type = `${result.director ? "movie" : "show"}`
+      databaseResults = dbMatches.map((media) => {
+        const type = `${media.director ? "movie" : "show"}`
         key++
 
         return(
           <NewOwnershipForm
             key={key}
-            id={result.id}
-            name={result.name}
+            id={media.id}
+            name={media.name}
             type={type}
             clearPage={this.handleClearSearch}
             passMessage={this.grabMessage}
           />
         )
       })
+    }
 
-      omdbField = <SearchPrompt omdbQuery={this.omdbQuery} />
+    return databaseResults
+  }
+
+  renderNonDatabasePath() {
+    const dbMatches = this.state.databaseMatches
+    const searchValuePresent = presenceRegex.test(this.state.searchValue)
+    const searchedDatabase = this.state.searchedDatabase
+    const searchedOMDB = this.state.searchedOMDB
+    const inDatabase = this.state.inDatabase
+
+    if (searchedOMDB && inDatabase) {
+      return(
+        <AlreadyInDB
+          title={this.state.omdbMatch.result}
+        />
+      )
     }
-    else if (dataMatches.length === 0 && presenceRegex.test(searchValue) && searchedDatabase === true) {
-      omdbField = <SearchPrompt omdbQuery={this.omdbQuery} />
+    else if (searchValuePresent && searchedDatabase) {
+      return <SearchPrompt omdbQuery={this.omdbQuery} />
     }
-    else if (searchedOMDB === true && this.state.inDatabase === false) {
-      if (this.state.omdbMatch.result !== null) {
-        omdbField =
+    else if (searchedOMDB && !inDatabase) {
+      const omdbMatch = this.state.omdbMatch.result
+      if (omdbMatch !== null) {
+        return(
           <OMDBAddForm
             searchResult={this.state.omdbMatch.result}
             type={this.state.omdbMatch.type}
             clearPage={this.handleClearSearch}
             passMessage={this.grabMessage}
           />
+        )
       }
       else {
-        omdbField =
+        return(
           <NewMediaFormContainer
             clearPage={this.handleClearSearch}
             passMessage={this.grabMessage}
           />
+        )
       }
     }
+  }
 
+  render() {
     return(
       <div>
-        {flash}
+        {this.renderFlash()}
         <div className="new-media-page">
           <h1 className="new-media-greeting">Add movies and shows to your personal collection below!</h1>
           <form autoComplete="off" onSubmit={this.preventSubmit}>
@@ -205,9 +217,9 @@ class NewMediaContainer extends Component {
             />
           </form>
           <div className="search-results">
-            {databaseResults}
+            {this.renderDatabaseResults()}
           </div>
-          {omdbField}
+          {this.renderNonDatabasePath()}
         </div>
       </div>
     )

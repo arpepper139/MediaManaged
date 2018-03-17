@@ -47,13 +47,12 @@ class Api::V1::SortController < ApplicationController
   end
 
   private
-
     def sort_by_type(user, type)
       plural_type = type + "s"
       if user.send(plural_type) == []
         results = { results: "Nothing Found" }
       else
-        results = { results: user.send(plural_type) }
+        results = { results: user.send(plural_type).order("lower(name)") }
       end
       results
     end
@@ -72,7 +71,8 @@ class Api::V1::SortController < ApplicationController
       if returned_media == []
         results = { results: "Nothing Found" }
       else
-        results = { results: returned_media }
+        alphabetical_media = returned_media.sort_by { |media| media.name.downcase }
+        results = { results: alphabetical_media }
       end
       results
     end
@@ -94,9 +94,9 @@ class Api::V1::SortController < ApplicationController
           end
         end
 
-        results = { results: relevant_media }
+        alphabetical_media = relevant_media.sort_by { |media| media.name.downcase }
+        results = { results: alphabetical_media }
       end
       results
     end
-
 end
