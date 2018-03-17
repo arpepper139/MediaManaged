@@ -3,6 +3,6 @@ class UserCurrentSerializer < ActiveModel::Serializer
 
   def media
     media = [object.movies] << [object.shows]
-    sorted_media = media.flatten.sort_by {|media| media.name}
+    sorted_media = media.flatten.sort_by { |media| media.name.downcase }
   end
 end
