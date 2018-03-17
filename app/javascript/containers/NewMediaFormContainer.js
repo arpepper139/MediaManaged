@@ -30,7 +30,7 @@ class NewMediaFormContainer extends Component {
 
   selectForm(event) {
     event.preventDefault()
-    let selectedType = event.target.value
+    const selectedType = event.target.value
     this.setState({
       selectedType: selectedType,
       errors: {}
@@ -42,13 +42,13 @@ class NewMediaFormContainer extends Component {
   }
 
   addError(fieldName) {
-    let newError = { [fieldName]: `You must provide a valid ${this.formatFieldName(fieldName)}` }
+    const newError = { [fieldName]: `You must provide a valid ${this.formatFieldName(fieldName)}` }
     this.setState({ errors: Object.assign(this.state.errors, newError) })
     return false
   }
 
   deleteError(fieldName) {
-    let errorState = this.state.errors
+    const errorState = this.state.errors
     delete errorState[fieldName]
     this.setState({ errors: errorState })
     return true
@@ -159,21 +159,20 @@ class NewMediaFormContainer extends Component {
   render() {
     let formHeader,
     icon,
-    validator,
     returnedForm,
     formClass,
     errorMessage
 
-    if (this.state.selectedType == "movie") {
-      formHeader = "Add New Movie"
+    if (this.state.selectedType == 'movie') {
+      formHeader = 'Add New Movie'
       icon = <i className="fas fa-ticket-alt"></i>
     }
-    else if (this.state.selectedType === "show") {
-      formHeader = "Add New Show"
+    else if (this.state.selectedType === 'show') {
+      formHeader = 'Add New Show'
       icon = <i className="fas fa-video"></i>
     }
 
-    let errors = this.state.errors
+    const errors = this.state.errors
     if(Object.keys(errors).length > 0) {
       errorMessage = <h2 className="submit-error">{Object.values(errors)[0]}</h2>
     }
@@ -187,7 +186,7 @@ class NewMediaFormContainer extends Component {
           formType={ this.state.selectedType }
         />
 
-      formClass="new-media-form"
+      formClass = 'new-media-form'
     }
 
     return(

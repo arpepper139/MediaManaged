@@ -7,7 +7,7 @@ import NewMediaFormContainer from '../containers/NewMediaFormContainer'
 import FlashNotice from '../components/FlashNotice'
 import SearchPrompt from '../components/SearchPrompt'
 
-const regex = /.*\S.*/
+const presenceRegex = /.*\S.*/
 
 class NewMediaContainer extends Component {
   constructor(props) {
@@ -47,7 +47,7 @@ class NewMediaContainer extends Component {
   }
 
   validateSearch(input) {
-    if (!(regex.test(input))) {
+    if (!(presenceRegex.test(input))) {
       return false
     }
     else {
@@ -159,7 +159,7 @@ class NewMediaContainer extends Component {
           title={this.state.omdbMatch.result}
         />
     }
-    else if (dataMatches.length !== 0 && regex.test(searchValue)) {
+    else if (dataMatches.length !== 0 && presenceRegex.test(searchValue)) {
       let key = 0
       databaseResults = dataMatches.map((result) => {
         let type = `${result.director ? "movie" : "show"}`
@@ -179,7 +179,7 @@ class NewMediaContainer extends Component {
 
       omdbField = <SearchPrompt omdbQuery={this.omdbQuery} />
     }
-    else if (dataMatches.length === 0 && regex.test(searchValue) && searchedDatabase === true) {
+    else if (dataMatches.length === 0 && presenceRegex.test(searchValue) && searchedDatabase === true) {
       omdbField = <SearchPrompt omdbQuery={this.omdbQuery} />
     }
     else if (searchedOMDB === true && this.state.inDatabase === false) {

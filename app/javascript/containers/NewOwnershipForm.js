@@ -19,11 +19,11 @@ class NewOwnershipForm extends Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    let type = this.props.type
-    let ownership_field = `${type}_ownership`
-    let media_field = `${type}_id`
+    const type = this.props.type
+    const ownership_field = `${type}_ownership`
+    const media_field = `${type}_id`
 
-    let formPayload = {
+    const formPayload = {
       [ownership_field]: { [media_field]: this.props.id, user_rating: this.state.rating }
     }
     fetch(`/api/v1/${type}_ownerships`, {
