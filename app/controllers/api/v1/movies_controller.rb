@@ -8,43 +8,11 @@ class Api::V1::MoviesController < ApplicationController
   end
 
   def create
-    if params[:movie]
-      new_movie = Movie.new(movie_params)
-    else
-      new_movie = Movie.new(
-        name: params[:name],
-        director: params[:director],
-        studio: params[:studio],
-        year: params[:year],
-        runtime: params[:runtime],
-        description: params[:description],
-        imdb_rating: params[:imdb_rating]
-      )
-    end
-
+    movie_data = params[:movie] ? omdb_movie_params : form_movie_params
+    new_movie = Movie.new(movie_data)
     if new_movie.save
-      if params[:movie]
-        new_movie.update_attributes(remote_poster_url: params[:movie][:poster])
-      else
-        new_movie.update_attributes(poster: params[:poster])
-      end
-
-      user_id = current_user.id
-      MovieOwnership.create(user_id: user_id, movie_id: new_movie.id, user_rating: params[:user_rating])
-
-      if params[:genres].is_a? String
-        provided_genres = params[:genres].split(",")
-      else
-        provided_genres = params[:genres]
-      end
-
-      if provided_genres != [] && provided_genres != nil
-        provided_genres.each do |provided_genre|
-          genre = Genre.where(name: provided_genre)[0]
-          new_movie.genres << genre
-        end
-      end
-
+      MovieOwnership.create(user_id: current_user.id, movie_id: new_movie.id, user_rating: params[:user_rating])
+      add_genres(new_movie, params[:genres])
       render json: { message: "Sucessfully added #{new_movie.name}!" }, status: 201
     else
       render json: { error: "Whoops! Looks like we already have #{new_movie.name}. If it's not in your personal collection, you can add it by searching above!" }, status: :unprocessable_entity
@@ -62,7 +30,22 @@ class Api::V1::MoviesController < ApplicationController
   end
 
   private
-    def movie_params
-      params.require(:movie).permit(:name, :director, :studio, :year, :runtime, :description, :imdb_rating, :poster)
+    def omdb_movie_params
+      params.require(:movie).permit(:name, :director, :studio, :year, :runtime, :description, :imdb_rating, :remote_poster_url)
+    end
+
+    def form_movie_params
+      params.permit(:name, :director, :studio, :year, :runtime, :description, :imdb_rating, :poster)
+    end
+
+    def add_genres(movie, provided_genres)
+      string_check = params[:genres].is_a? String
+      genres_array = string_check ? provided_genres.split(",") : provided_genres
+      if genres_array != [] && genres_array != nil
+        genres_array.each do |genre|
+          genre = Genre.where(name: genre)[0]
+          movie.genres << genre
+        end
+      end
     end
 end

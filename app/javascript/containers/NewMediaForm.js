@@ -122,7 +122,7 @@ class NewMediaForm extends Component {
     const formType = this.props.formType
 
     const validatableFields = this.formatForValidation(formType)
-    const valid = this.props.validate(validatableFields)
+    const valid = this.props.validate(formType, validatableFields)
     if (valid) {
       const formPayload = this.createFormPayload(formType)
       this.props.addMedia(formType, formPayload)

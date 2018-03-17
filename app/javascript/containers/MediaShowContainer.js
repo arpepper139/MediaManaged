@@ -23,7 +23,7 @@ class MediaShowContainer extends Component {
   }
 
   fetchData() {
-    let path = this.props.location.pathname
+    const path = this.props.location.pathname
     fetch(`/api/v1/${path}.json`, { credentials: 'same-origin' })
       .then(response => {
         if (response.ok) {
@@ -38,7 +38,7 @@ class MediaShowContainer extends Component {
         return response.json()
       })
       .then(body => {
-        let type = `${path.includes("movie") ? "movie" : "show"}`
+        const type = `${path.includes("movie") ? "movie" : "show"}`
         this.setState({
           media: body[type],
           type: type
@@ -48,8 +48,8 @@ class MediaShowContainer extends Component {
   }
 
   addPoster(formPayload) {
-    let id = this.state.media.id
-    let type = this.state.type
+    const id = this.state.media.id
+    const type = this.state.type
 
     fetch(`/api/v1/${type}s/${id}.json`, {
       method: 'PATCH',

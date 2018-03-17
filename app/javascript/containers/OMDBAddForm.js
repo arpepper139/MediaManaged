@@ -29,7 +29,7 @@ class OMDBAddForm extends Component {
 
   toggleCallout(event) {
     event.preventDefault()
-    let currentCalloutState = this.state.callout
+    const currentCalloutState = this.state.callout
     if (currentCalloutState == true) {
       this.setState({ callout: false })
     }
@@ -39,47 +39,36 @@ class OMDBAddForm extends Component {
   }
 
   createFormPayload(type) {
-    let formPayload
-    if (type === "movie") {
-      formPayload = {
-        movie: {
-          name: this.props.searchResult.name,
-          director: this.props.searchResult.director,
-          studio: this.props.searchResult.studio,
-          year: this.props.searchResult.year,
-          runtime: this.props.searchResult.runtime,
-          description: this.props.searchResult.description,
-          poster: this.props.searchResult.poster,
-          imdb_rating: this.props.searchResult.imdb_rating
-        },
-        user_rating: this.state.rating,
-        genres: this.props.searchResult.genres
-      }
-      return formPayload
+    const formPayload = {
+      [type]: {
+        name: this.props.searchResult.name,
+        studio: this.props.searchResult.studio,
+        description: this.props.searchResult.description,
+        remote_poster_url: this.props.searchResult.poster,
+        imdb_rating: this.props.searchResult.imdb_rating
+      },
+      user_rating: this.state.rating,
+      genres: this.props.searchResult.genres
+    }
+
+    if (type === 'movie') {
+      formPayload.movie.director = this.props.searchResult.director,
+      formPayload.movie.year = this.props.searchResult.year,
+      formPayload.movie.runtime = this.props.searchResult.runtime
     }
     else {
-      formPayload = {
-        show: {
-          name: this.props.searchResult.name,
-          writer: this.props.searchResult.writer,
-          studio: this.props.searchResult.studio,
-          start_year: this.props.searchResult.start_year,
-          end_year: this.props.searchResult.end_year,
-          description: this.props.searchResult.description,
-          poster: this.props.searchResult.poster,
-          imdb_rating: this.props.searchResult.imdb_rating
-        },
-        user_rating: this.state.rating,
-        genres: this.props.searchResult.genres
-      }
-      return formPayload
+      formPayload.show.writer = this.props.searchResult.writer,
+      formPayload.show.start_year = this.props.searchResult.start_year,
+      formPayload.show.end_year = this.props.searchResult.end_year
     }
+
+    return formPayload
   }
 
   addMedia(event) {
     event.preventDefault()
-    let type = this.props.type
-    let formPayload = this.createFormPayload(type)
+    const type = this.props.type
+    const formPayload = this.createFormPayload(type)
     fetch(`/api/v1/${type}s`, {
       credentials: 'same-origin',
       method: 'POST',
@@ -115,15 +104,15 @@ class OMDBAddForm extends Component {
   }
 
   render() {
-    let type = this.capitalize(this.props.type)
+    const type = this.capitalize(this.props.type)
+    const errors = this.state.errors
 
-    let calloutClass = `${this.state.callout == false ? 'hidden' : 'info-callout'}`
-    let calloutBackgroundClass = `${this.state.callout == false ? 'hidden' : 'info-background'}`
+    const calloutClass = `${this.state.callout == false ? 'hidden' : 'info-callout'}`
+    const calloutBackgroundClass = `${this.state.callout == false ? 'hidden' : 'info-background'}`
 
     let errorMessage
-    let errors = this.state.errors
     if(Object.keys(errors).length > 0) {
-      let error = Object.values(errors)[0]
+      const error = Object.values(errors)[0]
       errorMessage = <p className="submit-error">{error}</p>
     }
 

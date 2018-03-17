@@ -14,9 +14,11 @@ Rails.application.routes.draw do
       end
 
       resources :movies, only: [:show, :create, :update]
-      resources :shows, only: [:show, :create, :update]
       resources :movie_ownerships, only: [:create, :update, :destroy]
+
+      resources :shows, only: [:show, :create, :update]
       resources :show_ownerships, only: [:create, :update, :destroy]
+
       resources :genres, only: [:index]
 
       resources :search, only: [:index] do

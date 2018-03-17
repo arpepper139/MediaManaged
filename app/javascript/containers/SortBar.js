@@ -18,7 +18,7 @@ class SortBar extends Component {
   }
 
   toggleHidden(sortField, priorValue) {
-    let nextValue = !priorValue
+    const nextValue = !priorValue
     if (sortField == 'Type') {
       this.setState({
         typeFieldhidden: nextValue,

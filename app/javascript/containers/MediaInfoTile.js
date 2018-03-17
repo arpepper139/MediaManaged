@@ -28,23 +28,23 @@ class MediaInfoTile extends Component {
   }
 
   formatField(fieldName) {
-    let splitWords = fieldName.replace(/_/, " ").split(" ")
-    let upcasedWords = splitWords.map((word) => {
+    const splitWords = fieldName.replace(/_/, " ").split(" ")
+    const upcasedWords = splitWords.map((word) => {
       return(
         word.charAt(0).toUpperCase() + word.slice(1)
       )
     })
-    let formattedField = upcasedWords.join(" ")
+    const formattedField = upcasedWords.join(" ")
 
     return formattedField
   }
 
   updateUserRating(ratingValue) {
     if (this.props.data.ownership_info) {
-      let ownershipId = this.props.data.ownership_info.ownership_id
-      let type = this.props.type
+      const ownershipId = this.props.data.ownership_info.ownership_id
+      const type = this.props.type
 
-      let formPayload = {
+      const formPayload = {
         [`${type}_ownership`]: {
           user_rating: ratingValue
         }
@@ -74,14 +74,14 @@ class MediaInfoTile extends Component {
 
   removeMedia(event) {
     event.preventDefault()
-    let result = window.confirm("Are you sure you want to remove this item from your collection?")
+    const result = window.confirm("Are you sure you want to remove this item from your collection?")
 
     if (result === false) {
       return false
     }
 
-    let ownershipId = this.props.data.ownership_info.ownership_id
-    let type = this.props.type
+    const ownershipId = this.props.data.ownership_info.ownership_id
+    const type = this.props.type
     fetch(`/api/v1/${type}_ownerships/${ownershipId}`, {
       method: 'DELETE',
       credentials: 'same-origin'
@@ -109,10 +109,10 @@ class MediaInfoTile extends Component {
 
   addMedia(event) {
     event.preventDefault()
-    let type = this.props.type
-    let ownership_field = `${type}_ownership`
-    let media_field = `${type}_id`
-    let formPayload = {
+    const type = this.props.type
+    const ownership_field = `${type}_ownership`
+    const media_field = `${type}_id`
+    const formPayload = {
       [ownership_field]: { [media_field]: this.props.data.id }
     }
     fetch(`/api/v1/${type}_ownerships`, {
@@ -153,11 +153,11 @@ class MediaInfoTile extends Component {
       onClickFunction = this.addMedia
     }
 
-    let excluded = ['id', 'imdb_rating', 'ownership_info', 'poster', 'name', 'description', 'genres']
-    let midDisplayFields = Object.keys(this.props.data).filter(field => !excluded.includes(field))
+    const excluded = ['id', 'imdb_rating', 'ownership_info', 'poster', 'name', 'description', 'genres']
+    const midDisplayFields = Object.keys(this.props.data).filter(field => !excluded.includes(field))
 
     let key = 0
-    let displayItems = midDisplayFields.map((fieldName) => {
+    const displayItems = midDisplayFields.map((fieldName) => {
       if (this.props.data[fieldName]) {
         key++
         return <p key={key}>{`${this.formatField(fieldName)}: ${this.props.data[fieldName]}`}</p>
@@ -177,10 +177,10 @@ class MediaInfoTile extends Component {
         />
     }
 
-    let genresArray = this.props.data.genres.map((genre) => {
+    const genresArray = this.props.data.genres.map((genre) => {
       return genre.name
     })
-    let genresString = genresArray.sort().join(', ')
+    const genresString = genresArray.sort().join(', ')
 
     return(
       <div className="media-info small-12 medium-12 large-12 columns">
