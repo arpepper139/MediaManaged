@@ -69,7 +69,6 @@ class OMDBAddForm extends Component {
     event.preventDefault()
     const type = this.props.type
     const formPayload = this.createFormPayload(type)
-    debugger
     fetch(`/api/v1/${type}s`, {
       credentials: 'same-origin',
       method: 'POST',
