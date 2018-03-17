@@ -24,11 +24,10 @@ class NewMediaContainer extends Component {
 
     this.clearFlash = this.clearFlash.bind(this)
     this.handleChange = this.handleChange.bind(this)
-    this.validateSearch = this.validateSearch.bind(this)
     this.databaseQuery = this.databaseQuery.bind(this)
     this.omdbQuery = this.omdbQuery.bind(this)
     this.handleClearSearch = this.handleClearSearch.bind(this)
-    this.handleFormSubmit = this.handleFormSubmit.bind(this)
+    this.preventSubmit = this.preventSubmit.bind(this)
     this.grabMessage = this.grabMessage.bind(this)
   }
 
@@ -37,8 +36,8 @@ class NewMediaContainer extends Component {
   }
 
   handleChange(event) {
-    let fieldName = event.target.name
-    let input = event.target.value
+    const fieldName = event.target.name
+    const input = event.target.value
     this.setState({
       [fieldName]: input,
       message: ''
@@ -46,18 +45,9 @@ class NewMediaContainer extends Component {
     this.databaseQuery(input)
   }
 
-  validateSearch(input) {
-    if (!(presenceRegex.test(input))) {
-      return false
-    }
-    else {
-      return true
-    }
-  }
-
   databaseQuery(input) {
     event.preventDefault()
-    let valid = this.validateSearch(input)
+    const valid = presenceRegex.test(input)
     if (valid) {
       fetch(`/api/v1/search.json?name=${input}`, { credentials: 'same-origin' })
       .then(response => {
@@ -85,8 +75,8 @@ class NewMediaContainer extends Component {
 
   omdbQuery(event) {
     event.preventDefault()
-    let input = this.state.searchValue
-    let valid = this.validateSearch(input)
+    const input = this.state.searchValue
+    const valid = presenceRegex.test(input)
     if (valid) {
       fetch(`/api/v1/search/external.json?name=${input}`, { credentials: 'same-origin' })
       .then(response => {
@@ -117,7 +107,7 @@ class NewMediaContainer extends Component {
     }
   }
 
-  handleFormSubmit(event) {
+  preventSubmit(event) {
     event.preventDefault();
   }
 
@@ -136,14 +126,14 @@ class NewMediaContainer extends Component {
   }
 
   render() {
-    let dataMatches = this.state.databaseMatches
-    let searchValue = this.state.searchValue
-    let searchedDatabase = this.state.searchedDatabase
-    let searchedOMDB = this.state.searchedOMDB
+    const dataMatches = this.state.databaseMatches
+    const searchValue = this.state.searchValue
+    const searchedDatabase = this.state.searchedDatabase
+    const searchedOMDB = this.state.searchedOMDB
 
-    let flash
-    let databaseResults
-    let omdbField
+    let flash,
+    databaseResults,
+    omdbField
 
     if (this.state.message !== '') {
       flash =
@@ -206,7 +196,7 @@ class NewMediaContainer extends Component {
         {flash}
         <div className="new-media-page">
           <h1 className="new-media-greeting">Add movies and shows to your personal collection below!</h1>
-          <form autoComplete="off" onSubmit={this.handleFormSubmit}>
+          <form autoComplete="off" onSubmit={this.preventSubmit}>
             <TextInput
               placeholder="Search Our Collection"
               name="searchValue"

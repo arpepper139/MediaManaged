@@ -87,10 +87,10 @@ class MediaIndexContainer extends Component {
 
   pageFlip(event, direction) {
     event.preventDefault()
-    let flip = (direction === "right" ? 12 : -12)
+    const flip = (direction === "right" ? 12 : -12)
 
-    let currentSlice1 = this.state.slicePoint1
-    let currentSlice2 = this.state.slicePoint2
+    const currentSlice1 = this.state.slicePoint1
+    const currentSlice2 = this.state.slicePoint2
 
     this.setState({
       slicePoint1: currentSlice1 + flip,
