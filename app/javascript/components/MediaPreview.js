@@ -1,10 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router'
 
-const MediaPreview = (props) => {
+const MediaPreview = ({ poster, type, name, id }) => {
 
   let posterStyle = {
-    backgroundImage: 'url(' + props.poster + ')',
+    backgroundImage: 'url(' + poster + ')',
   }
 
   let noPosterStyle = {
@@ -12,18 +12,18 @@ const MediaPreview = (props) => {
   }
 
   let preview
-  if (props.poster === null) {
+  if (poster === null) {
     preview = <div className="preview-picture" style={noPosterStyle}>
-      <p>{props.name}</p>
+      <p>{name}</p>
       <i className="fas fa-film"></i>
     </div>
   }
   else {
-    preview = <div className="preview-picture" style={posterStyle} alt={props.name} />
+    preview = <div className="preview-picture" style={posterStyle} alt={name} />
   }
 
   return(
-    <Link to={`/${props.type}s/${props.id}`}>
+    <Link to={`/${type}s/${id}`}>
       <div className="preview-tile">
         {preview}
       </div>

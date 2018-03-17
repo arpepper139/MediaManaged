@@ -4,12 +4,11 @@ import { Link } from 'react-router'
 import MediaPreview from '../components/MediaPreview'
 import PageButton from '../components/PageButton'
 
-const MediaIndexTile = (props) => {
+const MediaIndexTile = ({ media, slicePoint1, slicePoint2, pageFlip }) => {
   let addMedia, pageBack, pageForward
-  let media = props.media
 
   let key = 0
-  let displayMedia = media.slice(props.slicePoint1, props.slicePoint2)
+  let displayMedia = media.slice(slicePoint1, slicePoint2)
 
   let mediaPreviewTiles = displayMedia.map((mediaObject) => {
     let type = `${mediaObject.director ? "movie" : "show"}`
@@ -26,23 +25,21 @@ const MediaIndexTile = (props) => {
     )
   })
 
-  if (props.slicePoint1 !== 0 ) {
-    pageBack = props.pageFlip
+  if (slicePoint1 !== 0) {
+    pageBack = pageFlip
   }
 
-  if (props.slicePoint2 < media.length) {
-    pageForward = props.pageFlip
+  if (slicePoint2 < media.length) {
+    pageForward = pageFlip
   }
 
   return(
     <div>
       <div className="media-display">
-        <div>
-          <PageButton
-            direction="left"
-            pageFlip={ pageBack }
-          />
-        </div>
+        <PageButton
+          direction="left"
+          pageFlip={ pageBack }
+        />
         <div className="media-panel">
           <div className="tiles-group">
             <div className="tiles">
@@ -61,12 +58,10 @@ const MediaIndexTile = (props) => {
             </div>
           </div>
         </div>
-        <div>
-          <PageButton
-            direction="right"
-            pageFlip={ pageForward }
-          />
-        </div>
+        <PageButton
+          direction="right"
+          pageFlip={ pageForward }
+        />
       </div>
 
       <div className="new-media-button">

@@ -2,11 +2,11 @@ import React from 'react'
 
 const PageButton = ({ direction, pageFlip }) => {
   const arrowClass = `fas fa-chevron-${direction}`
-  const divClass = `page-button ${pageFlip ? "active" : "inactive"}`
+  const divClass = `page-button ${pageFlip ? "clickable" : "not-clickable"}`
 
   let handleClick
   if (pageFlip) {
-    handleClick = () => pageFlip(direction)
+    handleClick = () => pageFlip(event, direction)
   }
   else {
     handleClick = ''

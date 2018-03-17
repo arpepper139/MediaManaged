@@ -1,9 +1,9 @@
 import React from 'react'
 
-const TextArea = (props) => {
+const TextArea = ({ label, value, name, handleChange }) => {
   return(
-    <label>{props.label}
-      <textarea value={props.value} name={props.name} onChange={props.handleChange}>
+    <label>{label}
+      <textarea value={value} name={name} onChange={handleChange}>
       </textarea>
     </label>
   )

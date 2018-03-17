@@ -1,14 +1,14 @@
 import React from 'react'
 
-const TextInput = (props) => {
+const TextInput = ({ name, label, value, placeholder, handleChange }) => {
   return(
-    <label className={ `${props.name}-label` }>{ props.label }
+    <label className={ `${name}-label` }>{label}
       <input
-        placeholder={ props.placeholder }
+        placeholder={placeholder}
         type='text'
-        value={ props.value }
-        name={ props.name }
-        onChange={ props.handleChange }
+        value={value}
+        name={name}
+        onChange={handleChange}
       />
     </label>
   )

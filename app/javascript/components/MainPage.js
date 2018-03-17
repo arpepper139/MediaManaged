@@ -2,18 +2,18 @@ import React from 'react'
 import MediaIndexTile from '../components/MediaIndexTile'
 import SortBar from '../containers/SortBar'
 
-const MainPage = (props) => {
+const MainPage = ({ sortMedia, sortMessage, media, pageFlip, slicePoint1, slicePoint2 }) => {
   return(
     <div className="homepage">
       <SortBar
-        sortMedia={props.sortMedia}
-        sortMessage={props.sortMessage}
+        sortMedia={sortMedia}
+        sortMessage={sortMessage}
       />
       <MediaIndexTile
-        media={props.media}
-        pageFlip={props.pageFlip}
-        slicePoint1={props.slicePoint1}
-        slicePoint2={props.slicePoint2}
+        media={media}
+        pageFlip={pageFlip}
+        slicePoint1={slicePoint1}
+        slicePoint2={slicePoint2}
       />
     </div>
   )
