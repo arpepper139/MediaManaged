@@ -25,7 +25,7 @@ const MediaIndexTile = ({ media, slicePoint1, slicePoint2, pageFlip }) => {
     )
   })
 
-  if (slicePoint1 !== 0 ) {
+  if (slicePoint1 !== 0) {
     pageBack = pageFlip
   }
 
@@ -36,12 +36,10 @@ const MediaIndexTile = ({ media, slicePoint1, slicePoint2, pageFlip }) => {
   return(
     <div>
       <div className="media-display">
-        <div>
-          <PageButton
-            direction="left"
-            pageFlip={ pageBack }
-          />
-        </div>
+        <PageButton
+          direction="left"
+          pageFlip={ pageBack }
+        />
         <div className="media-panel">
           <div className="tiles-group">
             <div className="tiles">
@@ -60,12 +58,10 @@ const MediaIndexTile = ({ media, slicePoint1, slicePoint2, pageFlip }) => {
             </div>
           </div>
         </div>
-        <div>
-          <PageButton
-            direction="right"
-            pageFlip={ pageForward }
-          />
-        </div>
+        <PageButton
+          direction="right"
+          pageFlip={ pageForward }
+        />
       </div>
 
       <div className="new-media-button">

@@ -37,10 +37,8 @@ class NewMediaForm extends Component {
     this.handleGenreSelection = this.handleGenreSelection.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.readFile = this.readFile.bind(this)
-    this.movieValidationFormatting = this.movieValidationFormatting.bind(this)
-    this.movieFormPayload = this.movieFormPayload.bind(this)
-    this.showValidationFormatting = this.showValidationFormatting.bind(this)
-    this.showFormPayload = this.showFormPayload.bind(this)
+    this.formatForValidation = this.formatForValidation.bind(this)
+    this.createFormPayload = this.createFormPayload.bind(this)
   }
 
   handleChange(event) {
@@ -73,77 +71,66 @@ class NewMediaForm extends Component {
     }
   }
 
-  movieValidationFormatting() {
-    let movieFields = {
-      name: this.state.name,
-      director: this.state.director,
-      year: this.state.year,
-      description: this.state.description,
-      imdb_rating: this.state.imdbRating,
-      user_rating: this.state.userRating
+  formatForValidation(type) {
+    let formattedFields = {};
+    formattedFields.name = this.state.name
+    formattedFields.description = this.state.description
+    formattedFields.imdb_rating = this.state.imdbRating
+    formattedFields.user_rating = this.state.userRating
+
+    if (type === 'show') {
+      formattedFields.writer = this.state.writer
+      formattedFields.start_year = this.state.startYear
+      formattedFields.end_year = this.state.endYear
     }
-    return movieFields
+    else {
+      formattedFields.director = this.state.director
+      formattedFields.year = this.state.year
+    }
+
+    return formattedFields
   }
 
-  movieFormPayload() {
+  createFormPayload(type) {
     let formPayload = new FormData();
+
     formPayload.append('name', this.state.name)
-    formPayload.append('director', this.state.director)
     formPayload.append('studio', this.state.studio)
-    formPayload.append('year', this.state.year)
-    formPayload.append('runtime', this.state.runtime)
     formPayload.append('description', this.state.description)
     formPayload.append('poster', this.state.poster)
     formPayload.append('imdb_rating', this.state.imdbRating)
     formPayload.append('user_rating', this.state.userRating)
     formPayload.append('genres', this.state.genres)
-    return formPayload
-  }
 
-  showValidationFormatting() {
-    let showFields = {
-      name: this.state.name,
-      writer: this.state.writer,
-      start_year: this.state.startYear,
-      end_year: this.state.endYear,
-      description: this.state.description,
-      imdb_rating: this.state.imdbRating,
-      user_rating: this.state.userRating
+    if (type == 'show') {
+      formPayload.append('writer', this.state.writer)
+      formPayload.append('start_year', this.state.startYear)
+      formPayload.append('end_year', this.state.endYear)
     }
-    return showFields
-  }
-
-  showFormPayload() {
-    let formPayload = new FormData();
-    formPayload.append('name', this.state.name)
-    formPayload.append('writer', this.state.writer)
-    formPayload.append('studio', this.state.studio)
-    formPayload.append('start_year', this.state.startYear)
-    formPayload.append('end_year', this.state.endYear)
-    formPayload.append('description', this.state.description)
-    formPayload.append('poster', this.state.poster)
-    formPayload.append('imdb_rating', this.state.imdbRating)
-    formPayload.append('user_rating', this.state.userRating)
-    formPayload.append('genres', this.state.genres)
+    else {
+      formPayload.append('director', this.state.director)
+      formPayload.append('year', this.state.year)
+      formPayload.append('runtime', this.state.runtime)
+    }
     return formPayload
   }
 
   handleSubmit(event) {
     event.preventDefault()
     let formPayload, validatableFields, valid
-    if (this.props.formType == "show") {
-      validatableFields = this.showValidationFormatting()
+    if (this.props.formType === 'show') {
+      validatableFields = this.formatForValidation('show')
       valid = this.props.validate(validatableFields)
       if (valid) {
-        formPayload = this.showFormPayload()
+        formPayload = this.createFormPayload('show')
         this.props.addMedia(this.props.formType, formPayload)
       }
     }
     else {
-      validatableFields = this.movieValidationFormatting()
+      validatableFields = this.formatForValidation('movie')
       valid = this.props.validate(validatableFields)
       if (valid) {
-        formPayload = this.movieFormPayload()
+        formPayload = this.createFormPayload('movie')
         this.props.addMedia(this.props.formType, formPayload)
       }
     }

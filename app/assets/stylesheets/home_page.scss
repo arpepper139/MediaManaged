@@ -130,11 +130,11 @@ div.no-media-landing {
    font-size: 50px;
  }
 
- .active {
+ .clickable {
    color: $secondary-color;
  }
 
- .inactive {
+ .not-clickable {
    color: lighten($tertiary-color, 10%);
  }
 

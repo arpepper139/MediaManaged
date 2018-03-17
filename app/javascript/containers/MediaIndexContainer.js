@@ -85,9 +85,9 @@ class MediaIndexContainer extends Component {
     });
   }
 
-  pageFlip(value) {
+  pageFlip(event, direction) {
     event.preventDefault()
-    let flip = (value === "right" ? 12 : -12)
+    let flip = (direction === "right" ? 12 : -12)
 
     let currentSlice1 = this.state.slicePoint1
     let currentSlice2 = this.state.slicePoint2

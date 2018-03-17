@@ -4,7 +4,7 @@ import { Link, browserHistory } from 'react-router'
 import FlashNotice from '../components/FlashNotice.js'
 import RatingInput from '../components/RatingInput.js'
 import ToggleOwnershipButton from '../components/ToggleOwnershipButton.js'
-import PosterUploader from '../containers/PosterUploader.js'
+import PosterUploader from '../components/PosterUploader.js'
 
 class MediaInfoTile extends Component {
   constructor(props) {
