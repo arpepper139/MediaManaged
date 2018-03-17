@@ -49,7 +49,7 @@ class OMDBAddForm extends Component {
           year: this.props.searchResult.year,
           runtime: this.props.searchResult.runtime,
           description: this.props.searchResult.description,
-          poster: this.props.searchResult.poster,
+          remote_poster_url: this.props.searchResult.poster,
           imdb_rating: this.props.searchResult.imdb_rating
         },
         user_rating: this.state.rating,
@@ -66,7 +66,7 @@ class OMDBAddForm extends Component {
           start_year: this.props.searchResult.start_year,
           end_year: this.props.searchResult.end_year,
           description: this.props.searchResult.description,
-          poster: this.props.searchResult.poster,
+          remote_poster_url: this.props.searchResult.poster,
           imdb_rating: this.props.searchResult.imdb_rating
         },
         user_rating: this.state.rating,
