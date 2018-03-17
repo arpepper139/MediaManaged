@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import NewMediaForm from '../containers/NewMediaForm'
 import SelectFormType from '../components/SelectFormType'
 
-const regex = /.*\S.*/
+const presenceRegex = /.*\S.*/
+const numberRegex = /^\d+\.*\d{1}$/
 
 class NewMediaFormContainer extends Component {
   constructor(props) {
@@ -24,8 +25,7 @@ class NewMediaFormContainer extends Component {
     this.validateYear = this.validateYear.bind(this)
     this.validateDescription = this.validateDescription.bind(this)
 
-    this.validateShow = this.validateShow.bind(this)
-    this.validateMovie = this.validateMovie.bind(this)
+    this.validateMedia = this.validateMedia.bind(this)
   }
 
   selectForm(event) {
@@ -55,11 +55,11 @@ class NewMediaFormContainer extends Component {
   }
 
   validateNumericality(value) {
-    return typeof +value === 'number'
+    return numberRegex.test(value)
   }
 
   validatePresence(fieldName, value) {
-    if (!(regex.test(value))) {
+    if (!(presenceRegex.test(value))) {
       return this.addError(fieldName)
     }
     else {
@@ -68,10 +68,10 @@ class NewMediaFormContainer extends Component {
   }
 
   validateNumberRange(fieldName, value, start, end) {
-    if (!(regex.test(value))) {
+    if (!(presenceRegex.test(value))) {
       return this.deleteError(fieldName)
     }
-    else if (!(this.validateNumericality(+value)) || +value < start || +value > end) {
+    else if (!(this.validateNumericality(value)) || +value < start || +value > end) {
       return this.addError(fieldName)
     }
     else {
@@ -89,7 +89,7 @@ class NewMediaFormContainer extends Component {
   }
 
   validateYear(fieldName, value) {
-    if (fieldName == "end_year" && !(regex.test(value))) {
+    if (fieldName === 'end_year' && !(presenceRegex.test(value))) {
       return this.deleteError(fieldName)
     }
     else if (value.trim().length !== 4 || !(this.validateNumericality(value))) {
@@ -100,33 +100,25 @@ class NewMediaFormContainer extends Component {
     }
   }
 
-  validateMovie(fields) {
-    if (
-      this.validatePresence('name', fields.name) &&
-      this.validatePresence('director', fields.director) &&
-      this.validateYear('year', fields.year) &&
-      this.validateDescription('description', fields.description) &&
-      this.validateNumberRange('imdb_rating', fields.imdb_rating, 0, 10) &&
-      this.validateNumberRange('user_rating', fields.user_rating, 1, 5)
-    ) {
-      return true
-    }
-    else { return false }
-  }
+  validateMedia(type, fields) {
+    this.deleteError('saveError')
 
-  validateShow(fields) {
-    if (
-      this.validatePresence('name', fields.name) &&
-      this.validatePresence('writer', fields.writer) &&
-      this.validateYear('start_year', fields.start_year) &&
-      this.validateYear('end_year', fields.end_year) &&
-      this.validateDescription('description', fields.description) &&
-      this.validateNumberRange('imdb_rating', fields.imdb_rating, 0, 10) &&
-      this.validateNumberRange('user_rating', fields.user_rating, 1, 5)
-    ) {
-      return true
+    const validationResults = []
+    validationResults.push(this.validatePresence('name', fields.name))
+    if (type === 'movie') {
+      validationResults.push(this.validatePresence('director', fields.director))
+      validationResults.push(this.validateYear('year', fields.year))
     }
-    else { return false }
+    else {
+      validationResults.push(this.validatePresence('writer', fields.writer))
+      validationResults.push(this.validateYear('start_year', fields.start_year))
+      validationResults.push(this.validateYear('end_year', fields.end_year))
+    }
+    validationResults.push(this.validateDescription('description', fields.description))
+    validationResults.push(this.validateNumberRange('imdb_rating', fields.imdb_rating, 0, 10))
+    validationResults.push(this.validateNumberRange('user_rating', fields.user_rating, 1, 5))
+
+    return !validationResults.includes(false)
   }
 
   addMedia(type, formPayload) {
@@ -175,12 +167,10 @@ class NewMediaFormContainer extends Component {
     if (this.state.selectedType == "movie") {
       formHeader = "Add New Movie"
       icon = <i className="fas fa-ticket-alt"></i>
-      validator = this.validateMovie
     }
     else if (this.state.selectedType === "show") {
       formHeader = "Add New Show"
       icon = <i className="fas fa-video"></i>
-      validator = this.validateShow
     }
 
     let errors = this.state.errors
@@ -192,7 +182,7 @@ class NewMediaFormContainer extends Component {
       returnedForm =
         <NewMediaForm
           addMedia={ this.addMedia }
-          validate={ validator }
+          validate={ this.validateMedia }
           errors={ this.state.errors }
           formType={ this.state.selectedType }
         />
