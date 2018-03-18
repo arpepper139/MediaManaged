@@ -35,6 +35,6 @@ const newMovieFields = [
     id: 'imdb-rating',
     type: 'text'
   }
-]
+];
 
-export default newMovieFields
+export default newMovieFields;

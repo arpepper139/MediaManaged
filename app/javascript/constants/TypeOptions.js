@@ -7,6 +7,6 @@ const typeOptions = [
     display: "Show",
     value: "show"
   }
-]
+];
 
-export default typeOptions
+export default typeOptions;

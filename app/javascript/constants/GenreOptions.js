@@ -31,6 +31,6 @@ const genreOptions = [
     display: "Sci-Fi",
     value: "Sci-Fi"
   }
-]
+];
 
-export default genreOptions
+export default genreOptions;
