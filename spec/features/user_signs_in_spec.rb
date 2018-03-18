@@ -14,7 +14,7 @@ feature 'user signs in via devise' do
     expect(page).to have_content('Signed in successfully')
     expect(page).to have_link('Sign Out')
   end
-  
+
   scenario 'specify invalid credentials' do
     visit new_user_session_path
 

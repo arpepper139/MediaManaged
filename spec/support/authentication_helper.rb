@@ -7,22 +7,22 @@ module AuthenticationHelper
 
   def mock_auth_for(user)
     OmniAuth.config.mock_auth[:facebook] = OmniAuth::AuthHash.new(
-      "provider"=> user.provider,
-      "uid"=> user.uid,
-      "info"=> {
-        "email"=> user.email,
-        "name"=> "#{user.first_name} #{user.last_name}",
-        "image"=> "http://graph.facebook.com/v2.6/10211465387890445/picture"
+      "provider" => user.provider,
+      "uid" => user.uid,
+      "info" => {
+        "email" => user.email,
+        "name" => "#{user.first_name} #{user.last_name}",
+        "image" => "http://graph.facebook.com/v2.6/10211465387890445/picture"
       },
-      "credentials"=> {
-        "token"=> "1234",
-        "expires"=> false
+      "credentials" => {
+        "token" => "1234",
+        "expires" => false
       },
-      "extra"=> {
-        "raw_info"=> {
-          "name"=> "#{user.first_name} #{user.last_name}",
-          "email"=> user.email,
-          "id"=> user.uid
+      "extra" => {
+        "raw_info" => {
+          "name" => "#{user.first_name} #{user.last_name}",
+          "email" => user.email,
+          "id" => user.uid
         }
       }
     )

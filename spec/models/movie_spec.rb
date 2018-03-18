@@ -31,6 +31,6 @@ RSpec.describe Movie, type: :model do
 
     it { should have_valid(:imdb_rating).when(10,9.5,9,8,7,6,5,4,3,2,1,0) }
     it { should have_valid(:imdb_rating).when(nil, '') }
-    it { should_not have_valid(:imdb_rating).when(11,-1, "one") }
+    it { should_not have_valid(:imdb_rating).when(11, -1, "one") }
   end
 end
