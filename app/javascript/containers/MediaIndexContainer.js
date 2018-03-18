@@ -98,22 +98,24 @@ class MediaIndexContainer extends Component {
     })
   }
 
-  render() {
-    let flashNotice,
-    header,
-    headerClass,
-    displayComponent
-
-    if (this.props.location.state) {
-      flashNotice =
+  renderFlashNotice() {
+    const routerState = this.props.location.state
+    if (routerState) {
+      return(
         <FlashNotice
           message={this.props.location.state.message}
           clearFlash={this.clearRouterFlash}
         />
+      )
     }
+  }
 
-    if (this.state.media.length !== 0) {
-      displayComponent =
+  renderHomepage() {
+    const mediaCount = this.state.media.length
+    const loaded = this.state.loaded
+
+    if (mediaCount > 0) {
+      return(
         <MainPage
           media={this.state.media}
           pageFlip={this.pageFlip}
@@ -122,21 +124,18 @@ class MediaIndexContainer extends Component {
           sortMedia={this.sortMedia}
           sortMessage={this.state.sortMessage}
         />
-
-      header = "Explore your personal video collection!"
-      headerClass="media-greeting"
+      )
     }
-    else if (this.state.media.length === 0 && this.state.loaded === true) {
-      displayComponent = <AddMediaPrompt />
-      header = "Create your personal video collection!"
-      headerClass="no-media-greeting"
+    else if (loaded && mediaCount === 0) {
+      return <AddMediaPrompt />
     }
+  }
 
+  render() {
     return(
       <div>
-        {flashNotice}
-        <h1 className={headerClass}>{header}</h1>
-        {displayComponent}
+        {this.renderFlashNotice()}
+        {this.renderHomepage()}
       </div>
     )
   }
