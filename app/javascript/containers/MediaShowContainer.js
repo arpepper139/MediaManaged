@@ -84,19 +84,21 @@ class MediaShowContainer extends Component {
     this.setState({ message: message })
   }
 
-  render() {
-    let mediaTile, flashNotice
-
+  renderFlashNotice() {
     if (this.state.message !== '') {
-      flashNotice =
+      return (
         <FlashNotice
           message={this.state.message}
           clearFlash={this.clearFlash}
         />
+      )
     }
+  }
 
-    if (Object.keys(this.state.media).length !== 0) {
-      mediaTile =
+  renderMediaTile() {
+    const media = this.state.media
+    if (Object.keys(media).length !== 0) {
+      return(
         <MediaInfoTile
           type={this.state.type}
           data={this.state.media}
@@ -104,13 +106,16 @@ class MediaShowContainer extends Component {
           fetchData={this.fetchData}
           uploader={this.addPoster}
         />
+      )
     }
+  }
 
+  render() {
     return(
       <div>
-        {flashNotice}
+        {this.renderFlashNotice()}
         <div className="showpage">
-          {mediaTile}
+          {this.renderMediaTile()}
         </div>
       </div>
     )

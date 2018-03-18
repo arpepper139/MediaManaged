@@ -31,9 +31,8 @@ class GenreSelect extends Component {
   }
 
   render() {
-    let checked
-    let genres = this.props.genres
-    let genreChoices = this.state.genreOptions.map((genre) => {
+    const genres = this.props.genres
+    const genreChoices = this.state.genreOptions.map((genre) => {
       const checked = genres.includes(genre.name) ? true : false
 
       return(
@@ -59,6 +58,5 @@ class GenreSelect extends Component {
     )
   }
 }
-
 
 export default GenreSelect

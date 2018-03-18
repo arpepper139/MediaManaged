@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+
+import NewMediaFormWrapper from '../components/NewMediaFormWrapper'
 import NewMediaForm from '../containers/NewMediaForm'
 import SelectFormType from '../components/SelectFormType'
 
@@ -156,49 +158,37 @@ class NewMediaFormContainer extends Component {
       })
   }
 
-  render() {
-    let formHeader,
-    icon,
-    returnedForm,
-    formClass,
-    errorMessage
-
-    if (this.state.selectedType == 'movie') {
-      formHeader = 'Add New Movie'
-      icon = <i className="fas fa-ticket-alt"></i>
-    }
-    else if (this.state.selectedType === 'show') {
-      formHeader = 'Add New Show'
-      icon = <i className="fas fa-video"></i>
-    }
-
+  renderErrorMessage() {
     const errors = this.state.errors
     if(Object.keys(errors).length > 0) {
-      errorMessage = <h2 className="submit-error">{Object.values(errors)[0]}</h2>
+      return <h2 className="submit-error">{Object.values(errors)[0]}</h2>
     }
+  }
 
-    if (this.state.selectedType !== null) {
-      returnedForm =
-        <NewMediaForm
-          addMedia={ this.addMedia }
-          validate={ this.validateMedia }
-          errors={ this.state.errors }
-          formType={ this.state.selectedType }
-        />
-
-      formClass = 'new-media-form'
+  renderNewMediaForm() {
+    const selectedType = this.state.selectedType
+    if (selectedType !== null) {
+      return(
+        <NewMediaFormWrapper type={selectedType}>
+          {this.renderErrorMessage()}
+          <NewMediaForm
+            addMedia={ this.addMedia }
+            validate={ this.validateMedia }
+            errors={ this.state.errors }
+            formType={ this.state.selectedType }
+          />
+        </NewMediaFormWrapper>
+      )
     }
+  }
 
+  render() {
     return(
       <div>
         <SelectFormType
           selectForm={this.selectForm}
         />
-        <div className={formClass}>
-          <h1 className="form-header">{icon} {formHeader}</h1>
-          {errorMessage}
-          {returnedForm}
-        </div>
+        {this.renderNewMediaForm()}
       </div>
     )
   }

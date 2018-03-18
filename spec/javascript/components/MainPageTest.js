@@ -26,6 +26,10 @@ describe('MainPage', () => {
     expect(wrapper.find('div.homepage')).toBePresent();
   });
 
+  it('should render an h1 prompting the user to explore their collection', () => {
+    expect(wrapper.find('h1.media-greeting')).toHaveText('Explore your personal video collection!')
+  });
+
   it('should render the Sort Bar', () => {
     expect(wrapper.find('SortBar')).toBePresent();
     expect(wrapper.find('SortBar').props()).toEqual({
