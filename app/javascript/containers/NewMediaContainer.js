@@ -162,6 +162,28 @@ class NewMediaContainer extends Component {
     return databaseResults
   }
 
+  renderOMDBResultOrAddForm() {
+    const omdbMatch = this.state.omdbMatch.result
+    if (omdbMatch !== null) {
+      return(
+        <OMDBAddForm
+          searchResult={this.state.omdbMatch.result}
+          type={this.state.omdbMatch.type}
+          clearPage={this.handleClearSearch}
+          passMessage={this.grabMessage}
+        />
+      )
+    }
+    else {
+      return(
+        <NewMediaFormContainer
+          clearPage={this.handleClearSearch}
+          passMessage={this.grabMessage}
+        />
+      )
+    }
+  }
+
   renderNonDatabasePath() {
     const dbMatches = this.state.databaseMatches
     const searchValuePresent = presenceRegex.test(this.state.searchValue)
@@ -180,25 +202,8 @@ class NewMediaContainer extends Component {
       return <SearchPrompt omdbQuery={this.omdbQuery} />
     }
     else if (searchedOMDB && !inDatabase) {
-      const omdbMatch = this.state.omdbMatch.result
-      if (omdbMatch !== null) {
-        return(
-          <OMDBAddForm
-            searchResult={this.state.omdbMatch.result}
-            type={this.state.omdbMatch.type}
-            clearPage={this.handleClearSearch}
-            passMessage={this.grabMessage}
-          />
-        )
-      }
-      else {
-        return(
-          <NewMediaFormContainer
-            clearPage={this.handleClearSearch}
-            passMessage={this.grabMessage}
-          />
-        )
-      }
+      const addMediaComponent = this.renderOMDBResultOrAddForm()
+      return addMediaComponent
     }
   }
 

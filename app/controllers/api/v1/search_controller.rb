@@ -24,8 +24,10 @@ class Api::V1::SearchController < ApplicationController
         genres_array = get_database_genres(response["Genre"])
       end
 
-      if in_database?(response["Title"])
-        render json: format_response(response["Title"], nil, true)
+      db_check_title = response["Title"] ? response["Title"] : query
+
+      if in_database?(db_check_title)
+        render json: format_response(db_check_title, nil, true)
       elsif response["Type"] == "movie"
         formatted_movie = format_movie(response, genres_array)
         render json: format_response(formatted_movie, "movie", false)
