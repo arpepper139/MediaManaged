@@ -92,7 +92,6 @@ class NewMediaContainer extends Component {
         return response.json()
       })
       .then(body => {
-        debugger
         let setSearch = ''
         if (body.inDatabase === true) {
           setSearch = this.state.searchValue
