@@ -1,15 +1,13 @@
 import React, { Component } from 'react'
 
 import SortDropdown from '../components/SortDropdown'
-import genreOptions from '../constants/GenreOptions'
-import typeOptions from '../constants/TypeOptions'
-import ratingOptions from '../constants/RatingOptions'
+import sortBarOptions from '../constants/sortBarOptions'
 
 class SortBar extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      typeFieldhidden: true,
+      typeFieldHidden: true,
       genreFieldHidden: true,
       ratingFieldHidden: true
     }
@@ -21,21 +19,21 @@ class SortBar extends Component {
     const nextValue = !priorValue
     if (sortField == 'Type') {
       this.setState({
-        typeFieldhidden: nextValue,
+        typeFieldHidden: nextValue,
         genreFieldHidden: true,
         ratingFieldHidden: true
       })
     }
     else if (sortField == 'Genre') {
       this.setState({
-        typeFieldhidden: true,
+        typeFieldHidden: true,
         genreFieldHidden: nextValue,
         ratingFieldHidden: true
       })
     }
     else {
       this.setState({
-        typeFieldhidden: true,
+        typeFieldHidden: true,
         genreFieldHidden: true,
         ratingFieldHidden: nextValue
       })
@@ -43,30 +41,24 @@ class SortBar extends Component {
   }
 
   render() {
+    const dropdownComponents = sortBarOptions.map((sortOption) => {
+      const hiddenStateKey = `${sortOption.field.toLowerCase()}FieldHidden`
+      return(
+        <SortDropdown
+          key={sortOption.key}
+          sortField={sortOption.field}
+          options={sortOption.options}
+          sortMedia={this.props.sortMedia}
+          hidden={this.state[hiddenStateKey]}
+          toggleHidden={this.toggleHidden}
+        />
+      )
+    })
+
     return(
       <div className="sort-div">
         <ul className="sort-bar">
-          <SortDropdown
-            sortField='Type'
-            options={typeOptions}
-            sortMedia={this.props.sortMedia}
-            hidden={this.state.typeFieldhidden}
-            toggleHidden={this.toggleHidden}
-          />
-          <SortDropdown
-            sortField='Genre'
-            options={genreOptions}
-            sortMedia={this.props.sortMedia}
-            hidden={this.state.genreFieldHidden}
-            toggleHidden={this.toggleHidden}
-          />
-          <SortDropdown
-            sortField='Rating'
-            options={ratingOptions}
-            sortMedia={this.props.sortMedia}
-            hidden={this.state.ratingFieldHidden}
-            toggleHidden={this.toggleHidden}
-          />
+          {dropdownComponents}
         </ul>
         <p className="sort-result-message">{this.props.sortMessage}</p>
       </div>

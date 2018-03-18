@@ -35,6 +35,6 @@ const newShowFields = [
     id: 'imdb-rating',
     type: 'text'
   }
-]
+];
 
-export default newShowFields
+export default newShowFields;

@@ -19,6 +19,6 @@ const ratingOptions = [
     display: "One Star",
     value: 1
   }
-]
+];
 
-export default ratingOptions
+export default ratingOptions;
