@@ -19,7 +19,7 @@ FactoryBot.define do
 
   factory :movie do
     sequence(:name) { |n| "Movie#{n}"}
-    sequence(:director) { |n| "DirectorBot#{n}"}
+    sequence(:director) { |n| "DirectorBot#{n}" }
     sequence(:studio) { |n| "Studio#{n}" }
     year "1991"
     sequence(:runtime) { |n| "#{n} min" }
@@ -34,8 +34,8 @@ FactoryBot.define do
   end
 
   factory :show do
-    sequence(:name) { |n| "Show#{n}"}
-    sequence(:writer) { |n| "WriterBot#{n}"}
+    sequence(:name) { |n| "Show#{n}" }
+    sequence(:writer) { |n| "WriterBot#{n}" }
     sequence(:studio) { |n| "Studio#{n}" }
     start_year "2008"
     end_year "2012"
@@ -50,6 +50,6 @@ FactoryBot.define do
   end
 
   factory :genre do
-    sequence(:name) { |n| "Genre#{n}"}
+    sequence(:name) { |n| "Genre#{n}" }
   end
 end
