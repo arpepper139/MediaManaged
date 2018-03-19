@@ -1,18 +1,18 @@
 import React from 'react'
 import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 
-import MediaIndexContainer from './containers/MediaIndexContainer'
-import MediaShowContainer from './containers/MediaShowContainer'
-import NewMediaContainer from './containers/NewMediaContainer'
+import HomePageContainer from './containers/HomePageContainer'
+import ShowPageContainer from './containers/ShowPageContainer'
+import AddPageContainer from './containers/AddPageContainer'
 
 const App = (props) => {
   return(
     <Router history={browserHistory}>
-      <Route path='/' component={MediaIndexContainer} />
-      <Route path='/home' component={MediaIndexContainer} />
-      <Route path='/media/new' component={NewMediaContainer} />
-      <Route path='/movies/:id' component={MediaShowContainer} />
-      <Route path='/shows/:id' component={MediaShowContainer} />
+      <Route path='/' component={HomePageContainer} />
+      <Route path='/home' component={HomePageContainer} />
+      <Route path='/media/new' component={AddPageContainer} />
+      <Route path='/movies/:id' component={ShowPageContainer} />
+      <Route path='/shows/:id' component={ShowPageContainer} />
     </Router>
   )
 }

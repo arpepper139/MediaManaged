@@ -5,7 +5,7 @@ import FlashNotice from '../components/FlashNotice'
 import MainPage from '../components/MainPage'
 import AddMediaPrompt from '../components/AddMediaPrompt'
 
-class MediaIndexContainer extends Component {
+class HomePageContainer extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -110,7 +110,7 @@ class MediaIndexContainer extends Component {
     }
   }
 
-  renderHomepage() {
+  renderHomePage() {
     const mediaCount = this.state.media.length
     const loaded = this.state.loaded
 
@@ -135,10 +135,10 @@ class MediaIndexContainer extends Component {
     return(
       <div>
         {this.renderFlashNotice()}
-        {this.renderHomepage()}
+        {this.renderHomePage()}
       </div>
     )
   }
 }
 
-export default MediaIndexContainer
+export default HomePageContainer

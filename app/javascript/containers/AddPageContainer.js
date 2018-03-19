@@ -9,7 +9,7 @@ import SearchPrompt from '../components/SearchPrompt'
 
 const presenceRegex = /.*\S.*/
 
-class NewMediaContainer extends Component {
+class AddPageContainer extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -231,4 +231,4 @@ class NewMediaContainer extends Component {
   }
 }
 
-export default NewMediaContainer
+export default AddPageContainer
