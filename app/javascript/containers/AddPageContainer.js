@@ -1,15 +1,17 @@
 import React, { Component } from 'react'
-import TextInput from '../components/TextInput'
-import NewOwnershipForm from '../containers/NewOwnershipForm'
-import AlreadyInDB from '../components/AlreadyInDB'
-import OMDBAddForm from '../containers/OMDBAddForm'
-import NewMediaFormContainer from '../containers/NewMediaFormContainer'
+
 import FlashNotice from '../components/FlashNotice'
 import SearchPrompt from '../components/SearchPrompt'
+import TextInput from '../components/TextInput'
+
+import DatabaseResultTile from '../containers/DatabaseResultTile'
+import AlreadyInDB from '../components/AlreadyInDB'
+import ExternalResultTile from '../containers/ExternalResultTile'
+import NewMediaFormContainer from '../containers/NewMediaFormContainer'
 
 const presenceRegex = /.*\S.*/
 
-class NewMediaContainer extends Component {
+class AddPageContainer extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -147,7 +149,7 @@ class NewMediaContainer extends Component {
         key++
 
         return(
-          <NewOwnershipForm
+          <DatabaseResultTile
             key={key}
             id={media.id}
             name={media.name}
@@ -166,7 +168,7 @@ class NewMediaContainer extends Component {
     const omdbMatch = this.state.omdbMatch.result
     if (omdbMatch !== null) {
       return(
-        <OMDBAddForm
+        <ExternalResultTile
           searchResult={this.state.omdbMatch.result}
           type={this.state.omdbMatch.type}
           clearPage={this.handleClearSearch}
@@ -231,4 +233,4 @@ class NewMediaContainer extends Component {
   }
 }
 
-export default NewMediaContainer
+export default AddPageContainer

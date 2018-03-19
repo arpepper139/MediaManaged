@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router'
 import RatingInput from '../components/RatingInput'
 
-class NewOwnershipForm extends Component {
+class DatabaseResultTile extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -20,12 +20,13 @@ class NewOwnershipForm extends Component {
   handleSubmit(event) {
     event.preventDefault()
     const type = this.props.type
-    const ownership_field = `${type}_ownership`
-    const media_field = `${type}_id`
+    const ownershipField = `${type}_ownership`
+    const mediaField = `${type}_id`
 
     const formPayload = {
-      [ownership_field]: { [media_field]: this.props.id, user_rating: this.state.rating }
+      [ownershipField]: { [mediaField]: this.props.id, user_rating: this.state.rating }
     }
+
     fetch(`/api/v1/${type}_ownerships`, {
       credentials: 'same-origin',
       method: 'POST',
@@ -72,4 +73,4 @@ class NewOwnershipForm extends Component {
   }
 }
 
-export default NewOwnershipForm
+export default DatabaseResultTile

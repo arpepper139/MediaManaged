@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import FlashNotice from '../components/FlashNotice'
 import MediaInfoTile from '../containers/MediaInfoTile'
 
-class MediaShowContainer extends Component {
+class ShowPageContainer extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -122,4 +122,4 @@ class MediaShowContainer extends Component {
   }
 }
 
-export default MediaShowContainer
+export default ShowPageContainer
