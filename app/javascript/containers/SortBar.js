@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 import SortDropdown from '../components/SortDropdown'
-import sortBarOptions from '../constants/sortBarOptions'
+import sortBarOptions from '../constants/SortBarOptions'
 
 class SortBar extends Component {
   constructor(props) {

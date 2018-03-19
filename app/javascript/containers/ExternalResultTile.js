@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import RatingInput from '../components/RatingInput'
 import FoundMediaInfoCallout from '../components/FoundMediaInfoCallout'
 
-class OMDBAddForm extends Component {
+class ExternalResultTile extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -149,4 +149,4 @@ class OMDBAddForm extends Component {
   }
 }
 
-export default OMDBAddForm
+export default ExternalResultTile
