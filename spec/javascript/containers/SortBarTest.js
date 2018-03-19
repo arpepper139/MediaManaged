@@ -1,5 +1,4 @@
 import SortBar from '../../../app/javascript/containers/SortBar';
-import sortBarOptions from '../../../app/javascript/constants/SortBarOptions';
 import TypeOptions from '../../../app/javascript/constants/TypeOptions';
 import GenreOptions from '../../../app/javascript/constants/GenreOptions';
 import RatingOptions from '../../../app/javascript/constants/RatingOptions';
