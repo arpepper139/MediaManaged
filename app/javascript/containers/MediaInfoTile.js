@@ -142,6 +142,37 @@ class MediaInfoTile extends Component {
       });
   }
 
+  renderImageArea() {
+    if (this.props.data.poster.url !== null) {
+      return <img src={this.props.data.poster.url}></img>
+    }
+    else {
+      return(
+        <PosterUploader
+          id={this.props.data.id}
+          type={this.props.type}
+          uploader={this.props.uploader}
+        />
+      )
+    }
+  }
+
+  renderMediaDetails() {
+    const mediaData = this.props.data
+    const excluded = ['id', 'imdb_rating', 'ownership_info', 'poster', 'name', 'description']
+    const displayFields = Object.keys(mediaData).filter(field => !excluded.includes(field))
+
+    let key = 0
+    const mediaDetails = displayFields.map((fieldName) => {
+      key++
+      if (mediaData[fieldName]) {
+        return <p key={key}>{`${this.formatField(fieldName)}: ${mediaData[fieldName]}`}</p>
+      }
+    })
+
+    return mediaDetails
+  }
+
   render() {
     let action, onClickFunction;
     if (this.props.data.ownership_info) {
@@ -153,61 +184,35 @@ class MediaInfoTile extends Component {
       onClickFunction = this.addMedia
     }
 
-    const excluded = ['id', 'imdb_rating', 'ownership_info', 'poster', 'name', 'description', 'genres']
-    const midDisplayFields = Object.keys(this.props.data).filter(field => !excluded.includes(field))
-
-    let key = 0
-    const displayItems = midDisplayFields.map((fieldName) => {
-      if (this.props.data[fieldName]) {
-        key++
-        return <p key={key}>{`${this.formatField(fieldName)}: ${this.props.data[fieldName]}`}</p>
-      }
-    })
-
-    let photoField
-    if (this.props.data.poster.url !== null) {
-      photoField = <img className="showpage-poster" src={this.props.data.poster.url}></img>
-    }
-    else {
-      photoField =
-        <PosterUploader
-          id={this.props.data.id}
-          type={this.props.type}
-          uploader={this.props.uploader}
-        />
-    }
-
-    const genresArray = this.props.data.genres.map((genre) => {
-      return genre.name
-    })
-    const genresString = genresArray.sort().join(', ')
-
     return(
-      <div className="media-info small-12 medium-12 large-12 columns">
-        <div className="small-12 medium-12 large-12 columns">
-          <h1 className="title-header">{this.props.data.name}</h1>
-        </div>
-        <div className="small-12 medium-6 large-4 columns">
-          {photoField}
-        </div>
-        <div className="small-12 medium-6 large-4 columns">
-          {displayItems}
-          <p>Genres: {genresString}</p>
-        </div>
-        <div className="small-12 medium-6 large-4 columns">
-          <p>IMDb Rating: {this.props.data.imdb_rating}</p>
-          <p>Your Rating</p>
-          <RatingInput
-            value={this.state.userRating}
-            handleClick={this.updateUserRating}
-          />
-        </div>
-        <div className="description small-12 medium-6 large-8 columns">
-          <p>Description: {this.props.data.description}</p>
-          <ToggleOwnershipButton
-            onClickfunction={onClickFunction}
-            text={action}
-          />
+      <div className="media-info-tile">
+        <h1>{this.props.data.name}</h1>
+        <div className="info-display">
+          <div className="poster-div">
+            {this.renderImageArea()}
+          </div>
+          <div className="movie-details">
+            <div className="info-div">
+              <div className="col">
+                {this.renderMediaDetails()}
+              </div>
+              <div className="col">
+                <p>IMDb Rating: {this.props.data.imdb_rating}</p>
+                <p>Your Rating</p>
+                <RatingInput
+                  value={this.state.userRating}
+                  handleClick={this.updateUserRating}
+                />
+              </div>
+            </div>
+            <div>
+              <p>Description: {this.props.data.description}</p>
+              <ToggleOwnershipButton
+                onClickfunction={onClickFunction}
+                text={action}
+              />
+            </div>
+          </div>
         </div>
       </div>
     )

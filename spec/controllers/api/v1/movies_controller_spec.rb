@@ -7,8 +7,10 @@ RSpec.describe Api::V1::MoviesController, type: :controller do
       user1 = FactoryBot.create(:user)
       movie1 = FactoryBot.create(:movie)
       genre1 = FactoryBot.create(:genre)
+      genre2 = FactoryBot.create(:genre)
       movie_ownership1 = FactoryBot.create(:movie_ownership, user: user1, movie: movie1, user_rating: 5)
       genre_assignment1 = GenreAssignment.create!(genre: genre1, assignable: movie1)
+      genre_assignment2 = GenreAssignment.create!(genre: genre2, assignable: movie1)
 
       sign_in(user1)
 
@@ -29,7 +31,7 @@ RSpec.describe Api::V1::MoviesController, type: :controller do
       expect(returned_json["movie"]["imdb_rating"]).to eq "#{movie1.imdb_rating}"
       expect(returned_json["movie"]["ownership_info"]["user_rating"]).to eq 5
       expect(returned_json["movie"]["ownership_info"]["ownership_id"]).to eq movie_ownership1.id
-      expect(returned_json["movie"]["genres"][0]["name"]).to eq genre1.name
+      expect(returned_json["movie"]["genres"]).to eq "#{genre1.name}, #{genre2.name}"
     end
   end
 

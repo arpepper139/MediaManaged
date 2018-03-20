@@ -1,16 +1,38 @@
 @import './constants';
 
-div.showpage {
+.showpage {
   margin: 2%;
 }
 
-.media-info {
+.media-info-tile {
+  display: flex;
+  flex-direction: column;
   background-color: $white;
   border-radius: 5px;
   margin-bottom: 2%;
+  padding: 0 20px;
 
-  .showpage-poster {
+  .info-display {
+    display: flex;
+  }
+
+  .poster-div {
+    flex: 1;
     padding-bottom: 20px;
+  }
+
+  .movie-details {
+    display: flex;
+    flex-direction: column;
+    flex: 2;
+  }
+
+  .info-div {
+    display: flex;
+  }
+
+  .col {
+    flex: 1;
   }
 
   .description {
