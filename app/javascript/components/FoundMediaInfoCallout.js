@@ -2,30 +2,38 @@ import React from 'react'
 
 const FoundMediaInfoCallout = ({ foundInfo, closeDisplay }) => {
 
-  let formatField = (fieldName) => {
-    let splitWords = fieldName.replace(/_/, " ").split(" ")
-    let upcasedWords = splitWords.map((word) => {
+  const formatField = (fieldName) => {
+    const splitWords = fieldName.replace(/_/, " ").split(" ")
+    const upcasedWords = splitWords.map((word) => {
       return(
         word.charAt(0).toUpperCase() + word.slice(1)
       )
     })
-    let formattedField = upcasedWords.join(" ")
+    const formattedField = upcasedWords.join(" ")
 
     return formattedField
   }
 
-  let excluded = ['poster', 'name', 'studio', 'imdb_rating', 'description']
-  let infoFields = Object.keys(foundInfo).filter(field => !excluded.includes(field))
+  const displayInfo = () => {
+    const excluded = ['poster', 'name', 'studio', 'imdb_rating']
+    const displayFields = Object.keys(foundInfo).filter(field => !excluded.includes(field))
 
-  let key = 0
-  let infoDisplay = infoFields.map((fieldName) => {
-    if (foundInfo[fieldName]) {
-      key++
-      return <p key={key}>{`${formatField(fieldName)}: ${foundInfo[fieldName]}`}</p>
-    }
-  })
+    const descriptionIndex = displayFields.indexOf('description')
+    const description = displayFields.splice(descriptionIndex, 1)[0]
+    displayFields.push(description)
 
-  let posterStyle = {
+    let key = 0
+    const mediaDetails = displayFields.map((fieldName) => {
+      if (foundInfo[fieldName]) {
+        key++
+        return <p key={key}>{`${formatField(fieldName)}: ${foundInfo[fieldName]}`}</p>
+      }
+    })
+
+    return mediaDetails
+  }
+
+  const posterStyle = {
     backgroundImage: 'url(' + foundInfo.poster + ')',
   }
 
@@ -39,8 +47,7 @@ const FoundMediaInfoCallout = ({ foundInfo, closeDisplay }) => {
         <div className="media-details">
           <div className="media-info-picture" style={posterStyle} alt={foundInfo.name} />
           <div className="media-info-fields">
-            {infoDisplay}
-            <p>Description: {foundInfo.description}</p>
+            {displayInfo()}
           </div>
         </div>
       </div>

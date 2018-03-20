@@ -14,15 +14,15 @@ class ShowPageContainer extends Component {
 
     this.clearFlash = this.clearFlash.bind(this)
     this.grabMessage = this.grabMessage.bind(this)
-    this.fetchData = this.fetchData.bind(this)
+    this.getMediaData = this.getMediaData.bind(this)
     this.addPoster = this.addPoster.bind(this)
   }
 
   componentDidMount() {
-    this.fetchData()
+    this.getMediaData()
   }
 
-  fetchData() {
+  getMediaData() {
     const path = this.props.location.pathname
     fetch(`/api/v1/${path}.json`, { credentials: 'same-origin' })
       .then(response => {
@@ -95,7 +95,7 @@ class ShowPageContainer extends Component {
     }
   }
 
-  renderMediaTile() {
+  renderMediaInfoTile() {
     const media = this.state.media
     if (Object.keys(media).length !== 0) {
       return(
@@ -103,7 +103,7 @@ class ShowPageContainer extends Component {
           type={this.state.type}
           data={this.state.media}
           passMessage={this.grabMessage}
-          fetchData={this.fetchData}
+          fetchData={this.getMediaData}
           uploader={this.addPoster}
         />
       )
@@ -115,7 +115,7 @@ class ShowPageContainer extends Component {
       <div>
         {this.renderFlashNotice()}
         <div className="showpage">
-          {this.renderMediaTile()}
+          {this.renderMediaInfoTile()}
         </div>
       </div>
     )

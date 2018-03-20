@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import { Link, browserHistory } from 'react-router'
 
-import FlashNotice from '../components/FlashNotice.js'
-import RatingInput from '../components/RatingInput.js'
-import ToggleOwnershipButton from '../components/ToggleOwnershipButton.js'
-import PosterUploader from '../components/PosterUploader.js'
+import FlashNotice from '../components/FlashNotice'
+import MediaDetailsDisplay from '../components/MediaDetailsDisplay'
+import RatingInput from '../components/RatingInput'
+import ToggleOwnershipButton from '../components/ToggleOwnershipButton'
+import PosterUploader from '../components/PosterUploader'
 
 class MediaInfoTile extends Component {
   constructor(props) {
@@ -16,7 +17,6 @@ class MediaInfoTile extends Component {
     this.updateUserRating = this.updateUserRating.bind(this)
     this.removeMedia = this.removeMedia.bind(this)
     this.addMedia = this.addMedia.bind(this)
-    this.formatField = this.formatField.bind(this)
   }
 
   componentDidMount() {
@@ -25,18 +25,6 @@ class MediaInfoTile extends Component {
         userRating: this.props.data.ownership_info.user_rating,
       })
     }
-  }
-
-  formatField(fieldName) {
-    const splitWords = fieldName.replace(/_/, " ").split(" ")
-    const upcasedWords = splitWords.map((word) => {
-      return(
-        word.charAt(0).toUpperCase() + word.slice(1)
-      )
-    })
-    const formattedField = upcasedWords.join(" ")
-
-    return formattedField
   }
 
   updateUserRating(ratingValue) {
@@ -49,6 +37,7 @@ class MediaInfoTile extends Component {
           user_rating: ratingValue
         }
       }
+
       fetch(`/api/v1/${type}_ownerships/${ownershipId}.json`, {
         method: 'PATCH',
         credentials: 'same-origin',
@@ -74,8 +63,8 @@ class MediaInfoTile extends Component {
 
   removeMedia(event) {
     event.preventDefault()
-    const result = window.confirm("Are you sure you want to remove this item from your collection?")
 
+    const result = window.confirm("Are you sure you want to remove this item from your collection?")
     if (result === false) {
       return false
     }
@@ -142,72 +131,55 @@ class MediaInfoTile extends Component {
       });
   }
 
-  render() {
-    let action, onClickFunction;
-    if (this.props.data.ownership_info) {
-      action = "Remove From Collection"
-      onClickFunction = this.removeMedia
-    }
-    else {
-      action = "Add To Collection"
-      onClickFunction = this.addMedia
-    }
-
-    const excluded = ['id', 'imdb_rating', 'ownership_info', 'poster', 'name', 'description', 'genres']
-    const midDisplayFields = Object.keys(this.props.data).filter(field => !excluded.includes(field))
-
-    let key = 0
-    const displayItems = midDisplayFields.map((fieldName) => {
-      if (this.props.data[fieldName]) {
-        key++
-        return <p key={key}>{`${this.formatField(fieldName)}: ${this.props.data[fieldName]}`}</p>
-      }
-    })
-
-    let photoField
+  renderImageArea() {
     if (this.props.data.poster.url !== null) {
-      photoField = <img className="showpage-poster" src={this.props.data.poster.url}></img>
+      return <img src={this.props.data.poster.url}></img>
     }
     else {
-      photoField =
+      return(
         <PosterUploader
           id={this.props.data.id}
           type={this.props.type}
           uploader={this.props.uploader}
         />
+      )
     }
+  }
 
-    const genresArray = this.props.data.genres.map((genre) => {
-      return genre.name
-    })
-    const genresString = genresArray.sort().join(', ')
+  render() {
+    const owned = this.props.data.ownership_info
+    const ownershipAction = `${owned ? 'Remove From Collection' : 'Add To Collection'}`
+    const ownershipOnClick = owned ? this.removeMedia : this.addMedia
 
     return(
-      <div className="media-info small-12 medium-12 large-12 columns">
-        <div className="small-12 medium-12 large-12 columns">
-          <h1 className="title-header">{this.props.data.name}</h1>
-        </div>
-        <div className="small-12 medium-6 large-4 columns">
-          {photoField}
-        </div>
-        <div className="small-12 medium-6 large-4 columns">
-          {displayItems}
-          <p>Genres: {genresString}</p>
-        </div>
-        <div className="small-12 medium-6 large-4 columns">
-          <p>IMDb Rating: {this.props.data.imdb_rating}</p>
-          <p>Your Rating</p>
-          <RatingInput
-            value={this.state.userRating}
-            handleClick={this.updateUserRating}
-          />
-        </div>
-        <div className="description small-12 medium-6 large-8 columns">
-          <p>Description: {this.props.data.description}</p>
-          <ToggleOwnershipButton
-            onClickfunction={onClickFunction}
-            text={action}
-          />
+      <div className="media-info-tile">
+        <h1>{this.props.data.name}</h1>
+        <div className="info-display">
+          <div className="poster-div">
+            {this.renderImageArea()}
+          </div>
+          <div className="movie-details">
+            <div className="info-div">
+              <MediaDetailsDisplay
+                mediaData={this.props.data}
+              />
+              <div className="col">
+                <p>IMDb Rating: {this.props.data.imdb_rating}</p>
+                <p>Your Rating</p>
+                <RatingInput
+                  value={this.state.userRating}
+                  handleClick={this.updateUserRating}
+                />
+              </div>
+            </div>
+            <div className="manage-ownership">
+              <p>Description: {this.props.data.description}</p>
+              <ToggleOwnershipButton
+                onClickfunction={ownershipOnClick}
+                text={ownershipAction}
+              />
+            </div>
+          </div>
         </div>
       </div>
     )
