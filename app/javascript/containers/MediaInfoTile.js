@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
 import { Link, browserHistory } from 'react-router'
 
-import FlashNotice from '../components/FlashNotice.js'
-import RatingInput from '../components/RatingInput.js'
-import ToggleOwnershipButton from '../components/ToggleOwnershipButton.js'
-import PosterUploader from '../components/PosterUploader.js'
+import FlashNotice from '../components/FlashNotice'
+
+import MediaDetailsDisplay from '../components/MediaDetailsDisplay'
+
+import RatingInput from '../components/RatingInput'
+import ToggleOwnershipButton from '../components/ToggleOwnershipButton'
+import PosterUploader from '../components/PosterUploader'
 
 class MediaInfoTile extends Component {
   constructor(props) {
@@ -16,7 +19,6 @@ class MediaInfoTile extends Component {
     this.updateUserRating = this.updateUserRating.bind(this)
     this.removeMedia = this.removeMedia.bind(this)
     this.addMedia = this.addMedia.bind(this)
-    this.formatField = this.formatField.bind(this)
   }
 
   componentDidMount() {
@@ -25,18 +27,6 @@ class MediaInfoTile extends Component {
         userRating: this.props.data.ownership_info.user_rating,
       })
     }
-  }
-
-  formatField(fieldName) {
-    const splitWords = fieldName.replace(/_/, " ").split(" ")
-    const upcasedWords = splitWords.map((word) => {
-      return(
-        word.charAt(0).toUpperCase() + word.slice(1)
-      )
-    })
-    const formattedField = upcasedWords.join(" ")
-
-    return formattedField
   }
 
   updateUserRating(ratingValue) {
@@ -49,6 +39,7 @@ class MediaInfoTile extends Component {
           user_rating: ratingValue
         }
       }
+
       fetch(`/api/v1/${type}_ownerships/${ownershipId}.json`, {
         method: 'PATCH',
         credentials: 'same-origin',
@@ -74,8 +65,8 @@ class MediaInfoTile extends Component {
 
   removeMedia(event) {
     event.preventDefault()
-    const result = window.confirm("Are you sure you want to remove this item from your collection?")
 
+    const result = window.confirm("Are you sure you want to remove this item from your collection?")
     if (result === false) {
       return false
     }
@@ -157,32 +148,10 @@ class MediaInfoTile extends Component {
     }
   }
 
-  renderMediaDetails() {
-    const mediaData = this.props.data
-    const excluded = ['id', 'imdb_rating', 'ownership_info', 'poster', 'name', 'description']
-    const displayFields = Object.keys(mediaData).filter(field => !excluded.includes(field))
-
-    let key = 0
-    const mediaDetails = displayFields.map((fieldName) => {
-      key++
-      if (mediaData[fieldName]) {
-        return <p key={key}>{`${this.formatField(fieldName)}: ${mediaData[fieldName]}`}</p>
-      }
-    })
-
-    return mediaDetails
-  }
-
   render() {
-    let action, onClickFunction;
-    if (this.props.data.ownership_info) {
-      action = "Remove From Collection"
-      onClickFunction = this.removeMedia
-    }
-    else {
-      action = "Add To Collection"
-      onClickFunction = this.addMedia
-    }
+    const owned = this.props.data.ownership_info
+    const ownershipAction = `${owned ? 'Remove From Collection' : 'Add To Collection'}`
+    const ownershipOnClick = owned ? this.removeMedia : this.addMedia
 
     return(
       <div className="media-info-tile">
@@ -193,9 +162,9 @@ class MediaInfoTile extends Component {
           </div>
           <div className="movie-details">
             <div className="info-div">
-              <div className="col">
-                {this.renderMediaDetails()}
-              </div>
+              <MediaDetailsDisplay
+                mediaData={this.props.data}
+              />
               <div className="col">
                 <p>IMDb Rating: {this.props.data.imdb_rating}</p>
                 <p>Your Rating</p>
@@ -205,11 +174,11 @@ class MediaInfoTile extends Component {
                 />
               </div>
             </div>
-            <div>
+            <div className="manage-ownership">
               <p>Description: {this.props.data.description}</p>
               <ToggleOwnershipButton
-                onClickfunction={onClickFunction}
-                text={action}
+                onClickfunction={ownershipOnClick}
+                text={ownershipAction}
               />
             </div>
           </div>

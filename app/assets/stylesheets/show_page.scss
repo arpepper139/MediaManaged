@@ -10,7 +10,11 @@
   background-color: $white;
   border-radius: 5px;
   margin-bottom: 2%;
-  padding: 0 20px;
+  padding: 0 15px;
+
+  h1 {
+    padding: 0 15px;
+  }
 
   .info-display {
     display: flex;
@@ -18,7 +22,7 @@
 
   .poster-div {
     flex: 1;
-    padding-bottom: 20px;
+    padding: 0 15px 20px 15px;
   }
 
   .movie-details {
@@ -33,10 +37,60 @@
 
   .col {
     flex: 1;
+    padding: 0 15px;
+  }
+
+  .manage-ownership {
+    padding: 15px 15px 0 15px;
   }
 
   .description {
     padding-top: 10px;
+  }
+}
+
+@media screen and (min-width: 40em) and (max-width: 63.9375em) {
+  .media-info-tile {
+    .poster-div {
+      flex: 1 1 50%;
+    }
+
+    .movie-details {
+      flex: 1 1 50%;
+    }
+
+    .info-div {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}
+
+@media screen and (max-width: 39.9375em) {
+  .media-info-tile {
+    h1 {
+      text-align: center;
+      font-size: 26px;
+    }
+
+    .info-display {
+      flex-direction: column;
+    }
+
+    .poster-div {
+      display: flex;
+      justify-content: center;
+    }
+
+    .info-div {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .manage-ownership {
+      display: flex;
+      flex-direction: column;
+    }
   }
 }
 
