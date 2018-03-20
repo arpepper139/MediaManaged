@@ -2,9 +2,7 @@ import React, { Component } from 'react'
 import { Link, browserHistory } from 'react-router'
 
 import FlashNotice from '../components/FlashNotice'
-
 import MediaDetailsDisplay from '../components/MediaDetailsDisplay'
-
 import RatingInput from '../components/RatingInput'
 import ToggleOwnershipButton from '../components/ToggleOwnershipButton'
 import PosterUploader from '../components/PosterUploader'
