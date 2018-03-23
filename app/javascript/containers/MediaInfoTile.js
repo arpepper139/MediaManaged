@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { Link, browserHistory } from 'react-router'
 
-import FlashNotice from '../components/FlashNotice'
-import MediaDetailsDisplay from '../components/MediaDetailsDisplay'
-import RatingInput from '../components/RatingInput'
-import ToggleOwnershipButton from '../components/ToggleOwnershipButton'
-import PosterUploader from '../components/PosterUploader'
+import FlashNotice from '../components/shared/FlashNotice'
+import MediaDetailsDisplay from '../components/showPage/MediaDetailsDisplay'
+import RatingInput from '../components/shared/RatingInput'
+import ToggleOwnershipButton from '../components/showPage/ToggleOwnershipButton'
+import PosterUploader from '../components/showPage/PosterUploader'
 
 class MediaInfoTile extends Component {
   constructor(props) {

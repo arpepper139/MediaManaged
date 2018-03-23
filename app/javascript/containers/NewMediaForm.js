@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 
 import Dropzone from 'react-dropzone'
-import TextInput from '../components/TextInput'
-import RatingInput from '../components/RatingInput'
-import GenreSelect from '../components/GenreSelect'
-import TextArea from '../components/TextArea'
+import TextInput from '../components/addPage/TextInput'
+import RatingInput from '../components/shared/RatingInput'
+import GenreSelect from '../components/addPage/GenreSelect'
+import TextArea from '../components/addPage/TextArea'
 
 import NewMovieFields from '../constants/NewMovieFields'
 import NewShowFields from '../constants/NewShowFields'

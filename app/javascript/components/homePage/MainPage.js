@@ -1,6 +1,6 @@
 import React from 'react'
-import MediaIndexTile from '../components/MediaIndexTile'
-import SortBar from '../containers/SortBar'
+import MediaIndexTile from './MediaIndexTile'
+import SortBar from '../../containers/SortBar'
 
 const MainPage = ({ sortMedia, sortMessage, media, pageFlip, slicePoint1, slicePoint2 }) => {
   return(

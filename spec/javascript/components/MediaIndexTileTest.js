@@ -1,4 +1,4 @@
-import MediaIndexTile from '../../../app/javascript/components/MediaIndexTile';
+import MediaIndexTile from '../../../app/javascript/components/homePage/MediaIndexTile';
 import MockMedia from '../../support/constants/MockMedia';
 
 describe('MediaIndexTile', () => {

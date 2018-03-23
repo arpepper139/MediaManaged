@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 
-import NewMediaFormWrapper from '../components/NewMediaFormWrapper'
+import NewMediaFormWrapper from '../components/addPage/NewMediaFormWrapper'
 import NewMediaForm from '../containers/NewMediaForm'
-import SelectFormType from '../components/SelectFormType'
+import SelectFormType from '../components/addPage/SelectFormType'
 
 const presenceRegex = /.*\S.*/
 const numberRegex = /^\d+\.*\d{1}$/

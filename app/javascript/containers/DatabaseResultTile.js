@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
-import RatingInput from '../components/RatingInput'
+import RatingInput from '../components/shared/RatingInput'
 
 class DatabaseResultTile extends Component {
   constructor(props) {

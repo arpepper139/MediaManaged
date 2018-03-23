@@ -1,4 +1,4 @@
-import SortDropdown from '../../../app/javascript/components/SortDropdown';
+import SortDropdown from '../../../app/javascript/components/homePage/SortDropdown';
 import TypeOptions from '../../../app/javascript/constants/TypeOptions';
 
 describe('SortDropdown', () => {

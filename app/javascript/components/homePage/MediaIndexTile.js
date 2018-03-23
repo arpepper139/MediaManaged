@@ -1,18 +1,16 @@
-import React from 'react'
-import { Link } from 'react-router'
+import React from 'react';
+import { Link } from 'react-router';
 
-import MediaPreview from '../components/MediaPreview'
-import PageButton from '../components/PageButton'
+import MediaPreview from './MediaPreview';
+import PageButton from './PageButton';
 
 const MediaIndexTile = ({ media, slicePoint1, slicePoint2, pageFlip }) => {
-  let addMedia, pageBack, pageForward
+  const displayMedia = media.slice(slicePoint1, slicePoint2);
 
-  let key = 0
-  let displayMedia = media.slice(slicePoint1, slicePoint2)
-
-  let mediaPreviewTiles = displayMedia.map((mediaObject) => {
-    let type = `${mediaObject.director ? "movie" : "show"}`
-    key++
+  let key = 0;
+  const mediaPreviewTiles = displayMedia.map((mediaObject) => {
+    const type = `${mediaObject.director ? 'movie' : 'show'}`;
+    key++;
 
     return(
       <MediaPreview
@@ -22,23 +20,27 @@ const MediaIndexTile = ({ media, slicePoint1, slicePoint2, pageFlip }) => {
         poster={mediaObject.poster.url}
         type={type}
       />
-    )
-  })
+    );
+  });
 
-  if (slicePoint1 !== 0) {
-    pageBack = pageFlip
-  }
+  const allowPageBack = () => {
+    if (slicePoint1 !== 0) {
+      return pageFlip;
+    }
+  };
 
-  if (slicePoint2 < media.length) {
-    pageForward = pageFlip
-  }
+  const allowPageForward = () => {
+    if (slicePoint2 < media.length) {
+      return pageFlip;
+    }
+  };
 
   return(
     <div>
       <div className="media-display">
         <PageButton
           direction="left"
-          pageFlip={ pageBack }
+          pageFlip={allowPageBack()}
         />
         <div className="media-panel">
           <div className="tiles-group">
@@ -60,7 +62,7 @@ const MediaIndexTile = ({ media, slicePoint1, slicePoint2, pageFlip }) => {
         </div>
         <PageButton
           direction="right"
-          pageFlip={ pageForward }
+          pageFlip={allowPageForward()}
         />
       </div>
 

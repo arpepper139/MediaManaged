@@ -1,4 +1,4 @@
-import MainPage from '../../../app/javascript/components/MainPage';
+import MainPage from '../../../app/javascript/components/homePage/MainPage';
 import MockMedia from '../../support/constants/MockMedia';
 
 describe('MainPage', () => {
