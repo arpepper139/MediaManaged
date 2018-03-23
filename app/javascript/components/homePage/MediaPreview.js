@@ -1,34 +1,36 @@
-import React from 'react'
-import { Link } from 'react-router'
+import React from 'react';
+import { Link } from 'react-router';
+
+import DisplayDefault from './DisplayDefault';
+import DisplayPoster from './DisplayPoster';
 
 const MediaPreview = ({ poster, type, name, id }) => {
 
-  let posterStyle = {
-    backgroundImage: 'url(' + poster + ')',
-  }
-
-  let noPosterStyle = {
-    backgroundColor: '#C3C3C3'
-  }
-
-  let preview
-  if (poster === null) {
-    preview = <div className="preview-picture" style={noPosterStyle}>
-      <p>{name}</p>
-      <i className="fas fa-film"></i>
-    </div>
-  }
-  else {
-    preview = <div className="preview-picture" style={posterStyle} alt={name} />
-  }
+  const renderPreviewImage = () => {
+    if (poster === null) {
+      return(
+        <DisplayDefault
+          name={name}
+        />
+      );
+    }
+    else {
+      return(
+        <DisplayPoster
+          url={poster}
+          alt={name}
+        />
+      );
+    }
+  };
 
   return(
     <Link to={`/${type}s/${id}`}>
       <div className="preview-tile">
-        {preview}
+        {renderPreviewImage()}
       </div>
     </Link>
-  )
-}
+  );
+};
 
-export default MediaPreview
+export default MediaPreview;

@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router';
 
+import DisplayGroup from './DisplayGroup';
 import MediaPreview from './MediaPreview';
 import PageButton from './PageButton';
 
-const MediaIndexTile = ({ media, slicePoint1, slicePoint2, pageFlip }) => {
+const CollectionDisplay = ({ media, slicePoint1, slicePoint2, pageFlip }) => {
   const displayMedia = media.slice(slicePoint1, slicePoint2);
 
   let key = 0;
@@ -43,36 +44,25 @@ const MediaIndexTile = ({ media, slicePoint1, slicePoint2, pageFlip }) => {
           pageFlip={allowPageBack()}
         />
         <div className="media-panel">
-          <div className="tiles-group">
-            <div className="tiles">
-              {mediaPreviewTiles.slice(0, 3)}
-            </div>
-            <div className="tiles">
-              {mediaPreviewTiles.slice(3, 6)}
-            </div>
-          </div>
-          <div className="tiles-group">
-            <div className="tiles">
-              {mediaPreviewTiles.slice(6, 9)}
-            </div>
-            <div className="tiles">
-              {mediaPreviewTiles.slice(9, 12)}
-            </div>
-          </div>
+          <DisplayGroup
+            previewTiles={mediaPreviewTiles.slice(0, 6)}
+          />
+          <DisplayGroup
+            previewTiles={mediaPreviewTiles.slice(6, 12)}
+          />
         </div>
         <PageButton
           direction="right"
           pageFlip={allowPageForward()}
         />
       </div>
-
       <div className="new-media-button">
         <Link to={'/media/new'}>
           <button>Add Media</button>
         </Link>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default MediaIndexTile
+export default CollectionDisplay;

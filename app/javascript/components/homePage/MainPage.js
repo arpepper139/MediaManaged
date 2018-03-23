@@ -1,6 +1,6 @@
-import React from 'react'
-import MediaIndexTile from './MediaIndexTile'
-import SortBar from '../../containers/SortBar'
+import React from 'react';
+import CollectionDisplay from './CollectionDisplay';
+import SortBar from '../../containers/SortBar';
 
 const MainPage = ({ sortMedia, sortMessage, media, pageFlip, slicePoint1, slicePoint2 }) => {
   return(
@@ -10,14 +10,14 @@ const MainPage = ({ sortMedia, sortMessage, media, pageFlip, slicePoint1, sliceP
         sortMedia={sortMedia}
         sortMessage={sortMessage}
       />
-      <MediaIndexTile
+      <CollectionDisplay
         media={media}
         pageFlip={pageFlip}
         slicePoint1={slicePoint1}
         slicePoint2={slicePoint2}
       />
     </div>
-  )
-}
+  );
+};
 
-export default MainPage
+export default MainPage;

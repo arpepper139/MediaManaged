@@ -1,22 +1,22 @@
-import React from 'react'
+import React from 'react';
 
 const PageButton = ({ direction, pageFlip }) => {
-  const arrowClass = `fas fa-chevron-${direction}`
-  const divClass = `page-button ${pageFlip ? "clickable" : "not-clickable"}`
+  const arrowClass = `fas fa-chevron-${direction}`;
+  const divClass = `page-button ${pageFlip ? "clickable" : "not-clickable"}`;
 
-  let handleClick
+  let handleClick;
   if (pageFlip) {
-    handleClick = () => pageFlip(event, direction)
+    handleClick = () => pageFlip(event, direction);
   }
   else {
-    handleClick = ''
+    handleClick = '';
   }
 
   return(
     <div className={divClass} onClick={handleClick}>
       <i className={arrowClass} onClick={handleClick}></i>
     </div>
-  )
-}
+  );
+};
 
-export default PageButton
+export default PageButton;

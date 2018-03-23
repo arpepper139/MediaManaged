@@ -1,17 +1,16 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
 const SortDropdown = ({ options, sortMedia, hidden, toggleHidden, sortField }) => {
-  let key = 0
-  let formattedType = sortField.toLowerCase()
+  const formattedType = sortField.toLowerCase();
+  const dropdownClass = `dropdown ${ !hidden ? 'dropdown-active' : ''}`;
 
-  let sortOptions = options.map((option) => {
-    key++
+  let key = 0;
+  const sortOptions = options.map((option) => {
+    key++;
     return(
       <p key={key} onClick={() => sortMedia(formattedType, option.value)}>{option.display}</p>
-    )
-  })
-
-  let dropdownClass = `dropdown ${ !hidden ? 'dropdown-active' : ''}`
+    );
+  });
 
   return(
     <li className={dropdownClass} onClick={() => toggleHidden(sortField, hidden)}>
@@ -20,7 +19,7 @@ const SortDropdown = ({ options, sortMedia, hidden, toggleHidden, sortField }) =
         {sortOptions}
       </div>
     </li>
-  )
-}
+  );
+};
 
-export default SortDropdown
+export default SortDropdown;

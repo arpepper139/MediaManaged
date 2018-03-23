@@ -38,9 +38,9 @@ describe('MainPage', () => {
     });
   });
 
-  it('should render the Media Index Tile', () => {
-    expect(wrapper.find('MediaIndexTile')).toBePresent();
-    expect(wrapper.find('MediaIndexTile').props()).toEqual({
+  it('should render the Collection Display', () => {
+    expect(wrapper.find('CollectionDisplay')).toBePresent();
+    expect(wrapper.find('CollectionDisplay').props()).toEqual({
       media: MockMedia,
       pageFlip: jasmine.any(Function),
       slicePoint1: 0,
