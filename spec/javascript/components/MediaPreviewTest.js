@@ -1,4 +1,4 @@
-import MediaPreview from '../../../app/javascript/components/MediaPreview';
+import MediaPreview from '../../../app/javascript/components/homePage/MediaPreview';
 
 describe('Media Preview', () => {
   let noPosterShowWrapper,

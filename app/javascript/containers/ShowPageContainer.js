@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import FlashNotice from '../components/FlashNotice'
+import FlashNotice from '../components/shared/FlashNotice'
 import MediaInfoTile from '../containers/MediaInfoTile'
 
 class ShowPageContainer extends Component {

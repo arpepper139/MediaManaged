@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { browserHistory } from 'react-router'
 
-import FlashNotice from '../components/FlashNotice'
-import MainPage from '../components/MainPage'
-import AddMediaPrompt from '../components/AddMediaPrompt'
+import FlashNotice from '../components/shared/FlashNotice'
+import MainPage from '../components/homePage/MainPage'
+import AddMediaPrompt from '../components/homePage/AddMediaPrompt'
 
 class HomePageContainer extends Component {
   constructor(props) {

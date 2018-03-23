@@ -1,41 +1,43 @@
-import React from 'react'
+import React from 'react';
 
 const FoundMediaInfoCallout = ({ foundInfo, closeDisplay }) => {
 
   const formatField = (fieldName) => {
-    const splitWords = fieldName.replace(/_/, " ").split(" ")
+    const splitWords = fieldName.replace(/_/, " ").split(" ");
     const upcasedWords = splitWords.map((word) => {
       return(
         word.charAt(0).toUpperCase() + word.slice(1)
-      )
-    })
-    const formattedField = upcasedWords.join(" ")
+      );
+    });
+    const formattedField = upcasedWords.join(" ");
 
-    return formattedField
-  }
+    return formattedField;
+  };
 
   const displayInfo = () => {
-    const excluded = ['poster', 'name', 'studio', 'imdb_rating']
-    const displayFields = Object.keys(foundInfo).filter(field => !excluded.includes(field))
+    const excluded = ['poster', 'name', 'studio', 'imdb_rating'];
+    const displayFields = Object.keys(foundInfo).filter(field => !excluded.includes(field));
 
-    const descriptionIndex = displayFields.indexOf('description')
-    const description = displayFields.splice(descriptionIndex, 1)[0]
-    displayFields.push(description)
+    const descriptionIndex = displayFields.indexOf('description');
+    const description = displayFields.splice(descriptionIndex, 1)[0];
+    displayFields.push(description);
 
-    let key = 0
+    let key = 0;
     const mediaDetails = displayFields.map((fieldName) => {
       if (foundInfo[fieldName]) {
-        key++
-        return <p key={key}>{`${formatField(fieldName)}: ${foundInfo[fieldName]}`}</p>
+        key++;
+        return(
+          <p key={key}>{`${formatField(fieldName)}: ${foundInfo[fieldName]}`}</p>
+        );
       }
-    })
+    });
 
-    return mediaDetails
+    return mediaDetails;
   }
 
   const posterStyle = {
     backgroundImage: 'url(' + foundInfo.poster + ')',
-  }
+  };
 
   return(
     <div>
@@ -52,7 +54,7 @@ const FoundMediaInfoCallout = ({ foundInfo, closeDisplay }) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default FoundMediaInfoCallout
+export default FoundMediaInfoCallout;

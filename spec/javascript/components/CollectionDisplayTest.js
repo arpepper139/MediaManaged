@@ -1,7 +1,7 @@
-import MediaIndexTile from '../../../app/javascript/components/MediaIndexTile';
+import CollectionDisplay from '../../../app/javascript/components/homePage/CollectionDisplay';
 import MockMedia from '../../support/constants/MockMedia';
 
-describe('MediaIndexTile', () => {
+describe('CollectionDisplay', () => {
   let wrapper,
   pageFlipSpy;
 
@@ -9,7 +9,7 @@ describe('MediaIndexTile', () => {
     pageFlipSpy = jasmine.createSpy('pageFlip spy');
 
     wrapper = mount(
-      <MediaIndexTile
+      <CollectionDisplay
         media={MockMedia}
         pageFlip={pageFlipSpy}
         slicePoint1={0}

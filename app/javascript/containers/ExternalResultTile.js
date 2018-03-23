@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
-import RatingInput from '../components/RatingInput'
-import FoundMediaInfoCallout from '../components/FoundMediaInfoCallout'
+import RatingInput from '../components/shared/RatingInput'
+import FoundMediaInfoCallout from '../components/addPage/FoundMediaInfoCallout'
 
 class ExternalResultTile extends Component {
   constructor(props) {

@@ -1,4 +1,4 @@
-import AddMediaPrompt from '../../../app/javascript/components/AddMediaPrompt';
+import AddMediaPrompt from '../../../app/javascript/components/homePage/AddMediaPrompt';
 
 describe('AddMediaPrompt', () => {
   let wrapper;

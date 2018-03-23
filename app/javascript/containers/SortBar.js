@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import SortDropdown from '../components/SortDropdown'
+import SortDropdown from '../components/homePage/SortDropdown'
 import sortBarOptions from '../constants/sortBarOptions'
 
 class SortBar extends Component {

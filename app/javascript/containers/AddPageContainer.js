@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 
-import FlashNotice from '../components/FlashNotice'
-import SearchPrompt from '../components/SearchPrompt'
-import TextInput from '../components/TextInput'
+import FlashNotice from '../components/shared/FlashNotice'
+import SearchPrompt from '../components/addPage/SearchPrompt'
+import TextInput from '../components/addPage/TextInput'
 
 import DatabaseResultTile from '../containers/DatabaseResultTile'
-import AlreadyInDB from '../components/AlreadyInDB'
+import FoundInDatabase from '../components/addPage/FoundInDatabase'
 import ExternalResultTile from '../containers/ExternalResultTile'
 import NewMediaFormContainer from '../containers/NewMediaFormContainer'
 
@@ -195,7 +195,7 @@ class AddPageContainer extends Component {
 
     if (searchedOMDB && inDatabase) {
       return(
-        <AlreadyInDB
+        <FoundInDatabase
           title={this.state.omdbMatch.result}
         />
       )

@@ -1,8 +1,7 @@
-import React from 'react'
-import { Link } from 'react-router'
+import React from 'react';
+import { Link } from 'react-router';
 
 const AddMediaPrompt = (props) => {
-
   return(
     <div>
       <h1 className="no-media-greeting">Create your personal video collection!</h1>
@@ -14,7 +13,7 @@ const AddMediaPrompt = (props) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default AddMediaPrompt
+export default AddMediaPrompt;
