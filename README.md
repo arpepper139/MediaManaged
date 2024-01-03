@@ -1,6 +1,6 @@
 # MediaManaged
 
-⚠️**Note**⚠️ This application is my Launch Adademy capstone project, and is no longer maintained. The steps described below will no longer work, as the website is no longer reachable.
+⚠️**Note**⚠️ This application is my Launch Adademy capstone project, and is no longer maintained.
 
 [![Build Status](https://codeship.com/projects/4d62c360-e59e-0135-6987-1ebfb90962bb/status?branch=master)](https://codeship.com/projects/4d62c360-e59e-0135-6987-1ebfb90962bb/status?branch=master)
 [![Code Climate](https://codeclimate.com/github/arpepper139/MediaManaged/badges/gpa.svg)](https://codeclimate.com/github/arpepper139/MediaManaged)
@@ -27,7 +27,5 @@ rake db:migrate
 ```
 
 To start up the website after installation, please run `npm start`, and then in a seperate tab run `rails s`. At that point the website should be accessible at http://localhost:3000 in your browser.
-
-Alternatively, Media Managed may be visited at https://media-managed.herokuapp.com/
 
 Thank you for viewing this project!
