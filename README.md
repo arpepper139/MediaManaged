@@ -1,5 +1,7 @@
 # MediaManaged
 
+⚠️**Note**⚠️ This application is my Launch Adademy capstone project, and is no longer maintained. The steps described below will no longer work, as the website is no longer reachable.
+
 [![Build Status](https://codeship.com/projects/4d62c360-e59e-0135-6987-1ebfb90962bb/status?branch=master)](https://codeship.com/projects/4d62c360-e59e-0135-6987-1ebfb90962bb/status?branch=master)
 [![Code Climate](https://codeclimate.com/github/arpepper139/MediaManaged/badges/gpa.svg)](https://codeclimate.com/github/arpepper139/MediaManaged)
 [![Coverage Status](https://coveralls.io/repos/github/arpepper139/MediaManaged/badge.svg?branch=master)](https://coveralls.io/github/arpepper139/MediaManaged?branch=master)
